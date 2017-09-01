@@ -92,6 +92,13 @@ class GxdHtLearningHelper (object):
 	parameters  # dict of parameters used in the gridsearch
 	):
 	output = "### Start GridSearch Report\n"
+
+	output += 'Parameter Options Tried:\n'
+	for key in sorted(parameters.keys()):
+	    output += "%s:%s\n" % (key, str(parameters[key])) 
+
+	output += "\n"
+
 	output += 'GridSearch Pipeline:\n'
 	for stepName, obj in gs.best_estimator_.named_steps.items():
 	    output += "%s:\n%s\n\n" % (stepName, obj)
