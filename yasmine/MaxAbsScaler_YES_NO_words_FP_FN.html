@@ -1,0 +1,934 @@
+<html>
+<head>
+
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+	.highlightcolor { background-color:#D8BFD8; }
+</style>
+
+
+
+<!-- rmb toggle -->
+
+
+<script>
+function toggle1() {
+ if( document.getElementById("hidethis1").style.display=='none' ){
+   document.getElementById("hidethis1").style.display = '';
+ }else{
+   document.getElementById("hidethis1").style.display = 'none';
+ }
+}
+
+function toggle2() {
+ if( document.getElementById("hidethis2").style.display=='none' ){
+   document.getElementById("hidethis2").style.display = '';
+ }else{
+   document.getElementById("hidethis2").style.display = 'none';
+ }
+}
+
+function toggle3() {
+ if( document.getElementById("hidethis3").style.display=='none' ){
+   document.getElementById("hidethis3").style.display = '';
+ }else{
+   document.getElementById("hidethis3").style.display = 'none';
+ }
+}
+function toggle4() {
+ if( document.getElementById("hidethis4").style.display=='none' ){
+   document.getElementById("hidethis4").style.display = '';
+ }else{
+   document.getElementById("hidethis4").style.display = 'none';
+ }
+}
+</script>
+
+    <title>MaxAbsScaler YES and NO Words for FP and FN experiments</title>
+
+
+<STYLE TYPE="text/css">
+<!--
+TH{font-family: Verdana; font-size: 7pt; font-weight: bold;}
+TD{font-family: Verdana; font-size: 7pt;}
+--->
+</STYLE>
+
+</head>
+
+
+</head>
+
+<body>
+
+<h3>TFIDF VECTORIZER W/ MaxAbsScaler<br>
+YES, NO words in False Positives and False Negatives</h3><p>
+<p>
+
+<font size=-1>
+
+
+<b>TFIDF VECTORIZER W/ MaxAbsScaler</b><p>
+
+<OL>
+<LI><b>YES and NO Features from the Lexicon Histogram (ordered by rank)</b><p>
+
+<font color='#0000A0'><span onClick="toggle1();" onMouseOver="this.style.color = '#cc0000'; this.style.backgroundColor='#FFFFFF';" onMouseOut="this.style.color ='#0000A0'; this.style.backgroundColor='#FFFFFF';"><font size="3"><b>Show/Hide - YES and NO Features</b></span></font></font>
+<p>
+
+<div id="hidethis1" style="display:none;">
+
+<blockquote>
+<TABLE border=1>
+<TR><TH bgcolor="#ffe6e6">NO Features</th></tr>
+<tr><td bgcolor="#ffe6e6">series</td></tr><tr><td bgcolor="#ffe6e6">superseries</td></tr><tr><td bgcolor="#ffe6e6">composed</td></tr><tr><td bgcolor="#ffe6e6">refer </td></tr><tr><td bgcolor="#ffe6e6">individual</td></tr><tr><td bgcolor="#ffe6e6">subset</td></tr><tr><td bgcolor="#ffe6e6">following</td></tr><tr><td bgcolor="#ffe6e6">cells</td></tr><tr><td bgcolor="#ffe6e6">subseries</td></tr>
+<tr><td bgcolor="#ffe6e6">listed</td></tr>
+<tr><td bgcolor="#ffe6e6">cell</td></tr><tr><td bgcolor="#ffe6e6">induced</td></tr><tr><td bgcolor="#ffe6e6">treated</td></tr><tr><td bgcolor="#ffe6e6">treatment</td></tr><tr><td bgcolor="#ffe6e6">response</td></tr><tr><td bgcolor="#ffe6e6">transgenic</td></tr><tr><td bgcolor="#ffe6e6">pre</td></tr>
+<tr><td bgcolor="#ffe6e6">facs</td></tr>
+<tr><td bgcolor="#ffe6e6">fibroblasts</td></tr><tr><td bgcolor="#ffe6e6">sorting</td></tr><tr><td bgcolor="#ffe6e6">stem</td></tr>
+<tr><td bgcolor="#ffe6e6">infection</td></tr>
+<tr><td bgcolor="#ffe6e6">lack</td></tr><tr><td bgcolor="#ffe6e6">macrophages</td></tr><tr><td bgcolor="#ffe6e6">p53</td></tr><tr><td bgcolor="#ffe6e6">associated</td></tr><tr><td bgcolor="#ffe6e6">details</td></tr><tr><td bgcolor="#ffe6e6">moratoria</td></tr>
+<tr><td bgcolor="#ffe6e6">equal</td></tr>
+<tr><td bgcolor="#ffe6e6">post</td></tr>
+<TR><th bgcolor="#e6e6ff">YES Features</th></tr>
+<tr><td bgcolor="#e6e6ff">mutant</td></tr>
+<tr><td bgcolor="#e6e6ff">wild</td></tr>
+<tr><td bgcolor="#e6e6ff">mice</td></tr>
+<tr><td bgcolor="#e6e6ff">development</td></tr>
+<tr><td bgcolor="#e6e6ff">genes</td></tr>
+<tr><td bgcolor="#e6e6ff">dissected</td></tr>
+<tr><td bgcolor="#e6e6ff">expressed</td></tr>
+<tr><td bgcolor="#e6e6ff">testis</td></tr>
+<tr><td bgcolor="#e6e6ff">affymetrix</td></tr>
+<tr><td bgcolor="#e6e6ff">transcription</td></tr>
+<tr><td bgcolor="#e6e6ff">time</td></tr>
+<tr><td bgcolor="#e6e6ff">specific</td></tr>
+<tr><td bgcolor="#e6e6ff">knockout</td></tr>
+<tr><td bgcolor="#e6e6ff">identify</td></tr>
+<tr><td bgcolor="#e6e6ff">type</td></tr>
+<tr><td bgcolor="#e6e6ff">profiling</td></tr>
+<tr><td bgcolor="#e6e6ff">mouse</td></tr>
+<tr><td bgcolor="#e6e6ff">using</td></tr>
+<tr><td bgcolor="#e6e6ff">overall</td></tr>
+<tr><td bgcolor="#e6e6ff">genechip</td></tr>
+<tr><td bgcolor="#e6e6ff">genotype</td></tr>
+<tr><td bgcolor="#e6e6ff">design</td></tr>
+<tr><td bgcolor="#e6e6ff">experiment</td></tr>
+<tr><td bgcolor="#e6e6ff">tissue</td></tr>
+<tr><td bgcolor="#e6e6ff">increased</td></tr>
+<tr><td bgcolor="#e6e6ff">caused</td></tr>
+<tr><td bgcolor="#e6e6ff">capsular</td></tr>
+<tr><td bgcolor="#e6e6ff">provide</td></tr>
+<tr><td bgcolor="#e6e6ff">strains</td></tr>
+<tr><td bgcolor="#e6e6ff">heart</td></tr>
+</table></blockquote>
+</div>
+<br><br>
+
+
+<LI><b>SGD Classifier with Tfidf Vectorizer selections</b><p>
+vect__max_df:0.98<br>
+vect__min_df:2<br>
+vect__ngram_range:(1, 1)<br>
+sgd__alpha:0.1<br>
+sgd__eta0:1<br>
+sgd__learning_rate:'invscaling'<br>
+sgd__loss:'modified_huber'<br>
+sgd__n_iter:5<br>
+sgd__penalty:'l2'<br>
+sgd__shuffle:True<br><br>
+
+
+
+<LI><b>Test and Training Set Classification Report and Confusion Matrix</b><p>
+
+<u>Test Set</u> Classification Report:<p>
+<table>
+<tr><th>class</th><th>precision</th><th>recall</th><th>f1-score</th><th>support</th></tr><tr><td>yes</td><td>0.54</td><td>0.98</td><td>0.70</td><td>134</td></tr><tr><td>no</td><td>0.99</td><td>0.76</td><td>0.86</td><td>461</td></tr><tr><td>avg/total</td><td>0.89</td><td>0.81</td><td>0.82</td><td>595</td></tr><tr><td colspan=5>F4: 0.933</td></tr>
+</table>
+<p>
+
+
+
+<u>Test Set</u> Confusion Matrix:<p>
+<table>
+<tr><td>tp:<b>131</b></td><td>fn:<b>3</b></td></tr>
+<tr><td>fp:<b>111</b></td><td>tn:<b>350</b></td></tr>
+</table>
+<br><br>
+
+
+<u>Training Set</u> Classification Repot:<p>
+
+<table>
+<tr><th>class</th><th>precision</th><th>recall</th><th>f1-score</th><th>support</th></tr><tr><td>yes</td><td>0.58</td><td>0.99</td><td>0.73</td><td>352</td></tr><tr><td>no</td><td>1.00</td><td>0.82</td><td>0.90</td><td>1432</td></tr><tr><td>avg/total</td><td>0.92</td><td>0.86</td><td>0.87</td><td>1784</td></tr><tr><td colspan=5>F4: 0.954</td></tr>
+</table>
+<p>
+
+
+
+<u>Training Set</u> Confusion Matrix:<p>
+<table>
+<tr><td>tp:<b>3520</b></td><td>fn:<b>2</b></td></tr>
+<tr><td>fp:<b>252</b></td><td>tn:<b>1180</b></td></tr>
+</table>
+<br><br>
+
+
+
+<LI><b>Sample Queries for NO Word and YES Word Counts</b><p>
+Queries for a False Negative (E-ERAD-283) shown.<p>
+
+
+<blockquote>
+<b>Sample Query for NO Word Count</b><br>
+<font size=-1>
+SQL <font size=-1>(postgres syntax)</font><br>
+<textarea name="SQL" rows="10" cols="80">
+select distinct hte._experiment_key, a.accid, hte.name, hte.description
+into temp temp1
+from gxd_htexperiment hte, acc_accession a
+where a._mgitype_key = 42
+and a._logicaldb_key = 189
+and a.accid in ('E-ERAD-283', 'E-MTAB-3707', 'E-MTAB-1035')
+and a._object_key = hte._experiment_key
+||
+CREATE INDEX idx1 ON temp1 (accid, name, description)
+||
+select accid, name, description
+into temp temp2
+from temp1
+where accid = 'E-ERAD-283'
+||
+CREATE INDEX idx2 ON temp2 (accid, name)
+||
+SELECT accid, regexp_replace(name, '[^a-zA-Z0-9]+', ' ','g') as name
+into temp temp3
+from temp2
+||
+SELECT accid, name, 
+       regexp_split_to_table(name, '\s') as NO_Word
+into temp temp4
+FROM temp3
+||
+select distinct accid, name
+from temp2
+||
+select distinct NO_Word, count(*) as count_in_name
+from temp4
+where NO_Word ilike ANY(ARRAY['series', 'superseries', 'composed', 'refer ', 'individual', 'subset', 'following', 'cells', 'subseries', 'listed', 'cell', 'induced', 'treated', 'treatment', 'response', 'transgenic', 'pre', 'facs', 'fibroblasts', 'sorting', 'stem', 'infection', 'lack', 'macrophages', 'p53', 'associated', 'details', 'moratoria', 'equal', 'post'])
+GROUP BY NO_Word
+order by NO_Word
+||
+SELECT accid, regexp_replace(description, '[^a-zA-Z0-9]+', ' ','g') as description
+into temp temp5
+from temp2
+||
+SELECT accid, description, 
+       regexp_split_to_table(description, '\s') as NO_Word
+into temp temp6
+FROM temp5
+||
+select distinct accid, description
+from temp2
+||
+select distinct NO_Word, count(*) as count_in_desc
+from temp6
+where NO_Word ilike ANY(ARRAY['series', 'superseries', 'composed', 'refer ', 'individual', 'subset', 'following', 'cells', 'subseries', 'listed', 'cell', 'induced', 'treated', 'treatment', 'response', 'transgenic', 'pre', 'facs', 'fibroblasts', 'sorting', 'stem', 'infection', 'lack', 'macrophages', 'p53', 'associated', 'details', 'moratoria', 'equal', 'post'])
+GROUP BY NO_Word
+order by NO_Word
+</textarea><p>
+
+
+
+
+
+<b>Sample Query for YES Word Count</b><br>
+
+<font size=-1>
+SQL <font size=-1>(postgres syntax)</font><br>
+<textarea name="SQL" rows="10" cols="80">
+select distinct hte._experiment_key, a.accid, hte.name, hte.description
+into temp temp1
+from gxd_htexperiment hte, acc_accession a
+where a._mgitype_key = 42
+and a._logicaldb_key = 189
+and a.accid in ('E-ERAD-283', 'E-MTAB-3707', 'E-MTAB-1035')
+and a._object_key = hte._experiment_key
+||
+CREATE INDEX idx1 ON temp1 (accid, name, description)
+||
+select accid, name, description
+into temp temp2
+from temp1
+where accid = 'E-ERAD-283'
+||
+CREATE INDEX idx2 ON temp2 (accid, name)
+||
+SELECT accid, regexp_replace(name, '[^a-zA-Z0-9]+', ' ','g') as name
+into temp temp3
+from temp2
+||
+SELECT accid, name, 
+       regexp_split_to_table(name, '\s') as YES_Word
+into temp temp4
+FROM temp3
+||
+select distinct accid, name
+from temp2
+||
+select distinct YES_Word, count(*) as count_in_name
+from temp4
+where YES_Word ilike ANY(ARRAY['mutant', 'wild', 'mice', 'development', 'genes', 'dissected', 'expressed', 'testis', 'affymetrix', 'transcription', 'time', 'specific', 'knockout', 'identify', 'type', 'profiling', 'mouse', 'using', 'overall', 'genechip', 'genotype', 'design', 'experiment', 'tissue', 'increased', 'caused', 'capsular', 'provide', 'strains', 'heart'])
+GROUP BY YES_Word
+order by YES_Word
+||
+SELECT accid, regexp_replace(description, '[^a-zA-Z0-9]+', ' ','g') as description
+into temp temp5
+from temp2
+||
+SELECT accid, description, 
+       regexp_split_to_table(description, '\s') as YES_Word
+into temp temp6
+FROM temp5
+||
+select distinct accid, description
+from temp2
+||
+select distinct YES_Word, count(*) as count_in_desc
+from temp6
+where YES_Word ilike ANY(ARRAY['mutant', 'wild', 'mice', 'development', 'genes', 'dissected', 'expressed', 'testis', 'affymetrix', 'transcription', 'time', 'specific', 'knockout', 'identify', 'type', 'profiling', 'mouse', 'using', 'overall', 'genechip', 'genotype', 'design', 'experiment', 'tissue', 'increased', 'caused', 'capsular', 'provide', 'strains', 'heart'])
+GROUP BY YES_Word
+order by YES_Word
+</textarea><p>
+</blockquote>
+<br><br>
+
+
+
+<LI><b>False Negative Word Counts (NO/YES Words)</b><p>
+
+Number of False Negatives:  3<br>
+E-ERAD-283<br>
+E-MTAB-3707<br>
+E-MTAB-1035<br><br>
+
+
+False Negative: <b>E-ERAD-283</b><p>
+
+
+<TABLE border=1>
+<TR><TH>accid<TH>name
+<TR><TD>E-ERAD-283<TD>Single cell transcriptomics of CASTxB6 F1 mouse olfactory and liver cells
+</TABLE>
+<p>
+<TABLE border=1>
+<TR><TH>NO_Word<TH>count_in_name
+<TR><TD>cell<TD>1
+<TR><TD>cells<TD>1
+<TR><TH>YES_Word<TH>count_in_name
+<TR><TD>mouse<TD>1
+</table>
+<p>
+
+<TABLE border=1>
+<TR><TH>accid<TH>description
+<TR><TD>E-ERAD-283<TD>High-throughput sequencing of individual liver cells from adult B6Cast F1 female mice.This data is part of a pre-publication release. For information on the proper use of pre-publication data shared by the Wellcome Trust Sanger Institute (including details of any publication moratoria), please see http://www.sanger.ac.uk/datasharing/
+</TABLE>
+
+
+<TABLE border=1>
+<TR><TH>NO_word<TH>count_in_desc
+<TR><TD>cells<TD>1
+<TR><TD>details<TD>1
+<TR><TD>individual<TD>1
+<TR><TD>moratoria<TD>1
+<TR><TD>pre<TD>2
+<TR><TH>YES_Word<TH>count_in_desc
+<TR><TD>mice<TD>1
+</TABLE>
+<br><br>
+
+
+
+False Negative: <b>E-MTAB-3707</b><p>
+
+
+<TABLE border=1>
+<TR><TH>accid<TH>name
+<TR><TD>E-MTAB-3707<TD>Gene expression profiling of mouse liver cells
+</TABLE>
+<p>
+<TABLE border=1>
+<TR><TH>NO_Word<TH>count_in_name
+<TR><TD>cells<TD>1
+<TR><TH>YES_Word<TH>count_in_name
+<TR><TD>mouse<TD>1
+<TR><TD>profiling<TD>1
+</table>
+<p>
+
+<TABLE border=1>
+<TR><TH>accid<TH>description
+<TR><TD>E-MTAB-3707<TD>We generated the individual transcriptomes of 96 liver cells using the Fluidigm C1 platform. In brief, a suspension of cells was prepared from the liver of a 14-week old B6CastF1 (C57Bl/6J mother x CAST/Ei father) female mouse and loaded onto a 10-17 m C1 Single-Cell Auto Prep IFC (Fluidigm), and cell capture was performed according to the manufacturers instructions. 
+</TABLE>
+
+
+<TABLE border=1>
+<TR><TH>NO_Word<TH>count_in_desc
+<TR><TD>cell<TD>2
+<TR><TD>cells<TD>2
+<TR><TD>individual<TD>1
+<TR><TH>YES_Word<TH>count_in_desc
+<TR><TD>mouse<TD>1
+<TR><TD>using<TD>1
+</TABLE>
+<br><br>
+
+
+
+
+False Negative: <b>E-MTAB-1035</b><p>
+
+
+<TABLE border=1>
+<TR><TH>accid<TH>name
+<TR><TD>E-MTAB-1035<TD>Transcription profiling by array of differentiating primary primitive and definitive mouse red blood cells 
+</TABLE>
+<p>
+<TABLE border=1>
+<TR><TH>NO_Word<TH>count_in_name
+<TR><TD>cells<TD>1
+<TR><TH>YES_Word<TH>count_in_name
+<TR><TD>mouse<TD>1
+<TR><TD>profiling<TD>1
+<TR><TD>transcription<TD>1
+</table>
+<p>
+
+<TABLE border=1>
+<TR><TH>accid<TH>description
+<TR><TD>E-MTAB-1035<TD>Delineate gene anatomy of differentiating primary primitive and definitive RBCs
+</TABLE>
+
+
+<TABLE border=1>
+<TR><TH>NO_Word<TH>count_in_desc
+<TR><TD colspan=2>0 NO Words in desc
+<TR><TH>YES_Word<TH>count_in_desc
+<TR><TD colspan=2>0 YES Words in desc
+</TABLE>
+<br><br>
+
+
+
+
+
+
+<LI><b>False Positive Word Counts (NO/YES Words)</b><p>
+
+Number of False Positives:  111<br>
+E-GEOD-38001<br>
+E-GEOD-769<br>
+E-GEOD-77846<br>
+E-MTAB-3814<br>
+E-MTAB-1569<br>
+E-GEOD-31013<br>
+E-SMDB-24<br>
+E-GEOD-2882<br>
+E-GEOD-52416<br>
+E-GEOD-9033<br>
+E-GEOD-47735<br><br>
+
+False Positive: <b>E-GEOD-38001</b><p>
+
+
+<TABLE border=1>
+<TR><TH>accid<TH>name
+<TR><TD>E-GEOD-38001<TD>Transcription profiling by array of mouse wild type and Htt mutant striatal cells upon heat shock
+</TABLE>
+<p>
+<TABLE border=1>
+<TR><TH>NO_Word<TH>count_in_name
+<TR><TD>cells<TD>1
+<TR><TH>YES_Word<TH>count_in_name
+<TR><TD>mouse<TD>1
+<TR><TD>mutant<TD>1
+<TR><TD>profiling<TD>1
+<TR><TD>transcription<TD>1
+<TR><TD>type<TD>1
+<TR><TD>wild<TD>1
+</table>
+<p>
+
+<TABLE border=1>
+<TR><TH>accid<TH>description
+<TR><TD>E-GEOD-38001<TD>In Huntington's disease (HD), polyglutamine expansions in the huntingtin (Htt) protein cause subtle changes in cellular functions that, over-time, lead to neurodegeneration and death. Studies have indicated that activation of the heat shock response can reduce many of the effects of mutant Htt in disease models, suggesting that the heat shock response is impaired in the disease. To understand the basis for this impairment, we have used genome-wide chromatin immunoprecipitation followed by massively parallel sequencing (ChIP-Seq) to examine the effects of mutant Htt on the master regulator of the heat shock response, HSF1. We find that, under normal conditions, HSF1 function is highly similar in cells carrying either wild-type or mutant Htt. However, polyQ-expanded Htt severely blunts the HSF1-mediated stress response. Surprisingly, we find that the HSF1 targets most affected upon stress are not directly associated with proteostasis, but with cytoskeletal binding, focal adhesion and GTPase activity. Our data raise the intriguing hypothesis that the accumulated damage from life-long impairment in these stress responses may contribute significantly to the etiology of Huntington's disease. Affymetrix MG430 2.0 expression levels of wild-type (STHdhQ7/Q7) and mutant (STHdhQ111/Q111) striatal cells under growth condition (33 C) and upon heat shock (42 C for six hours) 
+</TABLE>
+
+
+<TABLE border=1>
+<TR><TH>no_word<TH>count_in_desc
+<TR><TD>associated<TD>1
+<TR><TD>cells<TD>2
+<TR><TD>response<TD>4
+<TR><TH>YES_Word<TH>count_in_desc
+<TR><TD>affymetrix<TD>1
+<TR><TD>mutant<TD>4
+<TR><TD>time<TD>1
+<TR><TD>type<TD>2
+<TR><TD>wild<TD>2
+</TABLE>
+<br><br>
+
+
+
+
+False Positive: <b>E-GEOD-769</b><p>
+
+
+
+
+<TABLE border=1>
+<TR><TH>accid<TH>name
+<TR><TD>E-GEOD-769<TD>Transcription profiling of pancreases of cystic fibrosis mouse with a genotype of gastrin+/-, CFTR-/- to study the gene expression patterns in cystic fibrosis 
+</TABLE>
+<p>
+<TABLE border=1>
+<TR><TH>NO_Word<TH>count_in_name
+<TR><TD colspan=2>0 NO Words in name
+<TR><TH>YES_Word<TH>count_in_name
+<TR><TD>genotype<TD>1
+<TR><TD>mouse<TD>1
+<TR><TD>profiling<TD>1
+<TR><TD>transcription<TD>1
+</table>
+<p>
+
+
+
+<TABLE border=1>
+<TR><TH>accid<TH>description
+<TR><TD>E-GEOD-769<TD>Total RNA was prepared using TRIzol reagent from the pancreata of eight week old male mice. The genotypes were Control: gastrin+/-, CFTR+/+; and CF: gastrin+/-, CFTR-/-. All mice were on 95% black6, 5% 129Sv background. Mice were fed Peptamen from age 10 days to prevent intestinal obstruction.
+</table>
+
+
+<TABLE border=1>
+<TR><TH>NO_Word<TH>count_in_desc
+<TR><TD colspan=2>0 NO Words in desc
+<TR><TH>YES_Word<TH>count_in_desc
+<TR><TD>mice<TD>3
+<TR><TD>using<TD>1
+</TABLE>
+<br><br>
+
+
+False Positive: <b>E-GEOD-77846</b><p>
+
+
+<TABLE border=1>
+<TR><TH>accid<TH>name
+<TR><TD>E-GEOD-77846<TD>Transcription profiling by high throughput sequencing of c-KIT+ splenocytes from murine acute myeloid leukemia and myeloproliferative neoplasm 
+</TABLE>
+<p>
+<TABLE border=1>
+<TR><TH>NO_Word<TH>count_in_name
+<TR><TD colspan=2>0 NO Words in name
+<TR><TH>YES_Word<TH>count_in_name
+<TR><TD>profiling<TD>1
+<TR><TD>transcription<TD>1
+</table>
+<p>
+
+<TABLE border=1>
+<TR><TH>accid<TH>description
+<TR><TD>E-GEOD-77846<TD>Cytogenetically normal acute myeloid leukemia (CN-AML) represents nearly 50% of human acute myeloid leukemia (AML) cases with a 5-year overall survival of approximately 30%. In CN-AML with poorer prognosis, mutations in the de novo DNA methyltransferase (DNMT3A) and the FMS-like tyrosine kinase 3 (Flt3) commonly co-occur (1-3). We demonstrate that mice with Flt3-internal-tandem duplication (Flt3ITD) and inducible deletion of Dnmt3a spontaneously develop a rapidly-lethal, completely-penetrant, and transplantable AML of normal karyotype. These murine AML retain a single Dnmt3a floxed allele, revealing the oncogenic potential of Dnmt3a haploinsufficiency. FLT3-ITD/DNMT3A-mutant primary human and murine AML demonstrate a similar pattern of global DNA methylation. In the murine model, rescuing DNMT3A expression was accompanied by DNA re-methylation and loss of clonogenic potential, suggesting that Dnmt3a-mutant oncogenic effects are reversible. Differentially methylated genomic regions were associated with changes in the expression of nearby genes. Moreover, dissection of the cellular architecture of the AML model using single-cell RNA-Seq, flow cytometry and colony assays identified clonogenic subpopulations that differentially express genes that are sensitive to the methylation of nearby genomic loci and varied in response to Dnmt3a levels. Thus, Dnmt3a haploinsufficiency transforms Flt3ITD myeloproliferative disease by modulating methylation-sensitive gene expression within a clonogenic AML subpopulation. To identify the gene expression changes associated with Dnmt3a loss of function in human and murine Flt3-ITD and Dnmt3a-mutant AML (Bulk RNA-Seq).
+</TABLE>
+
+
+<TABLE border=1>
+<TR><TH>NO_Word<TH>count_in_desc
+<TR><TD>associated<TD>2
+<TR><TD>cell<TD>1
+<TR><TD>response<TD>1
+<TR><TH>YES_Word<TH>count_in_desc
+<TR><TD>genes<TD>2
+<TR><TD>identify<TD>1
+<TR><TD>mice<TD>1
+<TR><TD>mutant<TD>3
+<TR><TD>overall<TD>1
+<TR><TD>using<TD>1
+</TABLE>
+<br><br>
+
+
+
+False Positive: <b>E-MTAB-3814</b><p>
+
+
+<TABLE border=1>
+<TR><TH>accid<TH>name
+<TR><TD>E-MTAB-3814<TD>Transcriptional profiling of colonic mouse fibroblasts stimulated with interleukin-36 gamma
+</TABLE>
+<p>
+<TABLE border=1>
+<TR><TH>NO_Word<TH>count_in_name
+<TR><TD>fibroblasts<TD>1
+<TR><TH>YES_Word<TH>count_in_name
+<TR><TD>mouse<TD>1
+<TR><TD>profiling<TD>1
+</table>
+<p>
+
+<TABLE border=1>
+<TR><TH>accid<TH>description
+<TR><TD>E-MTAB-3814<TD>Intestinal fibroblasts from the colons of C57BL/6 wild-type mice were grown in the presence or absence of IL-36ÉŁ (30 ng/ml) for 4 hours. The experimental setup included 6 samples from 3 colons in a pairwise design (3 stimulated vs 3 unstimulated). Profiling of whole-genome transcriptomic patterns was performed with 1.2 Âľg high quality total RNA per sample by RNA-seq at the Next Generation Sequencing core unit of the university hospital Erlangen. The sequencing platform was Illumina HiSeq-2500 with high output mode and single-end 100bp fragments. The sequencing library was NuGEN Ovation RNA-Seq Library Prep-Kit. Demultiplexed reads were corrected regarding rRNAs, tRNAs, mt-rRNAs and mt-tRNAs. Alignment against the mus musculus reference genome (Ensemble version 75 for GRCm38) was performed with RNAseq aligner STAR (version 2.4.0.i) and quantification (HTseq count) was done of unique mappings. 
+</TABLE>
+
+
+<TABLE border=1>
+<TR><TH>NO_Word<TH>count_in_desc
+<TR><TD>fibroblasts<TD>1
+<TR><TH>YES_Word<TH>count_in_desc
+<TR><TD>design<TD>1
+<TR><TD>mice<TD>1
+<TR><TD>profiling<TD>1
+<TR><TD>type<TD>1
+<TR><TD>wild<TD>1
+</TABLE>
+<br><br>
+
+
+
+
+False Positive: <b>E-MTAB-1569</b><p>
+
+<TABLE border=1>
+<TR><TH>accid<TH>name
+<TR><TD>E-MTAB-1569<TD>Transcription profiling by array of mouse CD8 central memory T-cells derived from spleens of 7-month old PD-1 knockout or wild-type mice
+</TABLE>
+<p>
+<TABLE border=1>
+<TR><TH>NO_Word<TH>count_in_name
+<TR><TD>cells<TD>1
+<TR><TH>YES_Word<TH>count_in_name
+<TR><TD>knockout<TD>1
+<TR><TD>mice<TD>1
+<TR><TD>mouse<TD>1
+<TR><TD>profiling<TD>1
+<TR><TD>transcription<TD>1
+<TR><TD>type<TD>1
+<TR><TD>wild<TD>1
+</table>
+<p>
+
+
+<TABLE border=1>
+<TR><TH>accid<TH>description
+<TR><TD>E-MTAB-1569<TD>To test whether PD-1 exerts genome-wide gene expression changes in TCM-phenotype CD8 cells, we performed transcriptome analysis on TCM –phenotype CD8 cell subpopulations derived from 7-month old PD-1 KO and WT spleens.
+</TABLE>
+
+
+<TABLE border=1>
+<TR><TH>NO_Word<TH>count_in_desc
+<TR><TD>cell<TD>1
+<TR><TD>cells<TD>1
+<TR><TH>YES_Word<TH>count_in_desc
+<TR><TD colspan=2>0 YES Words in desc
+</TABLE>
+<br><br>
+
+
+
+
+
+
+
+
+
+
+
+False Positive: <b>E-GEOD-31013</b><p>
+
+
+<TABLE border=1>
+<TR><TH>accid<TH>name
+<TR><TD>E-GEOD-31013<TD>Transcription profiling by array of spontaneous lung tumors in mice to compare to human non-small cell lung cancer
+</TABLE>
+<p>
+<TABLE border=1>
+<TR><TH>NO_Word<TH>count_in_name
+<TR><TD>cell<TD>1
+<TR><TH>YES_Word<TH>count_in_name
+<TR><TD>mice<TD>1
+<TR><TD>profiling<TD>1
+<TR><TD>transcription<TD>1
+</table>
+<p>
+
+
+<TABLE border=1>
+<TR><TH>accid<TH>description
+<TR><TD>E-GEOD-31013<TD>Introduction: Lung cancer is the leading cause of cancer-related death in people. There are several chemically induced and genetically modified mouse models used to study lung cancer. We hypothesized that spontaneous murine (B6C3F1) lung tumors can serve as a model to study human non-small cell lung cancer (NSCLC). Methods: RNA was extracted from untreated 2-year-old B6C3F1 mouse spontaneous lung (SL) tumors and age-matched normal lung tissue from a chronic inhalation NTP study. Global gene expression analysis was performed using Affymetrix Mouse Genome 430 2.0 GeneChip® arrays. After data normalization, for each probe set, pairwise comparisons between groups were made using a bootstrap t-test while controlling the mixed directional false discovery rate (mdFDR) to generate a differential gene expression list. IPA, KEGG, and EASE software tools were used to evaluate the overrepresented cancer genes and pathways. Results: MAPK and TGF-beta pathways were overrepresented within the dataset. Almost all of the validated genes by quantitative real time RT-PCR had comparable directional fold changes with the microarray data. The candidate oncogenes included Kras, Braf, Raf1, Id2, Hmga1, Cks1b, and Foxf1. The candidate tumor suppressor genes included Rb1, Cdkn2a, Hnf4a, Tcf21, Ptprd, Hpgd, Hopx, Ogn, Id4, Hoxa5, Smad6, Smad7, Zbtb16, Cyr61, Dusp4, and Ifi16. In addition, several genes important in lung development were also differentially expressed, such as Smad6, Hopx, Sox4, Sox9 and Mycn. Conclusion: In this study, we have demonstrated that several cancer genes and signaling pathways relevant for human NSCLC were similarly altered in spontaneous murine lung tumors. Six spontaneous lung tumors and six normal lungs (as controls) from 2-year-old B6C3F1 mice.
+</TABLE>
+
+
+<TABLE border=1>
+<TR><TH>NO_Word<TH>count_in_desc
+<TR><TD>cell<TD>1
+<TR><TD>induced<TD>1
+<TR><TH>YES_Word<TH>count_in_desc
+<TR><TD>affymetrix<TD>1
+<TR><TD>development<TD>1
+<TR><TD>expressed<TD>1
+<TR><TD>genechip<TD>1
+<TR><TD>genes<TD>5
+<TR><TD>mice<TD>1
+<TR><TD>mouse<TD>3
+<TR><TD>time<TD>1
+<TR><TD>tissue<TD>1
+<TR><TD>using<TD>2
+</TABLE>
+<br><br>
+
+
+False Positive: <b>E-SMDB-24</b><p>
+
+
+<TABLE border=1>
+<TR><TH>accid<TH>name
+<TR><TD>E-SMDB-24<TD>Transcription profiling of 5 heart chambers of mice 20 days after Thoracic Aortic Constriction (TAC) which led to left atrial enlargement and left ventricular hypertrophy 
+</TABLE>
+<p>
+<TABLE border=1>
+<TR><TH>NO_Word<TH>count_in_name
+<TR><TD colspan=2>0 NO Words in name
+<TR><TH>YES_Word<TH>count_in_name
+<TR><TD>heart<TD>1
+<TR><TD>mice<TD>1
+<TR><TD>profiling<TD>1
+<TR><TD>transcription<TD>1
+</table>
+<p>
+
+<TABLE border=1>
+<TR><TH>accid<TH>description
+<TR><TD>E-SMDB-24<TD>15 ug RNA isolated from 5 heart chambers of mice 20 days after Thoracic Aortic Constriction which led to left atrial enlargement and left ventricular hypertrophy was used to prepare labeled cDNA for test channel, 15ug of RNA from whole e17.5 mouse embryos used to prepare labeled cDNA for reference channel. 3 biological replicates were performed for eash tissue. Diseased chamber tissue was compared to sham operated control tissue.
+</TABLE>
+
+
+<TABLE border=1>
+<TR><TH>NO_Word<TH>count_in_desc
+<TR><TD colspan=2>0 NO Words in desc
+<TR><TH>YES_Word<TH>count_in_desc
+<TR><TD>heart<TD>1
+<TR><TD>mice<TD>1
+<TR><TD>mouse<TD>1
+<TR><TD>tissue<TD>3
+</TABLE>
+<br><br>
+
+
+
+
+False Positive: <b>E-GEOD-2882</b><p>
+
+
+<TABLE border=1>
+<TR><TH>accid<TH>name
+<TR><TD>E-GEOD-2882<TD>Transcription profiling of microdissected and hand sorted mouse forebrain neurons to understand the extend and nature of differential expression in various cell types
+</TABLE>
+<p>
+<TABLE border=1>
+<TR><TH>NO_Word<TH>count_in_name
+<TR><TD>cell<TD>1
+<TR><TH>YES_Word<TH>count_in_name
+<TR><TD>mouse<TD>1
+<TR><TD>profiling<TD>1
+<TR><TD>transcription<TD>1
+</table>
+<p>
+
+
+<TABLE border=1>
+<TR><TH>accid<TH>description
+<TR><TD>E-GEOD-2882<TD>The mammalian forebrain is a tissue of stunning complexity comprised of numerous regions each containing many distinct cell types that differ in their intrinsic and synaptic physiology, morphology and connectivity. These differences are likely conferred by differential gene expression, but the extent and nature of cell type specific gene expression is largely unknown. Here, we carried out microarray analysis of twelve major classes of fluorescently labelled neurons within the forebrain and provide the first comprehensive view of gene expression differences. The results demonstrate a profound molecular heterogeneity among neuronal subtypes, represented disproportionately by gene paralogs, and begin to reveal the genetic programs underlying the fundamental divisions between neuronal classes including that between glutamatergic and GABAergic neurons. Experiment Overall Design: Total of 36 samples from 12 different cell types were anlyzed. Three biological replicates (each sample from different animal(s)) were analyzed for each cell type.
+</TABLE>
+
+
+<TABLE border=1>
+<TR><TH>NO_Word<TH>count_in_desc
+<TR><TD>cell<TD>4
+<TR><TH>YES_Word<TH>count_in_desc
+<TR><TD>design<TD>1
+<TR><TD>experiment<TD>1
+<TR><TD>overall<TD>1
+<TR><TD>provide<TD>1
+<TR><TD>specific<TD>1
+<TR><TD>tissue<TD>1
+<TR><TD>type<TD>2
+</TABLE>
+<br><br>
+
+
+
+
+
+False Positive: <b>E-GEOD-52416</b><p>
+
+
+<TABLE border=1>
+<TR><TH>accid<TH>name
+<TR><TD>E-GEOD-52416<TD>Effect of genetic Zfx deletion on Myc induced gene expression in bone marrrow myeloid progenitors 
+</TABLE>
+<p>
+<TABLE border=1>
+<TR><TH>NO_Word<TH>count_in_name
+<TR><TD>induced<TD>1
+<TR><TH>YES_Word<TH>count_in_name
+<TR><TD colspan=2>0 YES Words in name
+</table>
+<p>
+
+<TABLE border=1>
+<TR><TH>accid<TH>description
+<TR><TD>E-GEOD-52416<TD>Acute myeloid leukemia (AML) and acute T-lymphoblastic leukemia (T-ALL) maintain the undifferentiated phenotype and proliferative capacity of their respective cells of origin, hematopoietic stem/progenitor cells and immature thymocytes. The mechanisms that maintain these progenitor-like characteristics are poorly understood. We report that the transcription factor Zfx is required for the development and propagation of experimental AML caused by MLL-AF9 fusion, and of T-ALL caused by Notch1 activation. In both leukemia types, Zfx activated progenitor-associated gene expression programs and prevented differentiation. Key Zfx target genes included mitochondrial enzymes Ptpmt1 and Idh2, whose overexpression partially rescued the propagation of Zfx-deficient AML. These studies identify a common mechanism that controls the cell-of-origin characteristics of acute leukemias derived from disparate lineages and transformation mechanisms. Bone marrow progenitors (c-Kit +) from Zfx wt/y CreER mice and Zfx fl/y CreER mice were harvested after tamoxifen administration to induce Cre. The Zfx wt and Zfx ko progenitors were infected with Myc expressing and control retrovirus with GFP selectable marker and cultured for 48 hours in cytokine supplemented media. The GFP + myeloid progenitors were sorted and cultured for another 4 days prior to RNA extraction.
+</TABLE>
+
+
+<TABLE border=1>
+<TR><TH>NO_Word<TH>count_in_desc
+<TR><TD>associated<TD>1
+<TR><TD>cell<TD>1
+<TR><TD>cells<TD>2
+<TR><TD>stem<TD>1
+<TR><TH>YES_Word<TH>count_in_desc
+<TR><TD>caused<TD>2
+<TR><TD>development<TD>1
+<TR><TD>genes<TD>1
+<TR><TD>identify<TD>1
+<TR><TD>mice<TD>2
+<TR><TD>transcription<TD>1
+</TABLE>
+<br><br>
+
+
+
+
+
+False Positive: <b>E-GEOD-9033</b><p>
+
+
+<TABLE border=1>
+<TR><TH>accid<TH>name
+<TR><TD>E-GEOD-9033<TD>Transcription profiling of mouse and hamster radiation hybrids to map regulatory loci for protein coding genes
+</TABLE>
+<p>
+<TABLE border=1>
+<TR><TH>NO_Word<TH>count_in_name
+<TR><TD colspan=2>0 NO Words in name
+<TR><TH>YES_Word<TH>count_in_name
+<TR><TD>genes<TD>1
+<TR><TD>mouse<TD>1
+<TR><TD>profiling<TD>1
+<TR><TD>transcription<TD>1
+</table>
+<p>
+
+
+<TABLE border=1>
+<TR><TH>accid<TH>description
+<TR><TD>E-GEOD-9033<TD>We have mapped regulatory loci for nearly all protein coding genes in the mammalian genome using microarray measurements from a panel of mouse/hamster radiation hybrids. Experiment Overall Design: 99 RH cells with biological replicates (198 total) and biological replicates of mouse brain RNA vs. hamster brain RNA and mouse liver RNA vs. hamster liver RNA (4 total)
+</TABLE>
+
+
+<TABLE border=1>
+<TR><TH>NO_Word<TH>count_in_desc
+<TR><TD>cells<TD>1
+<TR><TH>YES_Word<TH>count_in_desc
+<TR><TD>design<TD>1
+<TR><TD>experiment<TD>1
+<TR><TD>genes<TD>1
+<TR><TD>mouse<TD>3
+<TR><TD>overall<TD>1
+<TR><TD>using<TD>1
+</TABLE>
+<br><br>
+
+
+
+
+False Positive: <b>E-GEOD-47735</b><p>
+
+
+<TABLE border=1>
+<TR><TH>accid<TH>name
+<TR><TD>E-GEOD-47735<TD>Interplay of host microbiota, genetic perturbations, and inflammation promote local development of intestinal neoplasms in mice
+</TABLE>
+<p>
+<TABLE border=1>
+<TR><TH>NO_Word<TH>count_in_name
+<TR><TD colspan=2>0 NO Words in name
+<TR><TH>YES_Word<TH>count_in_name
+<TR><TD>development<TD>1
+<TR><TD>mice<TD>1
+</table>
+<p>
+
+<TABLE border=1>
+<TR><TH>accid<TH>description
+<TR><TD>E-GEOD-47735<TD>The preferential localization of some neoplasms, such as serrated polyps, in specific areas of the intestine suggests that non-genetic factors may be important for their development. To test this hypothesis, we took advantage of transgenic mice that expressed HB-EGF throughout the intestine, but develop serrated polyps only in the cecum. Here we show that a host-specific microbiome was associated with serrated polyps, and that alterations of the microbiota induced by antibiotic treatment or by embryo-transfer rederivation markedly inhibited the formation of serrated polyps in the cecum. Mechanistically, development of serrated polyps was associated with a local decrease in epithelial barrier-function, bacterial invasion, production of antimicrobials, and increased expression of several inflammatory factors such as IL-17, Cxcl2, Tnf-Œ±, and IL-1. Increased number of neutrophils were found within the serrated polyps, and their depletion significantly reduced polyp growth. Together these results indicate that non-genetic factors contribute to the development of serrated polyps and suggest that the development of these intestinal neoplasms in the cecum is driven by the interplay between genetic changes in the host, an inflammatory response, and a host-specific microbiota. SUMMARY: Serrated polyps (SP) are a heterogeneous group of neoplasms found in particular areas of the gut. To define the factors contributing to their specific localization, we analyzed a strain of transgenic mice that carry a genetic alteration throughout the intestinal epithelium, but only develop SP in the cecum. Transcriptome and immunostaining analyses showed increased expression of antimicrobial genes, inflammatory factors, and the presence of bacteria within SP. Alteration of the cecal microbiota by antibiotic treatment or by embryo-transfer rederivation dramatically reduced SP incidence. Microbiome analysis implicated a limited set of bacteria in the development of SP. Together, these results point to a crucial role for the microbiota in the localized development of SP in a genetically susceptible host. We obtained serrated polyp (SP) and surrounding normal (NM) tissue from the ceca of three affected mice (paired design) and assessed expression differences by RNA-Seq.
+</TABLE>
+
+
+<TABLE border=1>
+<TR><TH>NO_Word<TH>count_in_desc
+<TR><TD>associated<TD>2
+<TR><TD>induced<TD>1
+<TR><TD>response<TD>1
+<TR><TD>transgenic<TD>2
+<TR><TD>treatment<TD>2
+<TR><TH>YES_Word<TH>count_in_desc
+<TR><TD>design<TD>1
+<TR><TD>development<TD>6
+<TR><TD>expressed<TD>1
+<TR><TD>genes<TD>1
+<TR><TD>increased<TD>3
+<TR><TD>mice<TD>6
+<TR><TD>specific<TD>4
+<TR><TD>tissue<TD>1
+</TABLE>
+<br><br>
+
+</OL>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</OL>
+</OL>
+
+</body>
+</html>

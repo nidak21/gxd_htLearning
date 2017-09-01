@@ -10,3 +10,4 @@ venv/
 ENV/
 
 Data/
+cache/

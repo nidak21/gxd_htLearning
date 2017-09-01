@@ -1,0 +1,69 @@
+Given Yasmine's work and results, what next:
+
+
+(DONE) pull her code in and reorganize
+
+Get updated data from GXD - OMIT superseries experiments
+
+    (DONE) change SQL to skip superseries
+    (SKIP for now) include experimental factor text. - where is this stored????
+    (DONE) See about getting runsql.py to work on linux server
+    (DONE) reimplement the split into directories script
+    (DONE) use argparse and ConfigParser (config file)
+
+Rerun analyses
+    NEED:
+    (DONE) use config param to get data directory
+    (DONE) filename to ID converter
+    (DONE) move make_f_scorer
+    (DONE) rename pipeline components (standardize)
+    (DONE) figure out unicode error in vectorizer - USING decode_error='replace'
+    (DONE) try n_jobs=-1 in GridsearchCV - IT IS FASTER
+    (DONE) rework classification report outputs
+    (DONE) pull out report of number of experiments, training and test set sizes
+    (DONE) fix notebook labels/headers
+    (DONE) Find a way to dump the pipeline details beyond the parameters
+	    - pipeline components and their params
+    (DONE) plan for storing runs as html or output files
+    (DONE) dump coefficients of highly weighted terms so they can be kept
+	w/ other outputs.
+	   May want to dump coeff's with lowest absolute value.
+    (DONE) understand variability:
+	Not in GridSearchCV (StratifiedKFold),
+	it's in train_test_split and SGD
+
+	Will it go down as we get less overfitting?
+
+    (DONE) added code to generate random seeds for train_test_split and SGD
+	    and report these so we can rerun with the same seeds if we want.
+
+	    Don't have an easy way to specify existing seeds to use instead.
+	    (e.g., command line arg or config file). Have to ponder this
+	    if we still want to run these in jupyter.
+
+    script to compare two sets of highly/lowly weighted features
+
+Reevaluate the models Yasmine looked at more carefully and more consistently
+    (DONE) clean up code
+    ??pull out token reg ex, strip_actents='ascii'
+    Try increasing iterations
+    Try with different random seeds to see if things are consistent
+    Try stemming and lemmatization.
+
+understand matplotlib - try running the graphs from scripts instead of Jupyter
+debugging in Jupyter?
+
+Github it
+
+Try different SGD solvers.
+
+Try the LinearSVM class.
+
+look at distributions of word counts and tf-idf
+
+look into getting confidence scores
+
+look at other models:
+    decision trees
+    SVM
+    neural nets.
