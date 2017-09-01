@@ -12,3 +12,4 @@ ENV/
 Data/
 cache/
 *.ipynb_checkpoints
+*.swp

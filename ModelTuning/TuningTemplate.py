@@ -59,18 +59,18 @@ pipeline = Pipeline([
                      token_pattern=u'(?u)\\b([a-z_]\w+)\\b',
 		     stop_words="english") ),
     ('scaler'    , StandardScaler(copy=True, with_mean=False, with_std=True) ),
-    ('classifier', SGDClassifier(verbose=0, eta0=1, class_weight='balanced',
+    ('classifier', SGDClassifier(verbose=0, class_weight='balanced',
     			random_state=randForClassifier) ),
     ])
 parameters={ 'vectorizer__ngram_range':[(1,3)],
              'vectorizer__min_df':[2],
              'vectorizer__max_df':[.98],
-             'classifier__eta0':[.1],
              'classifier__alpha':[.01],
+             'classifier__learning_rate':['invscaling'], # 'constant'
+             'classifier__eta0':[.1],
              'classifier__loss':[ 'log' ], #'hinge', 'log','modified_huber'],
              'classifier__penalty':['l1'], # ,'elasticnet'
              'classifier__n_iter':[5],
-             'classifier__learning_rate':['invscaling'], # 'constant'
             }
 # Scorer used by GridSearchCV() to rate the pipeline options
 scorer = ht.makeFscorer(beta=BETA)
