@@ -56,15 +56,11 @@ class GxdHtLearningHelper (object):
 	y_all,		# numpy.ndarray w/ true classifications for whole set
 	y_train,	# ... for split out training set
 	y_test,		# ... for split out test set
-	random_state=None # report if not None
 	):
 	'''
 	Report on the sizes and makeup of the training and test sets
 	'''
-	output = ''
-	if random_state != None:
-	    output += "TrainTestSplit random_state = %d\n" % random_state
-
+	output = '### Train Test Split Report\n'
 	output += \
 	"All Samples: %6d\tTraining Samples: %6d\tTest Samples: %6d\n" \
 			% (len(y_all), len(y_train), len(y_test))
@@ -93,9 +89,9 @@ class GxdHtLearningHelper (object):
 	):
 	output = "### Start GridSearch Report\n"
 
-	output += 'Parameter Options Tried:\n'
-	for key in sorted(parameters.keys()):
-	    output += "%s:%s\n" % (key, str(parameters[key])) 
+	output += 'Best Pipeline Parameters:\n'
+	for pName in sorted(parameters.keys()):
+	    output += "%s: %r\n" % ( pName, gs.best_params_[pName] )
 
 	output += "\n"
 
@@ -103,9 +99,10 @@ class GxdHtLearningHelper (object):
 	for stepName, obj in gs.best_estimator_.named_steps.items():
 	    output += "%s:\n%s\n\n" % (stepName, obj)
 
-	output += 'Best Pipeline Parameters:\n'
-	for pName in sorted(parameters.keys()):
-	    output += "%s: %r\n" % ( pName, gs.best_params_[pName] )
+	output += 'Parameter Options Tried:\n'
+	for key in sorted(parameters.keys()):
+	    output += "%s:%s\n" % (key, str(parameters[key])) 
+
 	output += "### End GridSearch Report\n"
 	return output
     # ---------------------------
@@ -117,7 +114,7 @@ class GxdHtLearningHelper (object):
 	featureNames = vectorizer.get_feature_names()
 	midFeature   = len(featureNames)/2
 
-	output =  "Vectorizer:   Number of Features: %d\n\n" % len(featureNames)
+	output =  "### Vectorizer:   Number of Features: %d\n\n" % len(featureNames)
 
 	output += "First %d features: %s\n\n" % (nFeatures,
 		    format(featureNames[:nFeatures]) )
@@ -146,12 +143,12 @@ class GxdHtLearningHelper (object):
 		else: falseNegatives.append(name)
 
 	output = ''
-	output += "False positives: %d\n" % len(falsePositives)
+	output += "### False positives: %d\n" % len(falsePositives)
 	for name in falsePositives[:num]:
 	    output += "%s\n" % name
 
 	output += "\n"
-	output += "False negatives: %d\n" % len(falseNegatives)
+	output += "### False negatives: %d\n" % len(falseNegatives)
 	for name in falseNegatives[:num]:
 	    output += "%s\n" % name
 
