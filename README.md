@@ -1,4 +1,4 @@
-# gxd_ht_learning
+# gxd_htLearning
 
 This project is about using machine learning to classify GXD HT experiments
 from ArrayExpress as "relevant" for GXD to curate the samples ('yes' or 'no').
