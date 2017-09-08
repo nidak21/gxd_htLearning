@@ -97,11 +97,11 @@ print
 print ht.getFormatedMetrics("Training Set", y_train, y_predicted_train, BETA) ,
 print ht.getFormatedMetrics("Test Set",     y_test, y_predicted_test, BETA) ,
 
+print ht.getInterestingFeaturesReport(bestClassifier.coef_,
+				bestVectorizer.get_feature_names(), num=20)
 print ht.getGridSearchReport(gs, parameters)
 print ht.getVectorizerReport(bestVectorizer, nFeatures=10)
 
-print ht.getInterestingFeaturesReport(bestClassifier.coef_,
-				bestVectorizer.get_feature_names(), num=20)
 print ht.getFalsePosNegReport(y_test, y_predicted_test, expIDs_test)
 print ht.getTrainTestSplitReport(dataset.target, y_train, y_test)
 
