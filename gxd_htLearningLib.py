@@ -2,6 +2,7 @@
 Common stuff for applying sklearn to gxd High Throughput experiment indexing
 '''
 import sys
+import re
 import os
 import os.path
 from ConfigParser import ConfigParser
@@ -22,6 +23,26 @@ INDEX_OF_YES = 1
 INDEX_OF_NO = 0
 LABELS = [ INDEX_OF_YES, INDEX_OF_NO ]
 TARGET_NAMES = ['yes', 'no']
+
+# ---------------------------
+
+def vectorizer_preprocessor(input):
+    '''
+    Cleanse document (strings) before they are passed to the vectorizer
+       tokenizer.
+    '''
+
+    # remove URLs
+    urls_re = re.compile("^https?:.+$",re.IGNORECASE)
+    output = ''
+    for s in input.split():
+	if urls_re.match(s) != None:
+	    #print "skipping token: '%s'" % s
+	    continue
+	else:
+	    output += "%s " % s
+    return output
+# ---------------------------
 
 class GxdHtLearningHelper (object):
 
@@ -51,6 +72,7 @@ class GxdHtLearningHelper (object):
 	'''
 	return make_scorer(fbeta_score, beta=beta, pos_label=INDEX_OF_YES)
     # ---------------------------
+
 
     def getTrainTestSplitReport( self, \
 	y_all,		# numpy.ndarray w/ true classifications for whole set
@@ -227,13 +249,13 @@ class GxdHtLearningHelper (object):
 
 	topPos, topNeg = self.getInterestingFeatures(coefList,
 						featureNames, num)
-	output = "### Start top positive features\n"
+	output = "### Start top positive features (%d)\n" % num
 	for f,c in topPos:
 	    output += "%+3.2f\t%s\n" % (c,f)
 
 	output += "### End top positive features\n"
 
-	output += "### Start top negative features\n"
+	output += "### Start top negative features (%d)\n" % num
 	for f,c in topNeg:
 	    output += "%+3.2f\t%s\n" % (c,f)
 

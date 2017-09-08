@@ -62,7 +62,8 @@ pipeline = Pipeline([
     ('vectorizer', TfidfVectorizer(
                      strip_accents='unicode', decode_error='replace',
                      token_pattern=u'(?u)\\b([a-z_]\w+)\\b',
-		     stop_words="english") ),
+		     stop_words="english",
+		     preprocessor=gxdLL.vectorizer_preprocessor) ),
     ('scaler'    , StandardScaler(copy=True, with_mean=False, with_std=True) ),
     ('classifier', SGDClassifier(verbose=0, class_weight='balanced',
     			random_state=randForClassifier) ),

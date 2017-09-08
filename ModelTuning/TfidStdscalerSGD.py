@@ -4,12 +4,12 @@ import numpy as np
 
 # set random seeds to get reproducible results
 randForSplit = None
-randForSplit = 10			# uncomment to get fixed seed
+#randForSplit = 10			# uncomment to get fixed seed
 if randForSplit == None:
     randForSplit = np.random.randint(1000)	# get random seed 0..1000
 
 randForClassifier = None
-randForClassifier = 10		# uncomment to get fixed seed
+#randForClassifier = 10		# uncomment to get fixed seed
 if randForClassifier == None: 
     randForClassifier = np.random.randint(1000)	# get random seed 0..1000
 
@@ -62,17 +62,18 @@ pipeline = Pipeline([
     ('vectorizer', TfidfVectorizer(
                      strip_accents='unicode', decode_error='replace',
                      token_pattern=u'(?u)\\b([a-z_]\w+)\\b',
-		     stop_words="english") ),
+		     stop_words="english",
+		     preprocessor=gxdLL.vectorizer_preprocessor) ),
     ('scaler'    , StandardScaler(copy=True, with_mean=False, with_std=True) ),
     ('classifier', SGDClassifier(verbose=0, class_weight='balanced',
     			random_state=randForClassifier) ),
     ])
-parameters={ 'vectorizer__ngram_range':[(1,3)],
+parameters={ 'vectorizer__ngram_range':[(1,2)],
              'vectorizer__min_df':[2],
              'vectorizer__max_df':[.98],
-             'classifier__alpha':[1,10, 100, 1000],
-             'classifier__learning_rate':['optimal'],
-             'classifier__eta0':[.1],
+             'classifier__alpha':[5],
+             'classifier__learning_rate':['constant'],
+             'classifier__eta0':[.001],
              'classifier__loss':[ 'log' ], # 'log' = Logistic Regression
              'classifier__penalty':['l2'],
              #'classifier__n_iter':[5],
