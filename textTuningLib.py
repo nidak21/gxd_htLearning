@@ -275,7 +275,7 @@ class TextPipelineTuningHelper (object):
 					    num=self.nFalsePosNegReport)
 
 	output += getTrainTestSplitReport(self.dataSet.target, self.y_train,
-					    self.y_test)
+					    self.y_test, self.testSize)
 
 	return output
     # ---------------------------
@@ -297,13 +297,14 @@ def getReportStart( curtime, beta, randomSeeds):
 def getTrainTestSplitReport( \
 	y_all,
 	y_train,
-	y_test
+	y_test,
+	testSize
 	):
     '''
     Report on the sizes and makeup of the training and test sets
     JIM:  this is very yucky...
     '''
-    output = SSTART + 'Train Test Split Report\n'
+    output = SSTART + 'Train Test Split Report, test %% = %4.2f\n' % (testSize)
     output += \
     "All Samples: %6d\tTraining Samples: %6d\tTest Samples: %6d\n" \
 		    % (len(y_all), len(y_train), len(y_test))
