@@ -3,17 +3,20 @@ Stuff for helping to tune sklearn pipelines for text classification
 
 Assumes:
 * Tuning a binary text classification pipeline
-* 'Yes' is the index 1 in ???
-* 'No' is index 0 in ???
+* 'Yes' is index 1 of list of classification labels (targets)
+* 'No' is index 0 
 * The text sample data is in sklearn load_files directory structure
 * Topmost directory in that folder is specified in config file
-* Tuning a Pipeline via GridsearchCV
+* We are Tuning a Pipeline via GridsearchCV
 * The Pipeline has named steps: 'vectorizer', 'classifier' with their
-*   obvious meanings
-* The 'classifier' supports getting weighted coefficients ???
+*   obvious meanings (may have other steps too)
+* The 'classifier' supports getting weighted coefficients vi classifier.coef_
 * We are scoring GridSearchCV Pipeline parameter runs via an F-Score
-*   (Beta is a parameter to this library)
+*   (beta is a parameter to this library)
 * probably other things...
+*
+Convention: trying to use camelCase for all the names here, but
+    sklearn typically_uses_names with underscores.
 '''
 import sys
 import time
@@ -23,23 +26,10 @@ import os.path
 sys.path.append('..')
 from ConfigParser import ConfigParser
 
-#import matplotlib.pyplot as plt
-#import pandas as pd
-#import mglearn
-
 import numpy as np
-# may not need most of these below...
-from sklearn.model_selection import train_test_split
-#from sklearn.feature_extraction.text import TfidfVectorizer
-#from sklearn.feature_extraction.text import CountVectorizer
-#from sklearn.preprocessing import StandardScaler
-#from sklearn.preprocessing import MaxAbsScaler
-#from sklearn.linear_model import SGDClassifier
-#from sklearn.linear_model import LogisticRegression
-#from sklearn.pipeline import Pipeline
-from sklearn.model_selection import GridSearchCV, StratifiedKFold
-
 from sklearn.datasets import load_files
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import make_scorer, fbeta_score,\
 			    classification_report, confusion_matrix
 #-----------------------------------
@@ -51,7 +41,7 @@ cp.read(["config.cfg", "../config.cfg"])
 
 DATADIR = cp.get("DEFAULT", "DATADIR")
 
-# in the list of labels for evaluating text data
+# in the list of classifications labels for evaluating text data
 INDEX_OF_YES = 1
 INDEX_OF_NO = 0
 LABELS = [ INDEX_OF_YES, INDEX_OF_NO ]
@@ -65,7 +55,6 @@ def vectorizer_preprocessor(input):
     Cleanse document (strings) before they are passed to the vectorizer
        tokenizer.
     '''
-
     # remove URLs
     urls_re = re.compile("^https?:.+$",re.IGNORECASE)
     output = ''
@@ -89,11 +78,11 @@ def makeFscorer(beta=1):
 # For various methods, random seeds are used
 #   e.g., for train_test_split() the seed is used to shuffle which samples
 #         make it into which set.
-# However, we want to record/report the random seeds used so we can
-#     reproduce results  when desired.
+# However, often we want to record/report the random seeds used so we can
+#     reproduce results when desired.
 #
 # getRandomSeeds() takes a dictionary of seeds, and generates random seeds
-#     for any key that doesn't already have a seed
+#     for any key that doesn't already have a numeric seed
 # getRandomSeedReport() just formats a seed dictionary in a standard way
 #     for reporting.
 # ---------------------------
@@ -140,14 +129,13 @@ class TextPipelineTuningHelper (object):
 	self.beta = beta
 
 	self.gs = GridSearchCV(pipeline,
-			    pipelineParameters,
-			    scoring=makeFscorer(beta=beta),
-			    cv=cv,
-			    verbose=gsVerbose,
-			    n_jobs=-1,
-			    )
+				pipelineParameters,
+				scoring=makeFscorer(beta=beta),
+				cv=cv,
+				verbose=gsVerbose,
+				n_jobs=-1,
+				)
 	self.testSize = testSize
-
 	self.randomSeeds = randomSeeds
 	self.randForSplit = randomSeeds['randForSplit']	# required seed
 
@@ -156,7 +144,6 @@ class TextPipelineTuningHelper (object):
 	self.nInterestingFeatures = nInterestingFeatures
 
 	self.time = time.asctime()
-
 	self.readDataSet()
 	self.findSampleNames()
     #---------------------
@@ -172,7 +159,6 @@ class TextPipelineTuningHelper (object):
     def getSampleNames(self):
 	return self.sampleNames
     # ---------------------------
-    
 
     def readDataSet(self):
 	self.dataSet = load_files( self.getDataDir() )
@@ -190,12 +176,16 @@ class TextPipelineTuningHelper (object):
 	'''
 	Do the work!
 	'''
+	# using _train _test variable names as is the custom in sklearn.
+	# "y_" are the correct classifications (labels) for the corresponding
+	#   samples
 
-	# using _train _test as is the custom in sklearn
-	#  "y_" are the correct classifications for the corresponding samples
-	self.sNames_train, self.sNames_test, \
-	self.docs_train,   self.docs_test, \
-	self.y_train,      self.y_test = train_test_split( \
+	    # sample names
+	    # documents (strings) themselves
+	    # correct classifications (labels) for the samples
+	self.sampleNames_train, self.sampleNames_test,	\
+	self.docs_train,        self.docs_test,	\
+	self.y_train,           self.y_test = train_test_split( \
 					    self.sampleNames,
 					    self.dataSet.data,
 					    self.dataSet.target,
@@ -223,7 +213,7 @@ class TextPipelineTuningHelper (object):
 	'''
 	y_true      = self.y_test
 	y_predicted = self.y_predicted_test
-	sampleNames = self.sampleNames
+	sampleNames = self.sampleNames_test
 
 	falsePositives = []
 	falseNegatives = []
@@ -241,9 +231,11 @@ class TextPipelineTuningHelper (object):
 	Return 2 lists of pairs, [ (feature, coef), (feature, coef), ... ]
 	    features w/ highest positive coefs (descending order)
 	    features w/ highest (abs value) negative coefs (desc order abs val)
-	    (maybe sometime:
-	    features w/ lowest (abs value) coefs (ascending order abs val)
-	    )
+	    JIM: maybe sometime: features w/ lowest (abs value) coefs
+		(ascending order abs val)
+	    JIM: should convert this so it simply returns sorted list
+	    	of all (feature, coef) pairs. let the caller decide how
+		they want to access this list
 	'''
 	coefficients = self.bestClassifier.coef_[0].tolist()
 	featureNames = self.bestVectorizer.get_feature_names()
@@ -338,7 +330,6 @@ def getGridSearchReport( \
     gs,	    # sklearn.model_selection.GridsearchCV that has been .fit()
     parameters  # dict of parameters used in the gridsearch
     ):
-
     output = SSTART +'Best Pipeline Parameters:\n'
     for pName in sorted(parameters.keys()):
 	output += "%s: %r\n" % ( pName, gs.best_params_[pName] )
@@ -366,7 +357,6 @@ def getVectorizerReport(vectorizer, nFeatures=10):
 
     output =  SSTART + "Vectorizer:   Number of Features: %d\n" \
     						% len(featureNames)
-
     output += "First %d features: %s\n\n" % (nFeatures,
 		format(featureNames[:nFeatures]) )
     output += "Middle %d features: %s\n\n" % (nFeatures,
@@ -441,7 +431,6 @@ def getInterestingFeaturesReport(  \
     topPos,	# top weighted positive features: [ ('feature name', coef), ...]
     topNeg	# ... for negative weighted features
     ):
-
     output = SSTART + "Top positive features (%d)\n" % len(topPos)
     for f,c in topPos:
 	output += "%+3.2f\t%s\n" % (c,f)
