@@ -254,7 +254,7 @@ class TextPipelineTuningHelper (object):
 	return topPos, topNeg
     # ---------------------------
 
-    def getReports(self):
+    def getReports(self, verbose=True):
 
 	output = getReportStart( self.time, self.beta, self.randomSeeds )
 
@@ -262,6 +262,9 @@ class TextPipelineTuningHelper (object):
 					self.y_predicted_train, self.beta)
 	output += getFormatedMetrics("Test Set", self.y_test,
 					self.y_predicted_test, self.beta)
+	output += getBestParamsReport(self.gs, self.pipelineParameters)
+
+	if not verbose: return output
 
 	topPos, topNeg = self.getInterestingFeatures()
 	output += getInterestingFeaturesReport(topPos,topNeg) 
@@ -327,7 +330,7 @@ def getTrainTestSplitReport( \
     return output
 # ---------------------------
 
-def getGridSearchReport( \
+def getBestParamsReport( \
     gs,	    # sklearn.model_selection.GridsearchCV that has been .fit()
     parameters  # dict of parameters used in the gridsearch
     ):
@@ -335,9 +338,14 @@ def getGridSearchReport( \
     for pName in sorted(parameters.keys()):
 	output += "%s: %r\n" % ( pName, gs.best_params_[pName] )
 
-    output += "\n"
+    return output
+# ---------------------------
 
-    output += SSTART + 'GridSearch Pipeline:\n'
+def getGridSearchReport( \
+    gs,	    # sklearn.model_selection.GridsearchCV that has been .fit()
+    parameters  # dict of parameters used in the gridsearch
+    ):
+    output = SSTART + 'GridSearch Pipeline:\n'
     for stepName, obj in gs.best_estimator_.named_steps.items():
 	output += "%s:\n%s\n\n" % (stepName, obj)
 
