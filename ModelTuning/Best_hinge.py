@@ -21,8 +21,8 @@ def process():
 			token_pattern=u'(?u)\\b([a-z_]\w+)\\b',
 			stop_words="english",
 			preprocessor=tl.vectorizer_preprocessor),),
-	('scaler'    , StandardScaler(copy=True,with_mean=False,with_std=True)),
-	#('scaler'    , MaxAbsScaler(copy=True)),
+	#('scaler'    , StandardScaler(copy=True,with_mean=False,with_std=True)),
+	('scaler'    , MaxAbsScaler(copy=True)),
 	('classifier', SGDClassifier(verbose=0, class_weight='balanced',
 			random_state=randomSeeds['randForClassifier']) ),
 	] )
