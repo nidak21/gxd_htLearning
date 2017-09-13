@@ -409,13 +409,17 @@ def getFormatedMetrics( \
     y_true and y_predicted are lists of integer category indexes.
     Assumes we are using a fbeta score, not a good thing in the long term
     '''
+    # concat title string onto all the target category names so
+    #  they are easier to differentiate in multiple reports (and you can
+    #  grep for them)
+    target_names = [ "%s %s" % (title[:5], x) for x in TARGET_NAMES ]
 
     output = SSTART + "Metrics: %s\n" % title
     output += "%s\n" % (classification_report( \
 			y_true, y_predicted,
-			labels=LABELS[:1], target_names=TARGET_NAMES[:1])
+			labels=LABELS[:1], target_names=target_names[:1])
 		    ) # only report on first label: "yes"
-    output += "F%d: %5.3f\n\n" % (beta,
+    output += "%s F%d: %5.3f\n\n" % (title[:5],beta,
 				fbeta_score( y_true, y_predicted, beta,
 					     pos_label=INDEX_OF_YES ) )
     output += "%s\n" % getFormatedCM(y_true, y_predicted)
