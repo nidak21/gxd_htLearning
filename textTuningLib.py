@@ -99,9 +99,9 @@ def getRandomSeeds( seedDict	# dict: {'seedname' : number or None }
 # ---------------------------
 
 def getRandomSeedReport( seedDict ):
-    output = "Random Seeds:\n"
+    output = "Random Seeds:\t"
     for k in sorted(seedDict.keys()):
-	output += "%s: %d\n" % (k, seedDict[k])
+	output += "%s=%d\t" % (k, seedDict[k])
 
     return output
 
@@ -263,13 +263,13 @@ class TextPipelineTuningHelper (object):
 	output += getFormatedMetrics("Test Set", self.y_test,
 					self.y_predicted_test, self.beta)
 	output += getBestParamsReport(self.gs, self.pipelineParameters)
+	output += getGridSearchReport(self.gs, self.pipelineParameters)
 
 	if not verbose: return output
 
 	topPos, topNeg = self.getInterestingFeatures()
 	output += getInterestingFeaturesReport(topPos,topNeg) 
 
-	output += getGridSearchReport(self.gs, self.pipelineParameters)
 	output += getVectorizerReport(self.bestVectorizer,
 					nFeatures=self.nFeaturesReport)
 
@@ -338,6 +338,7 @@ def getBestParamsReport( \
     for pName in sorted(parameters.keys()):
 	output += "%s: %r\n" % ( pName, gs.best_params_[pName] )
 
+    output += "\n"
     return output
 # ---------------------------
 
