@@ -3,8 +3,8 @@ import sys
 sys.path.append('..')
 import argparse
 import textTuningLib as tl
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.preprocessing import StandardScaler
+from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
+from sklearn.preprocessing import StandardScaler, MaxAbsScaler
 from sklearn.linear_model import SGDClassifier
 from sklearn.pipeline import Pipeline
 #-----------------------
@@ -16,21 +16,25 @@ def process():
 			} )
     beta=4		# >1 weighs recall more than precision
     pipeline = Pipeline( [
-	('vectorizer', TfidfVectorizer(
+	#('vectorizer', tl.StemmedCountVectorizer(
+	('vectorizer', CountVectorizer(
 			strip_accents='unicode', decode_error='replace',
 			token_pattern=u'(?u)\\b([a-z_]\w+)\\b',
 			stop_words="english",
-			preprocessor=tl.vectorizer_preprocessor) ),
-	('scaler'    , StandardScaler(copy=True,with_mean=False,with_std=True)),
+			preprocessor=tl.vectorizer_preprocessor,
+			),
+	),
+	#('scaler'    ,StandardScaler(copy=True,with_mean=False,with_std=True)),
+	('scaler'    , MaxAbsScaler(copy=True)),
 	('classifier', SGDClassifier(verbose=0, class_weight='balanced',
 			random_state=randomSeeds['randForClassifier']) ),
 	] )
     parameters={'vectorizer__ngram_range':[(1,3)],
 		'vectorizer__min_df':[2],
 		'vectorizer__max_df':[.98],
-		'classifier__alpha':[10000],
+		'classifier__alpha':[1],
 		'classifier__learning_rate':['invscaling'],
-		'classifier__eta0':[.00001],
+		'classifier__eta0':[ .01],
 		'classifier__loss':[ 'hinge' ],
 		'classifier__penalty':['l2'],
 		#'classifier__n_iter':[10],

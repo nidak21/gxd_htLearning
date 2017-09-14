@@ -32,6 +32,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import make_scorer, fbeta_score,\
 			    classification_report, confusion_matrix
+
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+import nltk.stem.snowball as nltk
+
 #-----------------------------------
 # Config, constants, ...
 # ---------------------------
@@ -48,15 +52,31 @@ LABELS = [ INDEX_OF_YES, INDEX_OF_NO ]
 TARGET_NAMES = ['yes', 'no']
 
 # ---------------------------
-# Some basic utilities...
+# Vectorizer helpers
+# See: https://stackoverflow.com/questions/36182502/add-stemming-support-to-countvectorizer-sklearn
 # ---------------------------
+stemmer = nltk.EnglishStemmer()
+class StemmedCountVectorizer(CountVectorizer):
+    def build_analyzer(self):
+        analyzer = super(type(self), self).build_analyzer()
+        return lambda doc: ([stemmer.stem(w) for w in analyzer(doc)])
+
+class StemmedTfidfVectorizer(TfidfVectorizer):
+    def build_analyzer(self):
+        analyzer = super(type(self), self).build_analyzer()
+        return lambda doc: ([stemmer.stem(w) for w in analyzer(doc)])
+
+# ---------------------------
+
+urls_re = re.compile("^https?:.+$",re.IGNORECASE)
 def vectorizer_preprocessor(input):
     '''
-    Cleanse document (strings) before they are passed to the vectorizer
+    Cleanse documents (strings) before they are passed to a vectorizer
        tokenizer.
+    Currently: just remove URLs
+    To use: vectorizer = CountVectorizer(preprocessor=vectorizer_preprocessor)
     '''
     # remove URLs
-    urls_re = re.compile("^https?:.+$",re.IGNORECASE)
     output = ''
     for s in input.split():
 	if urls_re.match(s) != None:
@@ -65,6 +85,8 @@ def vectorizer_preprocessor(input):
 	else:
 	    output += "%s " % s
     return output
+# ---------------------------
+# Some basic utilities...
 # ---------------------------
 
 def makeFscorer(beta=1):
@@ -76,14 +98,16 @@ def makeFscorer(beta=1):
 # ---------------------------
 # Random seed support:
 # For various methods, random seeds are used
-#   e.g., for train_test_split() the seed is used to shuffle which samples
+#   e.g., for train_test_split() the seed is used to decide which samples
 #         make it into which set.
 # However, often we want to record/report the random seeds used so we can
 #     reproduce results when desired.
+#     So we use these routines to always provide and report a random seed.
+#     If a seed is provided, we use it, if not, we generate one.
 #
 # getRandomSeeds() takes a dictionary of seeds, and generates random seeds
 #     for any key that doesn't already have a numeric seed
-# getRandomSeedReport() just formats a seed dictionary in a standard way
+# getRandomSeedReport() formats a seed dictionary in a standard way
 #     for reporting.
 # ---------------------------
 

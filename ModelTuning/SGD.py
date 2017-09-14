@@ -16,13 +16,16 @@ def process():
 			} )
     beta=4		# >1 weighs recall more than precision
     pipeline = Pipeline( [
+	#('vectorizer', tl.StemmedCountVectorizer(
 	('vectorizer', CountVectorizer(
 			strip_accents='unicode', decode_error='replace',
 			token_pattern=u'(?u)\\b([a-z_]\w+)\\b',
 			stop_words="english",
-			preprocessor=tl.vectorizer_preprocessor),),
-	('scaler'    , StandardScaler(copy=True,with_mean=False,with_std=True)),
-	#('scaler'    , MaxAbsScaler(copy=True)),
+			preprocessor=tl.vectorizer_preprocessor,
+			),
+	),
+	#('scaler'    ,StandardScaler(copy=True,with_mean=False,with_std=True)),
+	('scaler'    , MaxAbsScaler(copy=True)),
 	('classifier', SGDClassifier(verbose=0, class_weight='balanced',
 			random_state=randomSeeds['randForClassifier']) ),
 	] )
