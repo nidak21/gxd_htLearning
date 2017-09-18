@@ -22,8 +22,12 @@
 
 # standard libs
 import sys
+sys.path.append('..')
+sys.path.append('../..')
 import string
 import os
+import textTuningLib
+TUNINGMODULE = 'textTuningLib'
 #import itertools
 #import time
 #import types
@@ -34,7 +38,7 @@ from ConfigParser import ConfigParser
 # Load config
 cp = ConfigParser()
 cp.optionxform = str # make keys case sensitive
-cp.read(["config.cfg"])
+cp.read(["config.cfg","../config.cfg"])
 
 DATADIR	= cp.get("DEFAULT", "DATADIR")
 
@@ -44,6 +48,10 @@ def parseCmdLine():
 
     parser.add_argument('inputFile', action='store', 
     	help='tab-delimited input file of training data')
+
+    parser.add_argument('-p', '--preprocessor', dest='preprocessor',
+	action='store', required=False, default=None,
+    	help='preprocessor function name in %s' % TUNINGMODULE)
 
     parser.add_argument('-o', '--outputDir', dest='outputDir', action='store',
 	required=False, default=DATADIR,
@@ -55,6 +63,9 @@ def parseCmdLine():
 # Main prog
 def main():
     args = parseCmdLine()
+
+    if args.preprocessor != None:
+	preproc = getattr( textTuningLib, args.preprocessor )
 
     # for now assume directories exist
     # could create directories instead.
@@ -72,6 +83,9 @@ def main():
 	    #  look in the files. sklearn vectorizer will ignore punctuation.
 
 	    # could imagine doing some other text cleansing here. Not yet.
-	    newFile.write( title + ' ---- ' + desc )
+	    doc =  title + ' ----' + desc
+	    if args.preprocessor != None:
+		doc = preproc(doc)
+	    newFile.write( doc )
 #
 main()

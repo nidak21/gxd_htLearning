@@ -350,7 +350,8 @@ class TextPipelineTuningHelper (object):
 
     def getReports(self, verbose=True):
 
-	output = getReportStart( self.time, self.beta, self.randomSeeds )
+	output = getReportStart( self.time, self.beta, self.randomSeeds,
+							    self.getDataDir() )
 
 	output += getFormatedMetrics("Training Set", self.y_train,
 					self.y_predicted_train, self.beta)
@@ -383,9 +384,10 @@ class TextPipelineTuningHelper (object):
 # ---------------------------
 SSTART = "### "			# output section start delimiter
 
-def getReportStart( curtime, beta, randomSeeds):
+def getReportStart( curtime, beta, randomSeeds,dataDir):
 
-    output = SSTART + "Tuning Report %s\nBeta: %d\n" % (curtime, beta)
+    output = SSTART + "Start Time %s\n" % curtime
+    output += "Data dir: %s,\tBeta: %d\n" % (dataDir, beta)
     output += getRandomSeedReport(randomSeeds)
     output += "\n"
     return output
