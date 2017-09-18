@@ -1,6 +1,9 @@
 ### Some Lessons Learned
 
 * My version of sklearn is 0.18.1
+* Vectorizing:
+    * WHOA, the default preprocessor converts to lower case, not the tokenizer
+    * SO if you provide your own preprocessor, you need .lower() there yourself
 * Randomness in training.
     * most is in train_test_split and in the classifier (e.g., SGD)
     * as far as I can tell, there is none caused by the gridsearch CV fold
@@ -23,7 +26,7 @@ Model Tuning
     * SGD with 'hinge' and 'invscaling' is pretty good. Recall 90-94 range
     and precision in 65-70 range
 
-Good params:
+### Good params:
 ### Best Pipeline Parameters:
 classifier__alpha: 10000
 classifier__eta0: 1e-05
@@ -47,6 +50,7 @@ vectorizer__ngram_range: (1, 3)
 
 Tried CountVectorizer and MaxAbsScaler with hinge, worked comparably.
 (not CountVectorizer with StandardScaler throws int to float warnings)
+
 ### Best Pipeline Parameters:
 classifier__alpha: 100
 classifier__eta0: 1e-05
@@ -72,10 +76,33 @@ vectorizer__ngram_range: (1, 3)
 
 ### Stemming is weird
 * there seems to be no way to add a "stemming" option to a vectorizer that you 
-can turn on and off in grid search like other params.
-* you can write an analyzer algorithm that adds stemming, but it doesn't stem the individual words within an n-gram, only the last word in the n-gram (maybe that is what the world wants, but it seems weird to me)
-* ON FURTHER THOUGHT - the difference between stemming before or after n-gram'ing is probably negligible 
+    can turn on and off in grid search like other params.
+* you can write an analyzer algorithm that adds stemming, but it doesn't stem
+    the individual words within an n-gram, only the last word in the n-gram
+    (maybe that is what the world wants, but it seems weird to me)
+* ON FURTHER THOUGHT - the difference between stemming before or after
+    n-gram'ing is probably negligible 
+
 * see https://stackoverflow.com/questions/36182502/add-stemming-support-to-countvectorizer-sklearn
-* this gives several approaches. Probably the best is creating a subclass of your favorite vectorizer that that overrides the build_analzer() method so it stems (n-grams in the weird way)
-* Still pondering how to stem each word before n-gram'ing - seems like you'd have to add the word splitting and stemming into the preprocessing step
-* OR play with specifying the tokenizer in the vectorizer. I don't understand who does what in the analyzer vs. tokenizer (e.g., unicode handling, word splitting, n-gram building...)
+
+* this gives several approaches. Probably the best is creating a subclass
+    of your favorite vectorizer that that overrides the build_analzer() method
+    so it stems (n-grams in the weird way)
+* Still pondering how to stem each word before n-gram'ing - seems like you'd
+    have to add the word splitting and stemming into the preprocessing step
+* OR play with specifying the tokenizer in the vectorizer. I don't understand
+    who does what in the analyzer vs. tokenizer (e.g., unicode handling,
+    word splitting, n-gram building...)
+
+### Odd positively/negatively highly weighted features
+* a lot of odd highly weighted features come from the Encode experiments that
+    are almost all "yes" (at least for now)
+* the std text for these are:
+    "microRNA-seq from limb (ENCSR070GAZ) ---- miRNA-seq on embryonic 15.5 day
+    mouse limb  For data usage terms and conditions, please refer to"
+* so this leads to highly weighted freatures: "conditions refer", "data usage",
+    "data usage terms", "terms conditions", "refer" (I don't get this), etc.
+* Other weird examples that I don't get: I guess it depends on how training
+    and test sets are split
+** sometimes "mice" is positively weighted but it is in 508 "no" and 328 "yes"
+** similar "seq" is positively weighted but is in more "no" than "yes

@@ -21,6 +21,7 @@ Convention: trying to use camelCase for all the names here, but
 import sys
 import time
 import re
+import string
 import os
 import os.path
 sys.path.append('..')
@@ -52,39 +53,108 @@ LABELS = [ INDEX_OF_YES, INDEX_OF_NO ]
 TARGET_NAMES = ['yes', 'no']
 
 # ---------------------------
-# Vectorizer helpers
+# NEED to rethink this. Probably best to preprocess the whole data set once
+#  and stem it (and remove URLs) if stemming makes a big enough difference
+#  (the jury is still out on this)
+#
+# Stemming in Vectorizer subclasses:
 # See: https://stackoverflow.com/questions/36182502/add-stemming-support-to-countvectorizer-sklearn
+# This is subtle:
+# Vectorizers have build_preprocessor() method that returns a preprocessor()
+#   function.
+# The preprocessor() function is called for each document (string) to do any
+#   preprocessing, returning string.
+# What we do here:    Subclass each of the common Vectorizers
+#  and override the build_preprocessor() method to return a stemming
+#    preprocessor function.
 # ---------------------------
 stemmer = nltk.EnglishStemmer()
+token_re = re.compile("\\b([a-z_]\w+)\\b",re.IGNORECASE) # match words
+
 class StemmedCountVectorizer(CountVectorizer):
-    def build_analyzer(self):
-        analyzer = super(type(self), self).build_analyzer()
-        return lambda doc: ([stemmer.stem(w) for w in analyzer(doc)])
+    def build_preprocessor(self):# override super's build_preprocessor method
+	'''
+	Return preprocessor function that stems.
+	'''
+	# get the super class's preprocessor function for this object.
+        preprocessor = super(type(self), self).build_preprocessor()
+
+	# Tokenize and stem the string returned by the super's preprocessor
+	#   method.
+	# This should stem all words in  {bi|tri|...}grams and preserve any
+	#  functionality implemented in the preprocessor.
+	# (at the cost of an extra tokenizing step)
+	def my_preprocessor( doc):
+	    output = ''
+	    for m in token_re.finditer( preprocessor(doc) ):
+		output += " " + stemmer.stem(m.group())
+	    return output
+
+        return my_preprocessor
+# ---------------------------
 
 class StemmedTfidfVectorizer(TfidfVectorizer):
-    def build_analyzer(self):
-        analyzer = super(type(self), self).build_analyzer()
-        return lambda doc: ([stemmer.stem(w) for w in analyzer(doc)])
+    def build_preprocessor(self):# override super's build_preprocessor method
+	'''
+	Return preprocessor function that stems.
+	'''
+	# get the super class's preprocessor function for this object.
+        preprocessor = super(type(self), self).build_preprocessor()
+
+	# Tokenize and stem the string returned by the super's preprocessor
+	#   method.
+	# This should stem all words in  {bi|tri|...}grams and preserve any
+	#  functionality implemented in the preprocessor.
+	# (at the cost of an extra tokenizing step)
+	def my_preprocessor( doc):
+	    output = ''
+	    for m in token_re.finditer( preprocessor(doc) ):
+		output += " " + stemmer.stem(m.group())
+	    return output
+
+        return my_preprocessor
 
 # ---------------------------
 
-urls_re = re.compile("^https?:.+$",re.IGNORECASE)
+# Different stemming approach: Stemming in a custom preprocessor.
+# This might be faster than the above classes since we will be stemming
+#  at the same time as the rest of the preprocessor.
+# Also you CAN try vectorizer_preprocessor{_stem} as options in GridSearch.
+# If you use the subclasses above, you cannot make them options.
+#  BUT this doesn't generalize to arbritary preprocessors.
+
+urls_re = re.compile("\\bhttps?://\\S*",re.IGNORECASE) # match URLs
+
+def vectorizer_preprocessor_stem(input):
+    '''
+    Cleanse documents (strings) before they are passed to a vectorizer
+       tokenizer.
+    Currently: lower case everyting, remove URLs, and stem
+    To use:
+    vectorizer = CountVectorizer(preprocessor=vectorizer_preprocessor_stem)
+    '''
+    output = ''
+    
+    for s in urls_re.split(input):	# split (and remove) URLs
+	s.lower()
+	for m in token_re.finditer(s):
+	    output += " " + stemmer.stem(m.group())
+    return output
+# ---------------------------
+
 def vectorizer_preprocessor(input):
     '''
     Cleanse documents (strings) before they are passed to a vectorizer
        tokenizer.
-    Currently: just remove URLs
+    Currently: lower case everything, remove URLs 
     To use: vectorizer = CountVectorizer(preprocessor=vectorizer_preprocessor)
     '''
-    # remove URLs
     output = ''
-    for s in input.split():
-	if urls_re.match(s) != None:
-	    #print "skipping token: '%s'" % s
-	    continue
-	else:
-	    output += "%s " % s
+
+    for s in urls_re.split(input):
+	output += ' ' + s.lower() 
     return output
+
 # ---------------------------
 # Some basic utilities...
 # ---------------------------
@@ -289,21 +359,21 @@ class TextPipelineTuningHelper (object):
 	output += getBestParamsReport(self.gs, self.pipelineParameters)
 	output += getGridSearchReport(self.gs, self.pipelineParameters)
 
-	if not verbose: return output
+	if verbose: 
+	    topPos, topNeg = self.getInterestingFeatures()
+	    output += getInterestingFeaturesReport(topPos,topNeg) 
 
-	topPos, topNeg = self.getInterestingFeatures()
-	output += getInterestingFeaturesReport(topPos,topNeg) 
+	    output += getVectorizerReport(self.bestVectorizer,
+					    nFeatures=self.nFeaturesReport)
 
-	output += getVectorizerReport(self.bestVectorizer,
-					nFeatures=self.nFeaturesReport)
+	    falsePos, falseNeg = self.getFalsePosNeg()
+	    output += getFalsePosNegReport( falsePos, falseNeg,
+						num=self.nFalsePosNegReport)
 
-	falsePos, falseNeg = self.getFalsePosNeg()
-	output += getFalsePosNegReport( falsePos, falseNeg,
-					    num=self.nFalsePosNegReport)
+	    output += getTrainTestSplitReport(self.dataSet.target, self.y_train,
+						self.y_test, self.testSize)
 
-	output += getTrainTestSplitReport(self.dataSet.target, self.y_train,
-					    self.y_test, self.testSize)
-
+	output += SSTART + "End Time %s\n" % (time.asctime())
 	return output
     # ---------------------------
 # end class TextPipelineTuningHelper
@@ -471,12 +541,12 @@ def getInterestingFeaturesReport(  \
     ):
     output = SSTART + "Top positive features (%d)\n" % len(topPos)
     for f,c in topPos:
-	output += "%+3.2f\t%s\n" % (c,f)
+	output += "%+5.4f\t%s\n" % (c,f)
     output += "\n"
 
     output += SSTART + "Top negative features (%d)\n" % len(topNeg)
     for f,c in topNeg:
-	output += "%+3.2f\t%s\n" % (c,f)
+	output += "%+5.4f\t%s\n" % (c,f)
     output += "\n"
 
     return output

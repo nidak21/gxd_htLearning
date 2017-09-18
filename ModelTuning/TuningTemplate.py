@@ -17,11 +17,12 @@ def process():
     beta=4		# >1 weighs recall more than precision
     pipeline = Pipeline( [
 	#('vectorizer', tl.StemmedCountVectorizer(
-	('vectorizer', CountVectorizer(
+	('vectorizer', TfidfVectorizer(
 			strip_accents='unicode', decode_error='replace',
-			token_pattern=u'(?u)\\b([a-z_]\w+)\\b',
+			token_pattern=u'(?i)\\b([a-z_]\w+)\\b',
 			stop_words="english",
-			preprocessor=tl.vectorizer_preprocessor,
+			#preprocessor=tl.vectorizer_preprocessor,
+			preprocessor=tl.vectorizer_preprocessor_stem,
 			),
 	),
 	#('scaler'    ,StandardScaler(copy=True,with_mean=False,with_std=True)),
@@ -37,7 +38,6 @@ def process():
 		'classifier__eta0':[ .01],
 		'classifier__loss':[ 'hinge' ],
 		'classifier__penalty':['l2'],
-		#'classifier__n_iter':[10],
 		}
     ht = tl.TextPipelineTuningHelper( \
 	pipeline, parameters, beta=beta, cv=5, randomSeeds=randomSeeds,
