@@ -53,9 +53,8 @@ LABELS = [ INDEX_OF_YES, INDEX_OF_NO ]
 TARGET_NAMES = ['yes', 'no']
 
 # ---------------------------
-# NEED to rethink this. Probably best to preprocess the whole data set once
-#  and stem it (and remove URLs) if stemming makes a big enough difference
-#  (the jury is still out on this)
+# Probably best to preprocess the whole data set once
+#  and stem it (and remove URLs) if stemming makes a big enough difference.
 #
 # Stemming in Vectorizer subclasses:
 # See: https://stackoverflow.com/questions/36182502/add-stemming-support-to-countvectorizer-sklearn
@@ -120,7 +119,6 @@ class StemmedTfidfVectorizer(TfidfVectorizer):
 # This might be faster than the above classes since we will be stemming
 #  at the same time as the rest of the preprocessor.
 # Also you CAN try vectorizer_preprocessor{_stem} as options in GridSearch.
-# If you use the subclasses above, you cannot make them options.
 #  BUT this doesn't generalize to arbritary preprocessors.
 
 urls_re = re.compile("\\bhttps?://\\S*",re.IGNORECASE) # match URLs

@@ -15,7 +15,69 @@
     training results.
     * this seems very weird.
 
-Model Tuning
+### Stemming is weird
+* First, note that stemming typically doesn't improve models very much, but
+    if you want to continue.... here is what I've learned
+* Stemming is not built into sklearn. you must combine w/ nltk yourself.
+    * import nltk.stem.snowball as nltk,  nltk.EnglishStemmer()
+	(same for lemmatization - haven't tried this directly)
+* OPTIONS:
+    * Preprocess the data files beforehand (outside of Vectorizer)
+	* leads to fastest tuning runs as you don't have to keep stemming
+	    on each run.
+	* cannot tune by comparing stemming to non-stemming
+    * Create StemmingVectorizer subclass
+	* see https://stackoverflow.com/questions/36182502/add-stemming-support-to-countvectorizer-sklearn
+	* In subclass approach, you cannot easily test stemming vs. non-stemming
+	    as you tune
+	* Things to know:
+	    * the preprocessor() takes a doc (string),returns a modified doc.
+		* the default preprocessor() does .lower() if lowercase=True
+	    * the tokenizer() takes a doc, returns list of tokens. Includes:
+		* reg-ex tokenizing, n-gramming, stopword processing,
+		    min_df, max_df processing
+	    * Not sure where unicode, accent handling happens
+	    * the analyzer() function runs both preprocessor() and then
+		tokenizer(). If you want to do something in between of after
+		these, customize this.
+	* override build_analyzer() (and ultimately the analyzer() function) by
+	    taking output of the super.build_analyzer() and stemming each token
+	    that comes out.
+	    * only stems the last word in each n-gram
+	* OR override build_preprocessor() (and ultimately preprocessor()) by
+	    taking output of the super.build_preprocessor(), tokenizing words,
+	    and stemming each word, putting words back into a string to be
+	    passed to the tokenizer.
+	    * you don't HAVE to combine stemming w/ other preprocessing
+	    * redundant tokenizing, 2 passes over the raw document (if 
+		the default preprocessor() does anything)
+	* OR override build_preprocessor() by providing your own preprocessor()
+	    function.
+	    * you must combine stemming w/ any other preprocessing you're doing 
+	    * remember to .lower() if desired
+	    * likely faster than making 2 passes
+	* OR override build_tokenizer() (and ultimately tokenizer())
+	    * you'd have to figure out where to stick stemming into the process
+	    * seems painful as the tokenizer does a lot (I haven't tried this) 
+    * Pass your own preprocessor() function at Vectorizer instantiation.
+	    * equivalent to the last option above
+	    * BUT you can include/exclude this preprocessor() option to test
+		stemming vs. non-stemming as you tune
+	    * you must combine stemming w/ any other preprocessing you're doing 
+	    * remember to .lower() if desired
+	    * likely faster than making 2 passes
+    * Pass your own analyzer() function at Vectorizer instantiation.
+	    * same issues as above
+    * Pass your own tokenizer() function at Vectorizer instantiation.
+	    * seems painful as the tokenizer does a lot (I haven't tried this)
+    * STEMMING AND STOPWORDS. Note the stopword list is NOT
+	stemmed, e.g.,  "become", "becomes", "becoming" are stopwords.
+	But in the input doc, these get stemmed to "becom" which is not removed
+	during stopword processing. Sigh. So you might want to enhance the
+	stopword list by stemming its elements. Fortunately words removed by 
+	min_df and max_df have already been stemmed (if you are stemming).
+	
+### Model Tuning for this application
     * SGD with 'log' seems hard to get reasonable recall on test set no matter
     what I try.
     * I cannot reproduce Yasmine's results for  SGD with 'log', even using
@@ -73,26 +135,6 @@ classifier__penalty: 'l2'
 vectorizer__max_df: 0.98
 vectorizer__min_df: 2
 vectorizer__ngram_range: (1, 3)
-
-### Stemming is weird
-* there seems to be no way to add a "stemming" option to a vectorizer that you 
-    can turn on and off in grid search like other params.
-* you can write an analyzer algorithm that adds stemming, but it doesn't stem
-    the individual words within an n-gram, only the last word in the n-gram
-    (maybe that is what the world wants, but it seems weird to me)
-* ON FURTHER THOUGHT - the difference between stemming before or after
-    n-gram'ing is probably negligible 
-
-* see https://stackoverflow.com/questions/36182502/add-stemming-support-to-countvectorizer-sklearn
-
-* this gives several approaches. Probably the best is creating a subclass
-    of your favorite vectorizer that that overrides the build_analzer() method
-    so it stems (n-grams in the weird way)
-* Still pondering how to stem each word before n-gram'ing - seems like you'd
-    have to add the word splitting and stemming into the preprocessing step
-* OR play with specifying the tokenizer in the vectorizer. I don't understand
-    who does what in the analyzer vs. tokenizer (e.g., unicode handling,
-    word splitting, n-gram building...)
 
 ### Odd positively/negatively highly weighted features
 * a lot of odd highly weighted features come from the Encode experiments that

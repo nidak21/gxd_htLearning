@@ -5,7 +5,7 @@ import argparse
 import textTuningLib as tl
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 from sklearn.preprocessing import StandardScaler, MaxAbsScaler
-from sklearn.linear_model import SGDClassifier
+from sklearn.linear_model import SGDClassifier, LogisticRegression
 from sklearn.pipeline import Pipeline
 #-----------------------
 def process():
@@ -17,7 +17,7 @@ def process():
     beta=4		# >1 weighs recall more than precision
     pipeline = Pipeline( [
 	#('vectorizer', tl.StemmedCountVectorizer(
-	('vectorizer', TfidfVectorizer(
+	('vectorizer', CountVectorizer(
 			strip_accents='unicode', decode_error='replace',
 			token_pattern=u'(?i)\\b([a-z_]\w+)\\b',
 			stop_words="english",
@@ -27,18 +27,16 @@ def process():
 	),
 	#('scaler'    ,StandardScaler(copy=True,with_mean=False,with_std=True)),
 	('scaler'    , MaxAbsScaler(copy=True)),
-	('classifier', SGDClassifier(verbose=0, class_weight='balanced',
+	('classifier', LogisticRegression(verbose=0, class_weight='balanced',
 			random_state=randomSeeds['randForClassifier']) ),
 	] )
-    parameters={'vectorizer__ngram_range':[(1,3)],
+    parameters={'vectorizer__ngram_range':[(1,1), (1,2)],
 		'vectorizer__min_df':[2],
 		'vectorizer__max_df':[.98],
-                #'vectorizer__preprocessor':[tl.vectorizer_preprocessor,
-                #                            tl.vectorizer_preprocessor_stem],
-		'classifier__alpha':[1],
-		'classifier__learning_rate':['invscaling'],
-		'classifier__eta0':[ .01],
-		'classifier__loss':[ 'hinge' ],
+		'vectorizer__preprocessor':[tl.vectorizer_preprocessor,
+					    tl.vectorizer_preprocessor_stem],
+		'classifier__C':[.00001, ],
+		'classifier__solver':[ 'liblinear' ],
 		'classifier__penalty':['l2'],
 		}
     ht = tl.TextPipelineTuningHelper( \

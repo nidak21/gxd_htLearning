@@ -14,6 +14,7 @@ def process():
 	"http://foo.com.",
 	"in between URLs! http://xyz yuck?",
 	"...and..some..Stemmed stemming stem",
+	"Some stop words: almost became because become becomes being",
 	]
     print "Running StemmedCountVectorer: w/ custom, non-stemming preprocessor"
     cv = tl.StemmedCountVectorizer( strip_accents='unicode',
@@ -24,7 +25,11 @@ def process():
 			preprocessor=tl.vectorizer_preprocessor,
 			)
     cv.fit(testdoc)
+    print "Features"
     print cv.get_feature_names()
+    print
+    print "Stop words"
+    print sorted(cv.get_stop_words())
     print
     print "Running CountVectorizer: with stemming in preprocessor"
     cv = CountVectorizer( strip_accents='unicode',
