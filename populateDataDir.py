@@ -41,7 +41,13 @@ cp.optionxform = str # make keys case sensitive
 cp.read(["config.cfg","../config.cfg"])
 
 DATADIR	= cp.get("DEFAULT", "DATADIR")
-
+ENCODE_ID_PREFIX = "ENCSR"	# Prefix of Encode IDs (not ArrayExpress IDs)
+				#   that appear in the title of many Encode
+				#   titles.
+				# The titles/desc's of these exp's are not
+				#  informative.
+				# We provide an option to exclude these from
+				#  the sample set.
 def parseCmdLine():
     parser = argparse.ArgumentParser( \
     description='Splits GXD HT training data into sklearn directory structure')
@@ -52,6 +58,11 @@ def parseCmdLine():
     parser.add_argument('-p', '--preprocessor', dest='preprocessor',
 	action='store', required=False, default=None,
     	help='preprocessor function name in %s' % TUNINGMODULE)
+
+    parser.add_argument('--noencode', dest='omitEncode',
+	action='store_const', required=False, default=False, const=True,
+    	help='omit Encode experiments w/ ID prefixes "%s" from the dataset'  \
+						% ENCODE_ID_PREFIX)
 
     parser.add_argument('-o', '--outputDir', dest='outputDir', action='store',
 	required=False, default=DATADIR,
@@ -70,20 +81,23 @@ def main():
     # for now assume directories exist
     # could create directories instead.
 
-    # create output files
     fp = open( args.inputFile, 'r')
     for i, line in enumerate( fp.readlines()[1:] ):
+
 	title, desc, ID, yesNo = map( string.strip, line.split('\t') )
-	#if i < 3:
-	#    print "%-12s %-3s:  %s   %s" % (ID, yesNo, title[:40], desc[:15])
+
+	if args.omitEncode and title.find(ENCODE_ID_PREFIX) > -1:
+	    print "Skipping ENCODE exp: '%s'" % ID
+	    continue
 	
 	filename = os.sep.join( [ args.outputDir, yesNo.lower(), ID ] )
+
 	with open(filename, 'w') as newFile:
+
 	    # separate title and desc with punctuation just so we can
 	    #  look in the files. sklearn vectorizer will ignore punctuation.
-
-	    # could imagine doing some other text cleansing here. Not yet.
 	    doc =  title + ' ----' + desc
+
 	    if args.preprocessor != None:
 		doc = preproc(doc)
 	    newFile.write( doc )
