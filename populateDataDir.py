@@ -26,6 +26,7 @@ sys.path.append('..')
 sys.path.append('../..')
 import string
 import os
+import re
 import textTuningLib
 TUNINGMODULE = 'textTuningLib'
 #import itertools
@@ -68,8 +69,59 @@ def parseCmdLine():
 	required=False, default=DATADIR,
     	help='parent dir where /no and /yes are created. Default=%s' % DATADIR)
 
+    parser.add_argument('--expFactors', dest='expFactor', action='store',
+	required=False, default=None,
+    	help='file mapping experiments to experimental-factors')
+
     args = parser.parse_args()
     return args
+#----------------------
+# Experimental factors:
+# These are terms associated with experiments by ArrayExpress curators.
+# NOT a controlled vocab - there are >1000 distinct terms.
+#
+# Want to see if these help distinguish relevant/irrelevant experiments.
+# Can think of several ways to include these:
+# 1) treat the terms as a separate text field from the title/description and
+#    tokenize to get separate features for the tokens in these terms.
+#    (this seemed quite involved to do, but seems useful IF these annotations
+#     are really significant. I.e., if an exp factor term of "development"
+#     carries more weight than "development" in the regular text.)
+# 2) just throw these terms into the text/description text and tokenize these
+#    altogether. So the distinction that  individual tokens are part of
+#     exp Factors is lost.
+# 3) Something in the middle: smoosh the tokens of these factor terms into
+#    indivisible tokens and add some suffix to differentiate these from
+#    regular text features. Then add these "terms" to the title/desc text.
+# (3) is what we are trying here for now. (probably won't make any difference!)
+#----------------------
+
+def getExpFactors(fileName):
+    '''
+    Return dict mapping experiment IDs to a set of their exp factors (strings)
+    '''
+    expToFactor = {}	# expToFactor[ expID ] = set of converted factor terms
+
+    with open(fileName, 'r') as fp:
+	for line in fp.readlines()[1:]:
+	    expId, term = line.split('\t', 1)
+	    term = convertExpFactorTerm(term)
+	    expToFactor.setdefault( expId, set()).add(term)
+    return expToFactor
+#----------------------
+punct = re.compile( '[^a-z0-9_]' ) 	# anything not a letter, digit, _
+
+def convertExpFactorTerm(term):
+    '''
+    Smoosh exp factor terms so each will tokenize as a single token.
+    (remove all spaces and convert all punct to "_")
+    Add "_EF" to differentiate these terms from other words,
+    (will also prevent stemming of the term, not sure that is good or bad)
+    '''
+    term = term.strip().lower()
+    term = re.sub(punct, '_', term) + "_EF"
+    return term
+#----------------------
   
 # Main prog
 def main():
@@ -77,6 +129,9 @@ def main():
 
     if args.preprocessor != None:
 	preproc = getattr( textTuningLib, args.preprocessor )
+
+    if args.expFactor != None:
+	expToFactors = getExpFactors(args.expFactor)
 
     # for now assume directories exist
     # could create directories instead.
@@ -96,7 +151,12 @@ def main():
 
 	    # separate title and desc with punctuation just so we can
 	    #  look in the files. sklearn vectorizer will ignore punctuation.
-	    doc =  title + ' ----' + desc
+	    doc =  title + ' ---- ' + desc
+
+	    if args.expFactor != None:
+		factorsText = ' '.join(expToFactors.setdefault(ID,set()))
+		doc += ' ' + factorsText
+		#if factorsText != '': print "%s '%s'" % (ID,doc)
 
 	    if args.preprocessor != None:
 		doc = preproc(doc)
