@@ -213,7 +213,7 @@ class TextPipelineTuningHelper (object):
 	randomSeeds={'randForSplit':1},	# random seeds. Assume all are not None
 	nFeaturesReport=10,
 	nFalsePosNegReport=5,
-	nInterestingFeatures=20
+	nTopFeatures=20
 	):
 
 	self.pipeline = pipeline
@@ -233,7 +233,7 @@ class TextPipelineTuningHelper (object):
 
 	self.nFeaturesReport = nFeaturesReport
 	self.nFalsePosNegReport = nFalsePosNegReport
-	self.nInterestingFeatures = nInterestingFeatures
+	self.nTopFeatures = nTopFeatures
 
 	self.time = time.asctime()
 	self.readDataSet()
@@ -318,32 +318,21 @@ class TextPipelineTuningHelper (object):
 	return falsePositives, falseNegatives
     # ---------------------------
 
-    def getInterestingFeatures( self) :
+    def getOrderedFeatures( self) :
 	'''
-	Return 2 lists of pairs, [ (feature, coef), (feature, coef), ... ]
-	    features w/ highest positive coefs (descending order)
-	    features w/ highest (abs value) negative coefs (desc order abs val)
-	    JIM: maybe sometime: features w/ lowest (abs value) coefs
-		(ascending order abs val)
-	    JIM: should convert this so it simply returns sorted list
-	    	of all (feature, coef) pairs. let the caller decide how
-		they want to access this list
+	Return list of pairs, [ (feature, coef), (feature, coef), ... ]
+	    ordered from highest coef to lowest.
 	'''
+	if not hasattr(self.bestClassifier, 'coef_'): # not all have coef's
+	    return []
+
 	coefficients = self.bestClassifier.coef_[0].tolist()
 	featureNames = self.bestVectorizer.get_feature_names()
-	num          = self.nInterestingFeatures
 	
 	pairList = zip(featureNames, coefficients)
 
 	selCoef = lambda x: x[1]	# select the coefficient in the pair
-	sortedFeatures = sorted(pairList, key=selCoef, reverse=True)
-
-	topPos = [ x for x in sortedFeatures[:num] if selCoef(x)>0 ]
-
-	nFeat = len(pairList)
-	topNeg = [ x for x in sortedFeatures[nFeat-num : nFeat] if selCoef(x)<0]
-
-	return topPos, topNeg
+	return sorted(pairList, key=selCoef, reverse=True)
     # ---------------------------
 
     def getReports(self, verbose=True):
@@ -359,8 +348,8 @@ class TextPipelineTuningHelper (object):
 	output += getGridSearchReport(self.gs, self.pipelineParameters)
 
 	if verbose: 
-	    topPos, topNeg = self.getInterestingFeatures()
-	    output += getInterestingFeaturesReport(topPos,topNeg) 
+	    output += getTopFeaturesReport( \
+			self.getOrderedFeatures(), self.nTopFeatures) 
 
 	    output += getVectorizerReport(self.bestVectorizer,
 					    nFeatures=self.nFeaturesReport)
@@ -535,10 +524,24 @@ def getFormatedCM( \
     return output
 #  ---------------------------
 
-def getInterestingFeaturesReport(  \
-    topPos,	# top weighted positive features: [ ('feature name', coef), ...]
-    topNeg	# ... for negative weighted features
+def getTopFeaturesReport(  \
+    orderedFeatures,	# features: [ ('feature name', coef), ...]
+    num,		# number of features w/ highest & lowest coefs to rpt
     ):
+    '''
+    Return report of the features w/ the highest (positive) and lowest
+    (negative) coefficients.
+    Assumes num < len(orderedFeatures).
+    '''
+    if len(orderedFeatures) == 0:		# no coefs
+	output =  SSTART + "Top positive features - not available\n"
+	output += SSTART + "Top negative features - not available\n"
+	output += "\n"
+	return output
+
+    topPos = orderedFeatures[:num]
+    topNeg = orderedFeatures[len(orderedFeatures)-num:]
+
     output = SSTART + "Top positive features (%d)\n" % len(topPos)
     for f,c in topPos:
 	output += "%+5.4f\t%s\n" % (c,f)
