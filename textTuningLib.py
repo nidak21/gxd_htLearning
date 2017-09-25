@@ -361,11 +361,9 @@ class TextPipelineTuningHelper (object):
 	    output += getTrainTestSplitReport(self.dataSet.target, self.y_train,
 						self.y_test, self.testSize)
 
-	output += SSTART + "End Time %s\n" % (time.asctime())
+	output += getReportEnd()
 	return output
-    # ---------------------------
 # end class TextPipelineTuningHelper
-
 # ---------------------------
 # Functions to format output reports
 # ---------------------------
@@ -378,6 +376,10 @@ def getReportStart( curtime, beta, randomSeeds,dataDir):
     output += getRandomSeedReport(randomSeeds)
     output += "\n"
     return output
+# ---------------------------
+
+def getReportEnd():
+    return SSTART + "End Time %s\n" % (time.asctime())
 # ---------------------------
 
 def getTrainTestSplitReport( \
