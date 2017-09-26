@@ -1,0 +1,2920 @@
+Fitting 5 folds for each of 48 candidates, totalling 240 fits
+### Start Time Tue Sep 26 14:08:30 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 4
+Random Seeds:	randForClassifier=673	randForSplit=690	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.32      1.00      0.49       415
+
+avg / total       0.32      1.00      0.49       415
+
+Train F4: 0.889
+
+['yes', 'no']
+[[415   0]
+ [877   0]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.32      1.00      0.48       102
+
+avg / total       0.32      1.00      0.48       102
+
+Test  F4: 0.887
+
+['yes', 'no']
+[[102   0]
+ [221   0]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.01
+classifier__gamma: 0.1
+classifier__kernel: 'rbf'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 1)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.01, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.1, kernel='rbf',
+  max_iter=-1, probability=False, random_state=673, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+StandardScaler(copy=True, with_mean=False, with_std=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 1), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.01, 0.1, 1, 10]
+classifier__gamma:[0.1, 1, 10]
+classifier__kernel:['rbf', 'poly']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 1), (1, 2)]
+
+### Top positive features - not available
+### Top negative features - not available
+
+### Vectorizer:   Number of Features: 4505
+First 10 features: [u'a1', u'a10', u'a2', u'a9', u'aa', u'aa4', u'aad', u'abdomin', u'aberr', u'abil']
+
+Middle 10 features: [u'lean', u'learn', u'leav', u'lectin', u'led', u'left', u'leica', u'len', u'length', u'lens']
+
+Last 10 features: [u'zebrafish', u'zero', u'zfp36', u'zinc', u'zone', u'zooepidemicus', u'zt20', u'zt6', u'zurich', u'zygot']
+
+### False positives: 221
+E-GEOD-17143
+E-GEOD-37286
+E-TIGR-98
+E-GEOD-2746
+E-MEXP-1511
+
+### False negatives: 0
+
+### Train Test Split Report, test % = 0.20
+All Samples:   1615	Training Samples:   1292	Test Samples:    323
+Yes count:      517	Yes count:           415	Yes count:       102
+No  count:     1098	No  count:           877	No  count:       221
+Percent Yes:    32%	Percent Yes:         32%	Percent Yes:     31%
+### End Time Tue Sep 26 14:10:11 2017
+
+Fitting 5 folds for each of 32 candidates, totalling 160 fits
+### Start Time Tue Sep 26 14:15:22 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 4
+Random Seeds:	randForClassifier=989	randForSplit=688	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.32      1.00      0.49       418
+
+avg / total       0.32      1.00      0.49       418
+
+Train F4: 0.890
+
+['yes', 'no']
+[[418   0]
+ [874   0]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.31      1.00      0.47        99
+
+avg / total       0.31      1.00      0.47        99
+
+Test  F4: 0.883
+
+['yes', 'no']
+[[ 99   0]
+ [224   0]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.0001
+classifier__gamma: 0.001
+classifier__kernel: 'rbf'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 1)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.0001, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.001, kernel='rbf',
+  max_iter=-1, probability=False, random_state=989, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+StandardScaler(copy=True, with_mean=False, with_std=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 1), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.0001, 0.001, 0.01, 0.1]
+classifier__gamma:[0.001, 0.01, 0.1, 1]
+classifier__kernel:['rbf']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 1), (1, 2)]
+
+### Top positive features - not available
+### Top negative features - not available
+
+### Vectorizer:   Number of Features: 4456
+First 10 features: [u'a1', u'a10', u'a2', u'a9', u'aa', u'aa4', u'aad', u'abdomin', u'aberr', u'abil']
+
+Middle 10 features: [u'late', u'latent', u'later', u'lavag', u'layer', u'lc', u'lck', u'lcm', u'lcmv', u'ld']
+
+Last 10 features: [u'zinc', u'zipper', u'zn', u'zona', u'zone', u'zooepidemicus', u'zt20', u'zt6', u'zurich', u'zygot']
+
+### False positives: 224
+E-GEOD-19979
+E-GEOD-36688
+E-GEOD-17432
+E-TIGR-88
+E-GEOD-38370
+
+### False negatives: 0
+
+### Train Test Split Report, test % = 0.20
+All Samples:   1615	Training Samples:   1292	Test Samples:    323
+Yes count:      517	Yes count:           418	Yes count:        99
+No  count:     1098	No  count:           874	No  count:       224
+Percent Yes:    32%	Percent Yes:         32%	Percent Yes:     30%
+### End Time Tue Sep 26 14:16:30 2017
+
+Fitting 5 folds for each of 32 candidates, totalling 160 fits
+### Start Time Tue Sep 26 14:19:19 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 4
+Random Seeds:	randForClassifier=898	randForSplit=967	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.55      0.97      0.70       401
+
+avg / total       0.55      0.97      0.70       401
+
+Train F4: 0.931
+
+['yes', 'no']
+[[390  11]
+ [316 575]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.59      0.97      0.73       116
+
+avg / total       0.59      0.97      0.73       116
+
+Test  F4: 0.938
+
+['yes', 'no']
+[[113   3]
+ [ 80 127]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.01
+classifier__gamma: 0.01
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 2)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.01, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.01, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=898, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+StandardScaler(copy=True, with_mean=False, with_std=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 2), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.0001, 0.001, 0.01, 0.1]
+classifier__gamma:[0.001, 0.01, 0.1, 1]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 1), (1, 2)]
+
+### End Time Tue Sep 26 14:20:26 2017
+
+Fitting 5 folds for each of 8 candidates, totalling 40 fits
+### Start Time Tue Sep 26 14:22:50 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 4
+Random Seeds:	randForClassifier=15	randForSplit=186	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.72      0.90      0.80       421
+
+avg / total       0.72      0.90      0.80       421
+
+Train F4: 0.885
+
+['yes', 'no']
+[[378  43]
+ [149 722]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.61      0.88      0.72        96
+
+avg / total       0.61      0.88      0.72        96
+
+Test  F4: 0.853
+
+['yes', 'no']
+[[ 84  12]
+ [ 54 173]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.1
+classifier__gamma: 0.001
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 2)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.1, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.001, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=15, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+StandardScaler(copy=True, with_mean=False, with_std=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 2), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.1]
+classifier__gamma:[0.001, 0.01, 0.1, 1]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 1), (1, 2)]
+
+### End Time Tue Sep 26 14:23:08 2017
+
+Fitting 5 folds for each of 8 candidates, totalling 40 fits
+### Start Time Tue Sep 26 14:24:25 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 4
+Random Seeds:	randForClassifier=400	randForSplit=458	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.69      0.84      0.76       411
+
+avg / total       0.69      0.84      0.76       411
+
+Train F4: 0.827
+
+['yes', 'no']
+[[344  67]
+ [152 729]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.65      0.83      0.73       106
+
+avg / total       0.65      0.83      0.73       106
+
+Test  F4: 0.817
+
+['yes', 'no']
+[[ 88  18]
+ [ 47 170]]
+
+### Best Pipeline Parameters:
+classifier__C: 1
+classifier__gamma: 0.001
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 1)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=1, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.001, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=400, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+StandardScaler(copy=True, with_mean=False, with_std=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 1), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[1]
+classifier__gamma:[0.001, 0.01, 0.1, 1]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 1), (1, 2)]
+
+### End Time Tue Sep 26 14:24:38 2017
+
+Fitting 5 folds for each of 18 candidates, totalling 90 fits
+### Start Time Tue Sep 26 14:26:04 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 4
+Random Seeds:	randForClassifier=198	randForSplit=75	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.52      0.86      0.65       419
+
+avg / total       0.52      0.86      0.65       419
+
+Train F4: 0.829
+
+['yes', 'no']
+[[361  58]
+ [334 539]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.49      0.82      0.61        98
+
+avg / total       0.49      0.82      0.61        98
+
+Test  F4: 0.786
+
+['yes', 'no']
+[[ 80  18]
+ [ 83 142]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.01
+classifier__gamma: 0.1
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 1)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.01, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.1, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=198, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+StandardScaler(copy=True, with_mean=False, with_std=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 1), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.01, 0.1, 1]
+classifier__gamma:[0.1, 1, 10]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 1), (1, 2)]
+
+### End Time Tue Sep 26 14:26:39 2017
+
+Fitting 5 folds for each of 18 candidates, totalling 90 fits
+### Start Time Tue Sep 26 14:28:41 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 4
+Random Seeds:	randForClassifier=589	randForSplit=449	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.49      0.99      0.66       404
+
+avg / total       0.49      0.99      0.66       404
+
+Train F4: 0.934
+
+['yes', 'no']
+[[400   4]
+ [413 475]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.55      0.99      0.71       113
+
+avg / total       0.55      0.99      0.71       113
+
+Test  F4: 0.947
+
+['yes', 'no']
+[[112   1]
+ [ 91 119]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.01
+classifier__gamma: 0.01
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 2)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.01, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.01, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=589, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+StandardScaler(copy=True, with_mean=False, with_std=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 2), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.001, 0.01, 0.1]
+classifier__gamma:[0.001, 0.01, 0.1]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 1), (1, 2)]
+
+### End Time Tue Sep 26 14:29:20 2017
+
+Fitting 5 folds for each of 18 candidates, totalling 90 fits
+### Start Time Tue Sep 26 14:29:51 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 1
+Random Seeds:	randForClassifier=550	randForSplit=876	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.79      0.91      0.84       422
+
+avg / total       0.79      0.91      0.84       422
+
+Train F1: 0.845
+
+['yes', 'no']
+[[384  38]
+ [103 767]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.66      0.87      0.75        95
+
+avg / total       0.66      0.87      0.75        95
+
+Test  F1: 0.755
+
+['yes', 'no']
+[[ 83  12]
+ [ 42 186]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.1
+classifier__gamma: 0.001
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 1)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.1, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.001, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=550, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+StandardScaler(copy=True, with_mean=False, with_std=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 1), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.001, 0.01, 0.1]
+classifier__gamma:[0.001, 0.01, 0.1]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 1), (1, 2)]
+
+### End Time Tue Sep 26 14:30:28 2017
+
+Fitting 5 folds for each of 18 candidates, totalling 90 fits
+### Start Time Tue Sep 26 14:31:03 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 2
+Random Seeds:	randForClassifier=566	randForSplit=506	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.58      0.79      0.67       411
+
+avg / total       0.58      0.79      0.67       411
+
+Train F2: 0.735
+
+['yes', 'no']
+[[324  87]
+ [236 645]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.64      0.86      0.73       106
+
+avg / total       0.64      0.86      0.73       106
+
+Test  F2: 0.802
+
+['yes', 'no']
+[[ 91  15]
+ [ 52 165]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.1
+classifier__gamma: 0.01
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 1)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.1, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.01, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=566, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+StandardScaler(copy=True, with_mean=False, with_std=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 1), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.001, 0.01, 0.1]
+classifier__gamma:[0.001, 0.01, 0.1]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 1), (1, 2)]
+
+### End Time Tue Sep 26 14:31:38 2017
+
+Fitting 5 folds for each of 24 candidates, totalling 120 fits
+### Start Time Tue Sep 26 14:32:39 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 3
+Random Seeds:	randForClassifier=376	randForSplit=489	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.54      0.98      0.69       427
+
+avg / total       0.54      0.98      0.69       427
+
+Train F3: 0.908
+
+['yes', 'no']
+[[420   7]
+ [362 503]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.48      0.99      0.64        90
+
+avg / total       0.48      0.99      0.64        90
+
+Test  F3: 0.894
+
+['yes', 'no']
+[[ 89   1]
+ [ 97 136]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.01
+classifier__gamma: 0.01
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 2)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.01, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.01, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=376, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+StandardScaler(copy=True, with_mean=False, with_std=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 2), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.001, 0.01, 0.1, 1]
+classifier__gamma:[0.001, 0.01, 0.1]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 1), (1, 2)]
+
+### End Time Tue Sep 26 14:33:27 2017
+
+Fitting 5 folds for each of 24 candidates, totalling 120 fits
+### Start Time Tue Sep 26 14:34:16 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 3
+Random Seeds:	randForClassifier=835	randForSplit=225	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.70      0.93      0.80       394
+
+avg / total       0.70      0.93      0.80       394
+
+Train F3: 0.904
+
+['yes', 'no']
+[[368  26]
+ [155 743]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.71      0.90      0.79       123
+
+avg / total       0.71      0.90      0.79       123
+
+Test  F3: 0.878
+
+['yes', 'no']
+[[111  12]
+ [ 46 154]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.1
+classifier__gamma: 0.1
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 2)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.1, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.1, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=835, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 2), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.001, 0.01, 0.1, 1]
+classifier__gamma:[0.001, 0.01, 0.1]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 1), (1, 2)]
+
+### End Time Tue Sep 26 14:35:07 2017
+
+Fitting 5 folds for each of 9 candidates, totalling 45 fits
+### Start Time Tue Sep 26 15:03:27 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 3
+Random Seeds:	randForClassifier=964	randForSplit=634	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.71      0.92      0.80       407
+
+avg / total       0.71      0.92      0.80       407
+
+Train F3: 0.895
+
+['yes', 'no']
+[[375  32]
+ [154 731]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.65      0.87      0.74       110
+
+avg / total       0.65      0.87      0.74       110
+
+Test  F3: 0.844
+
+['yes', 'no']
+[[ 96  14]
+ [ 52 161]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.1
+classifier__gamma: 0.1
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 2)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.1, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.1, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=964, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 2), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.001, 0.01, 0.1]
+classifier__gamma:[0.001, 0.01, 0.1]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 2)]
+
+### End Time Tue Sep 26 15:03:54 2017
+
+Fitting 5 folds for each of 9 candidates, totalling 45 fits
+### Start Time Tue Sep 26 15:04:35 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 4
+Random Seeds:	randForClassifier=155	randForSplit=359	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.00      0.00      0.00       421
+
+avg / total       0.00      0.00      0.00       421
+
+Train F4: 0.000
+
+['yes', 'no']
+[[  0 421]
+ [  0 871]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.00      0.00      0.00        96
+
+avg / total       0.00      0.00      0.00        96
+
+Test  F4: 0.000
+
+['yes', 'no']
+[[  0  96]
+ [  0 227]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.001
+classifier__gamma: 0.001
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 2)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.001, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.001, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=155, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 2), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.001, 0.01, 0.1]
+classifier__gamma:[0.001, 0.01, 0.1]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 2)]
+
+### End Time Tue Sep 26 15:05:01 2017
+
+Fitting 5 folds for each of 9 candidates, totalling 45 fits
+### Start Time Tue Sep 26 15:05:26 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 4
+Random Seeds:	randForClassifier=731	randForSplit=517	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.00      0.00      0.00       423
+
+avg / total       0.00      0.00      0.00       423
+
+Train F4: 0.000
+
+['yes', 'no']
+[[  0 423]
+ [  0 869]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.00      0.00      0.00        94
+
+avg / total       0.00      0.00      0.00        94
+
+Test  F4: 0.000
+
+['yes', 'no']
+[[  0  94]
+ [  0 229]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.1
+classifier__gamma: 0.001
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 2)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.1, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.001, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=731, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 2), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.001, 0.01, 0.1]
+classifier__gamma:[0.001, 0.01, 0.1]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 2)]
+
+### End Time Tue Sep 26 15:05:52 2017
+
+Fitting 5 folds for each of 9 candidates, totalling 45 fits
+### Start Time Tue Sep 26 15:08:42 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 4
+Random Seeds:	randForClassifier=434	randForSplit=364	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.31      1.00      0.48       406
+
+avg / total       0.31      1.00      0.48       406
+
+Train F4: 0.886
+
+['yes', 'no']
+[[406   0]
+ [886   0]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.34      1.00      0.51       111
+
+avg / total       0.34      1.00      0.51       111
+
+Test  F4: 0.899
+
+['yes', 'no']
+[[111   0]
+ [212   0]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.1
+classifier__gamma: 0.001
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 2)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.1, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.001, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=434, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+CountVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 2), preprocessor=None, stop_words='english',
+        strip_accents='unicode', token_pattern=u'(?i)\\b([a-z_]\\w+)\\b',
+        tokenizer=None, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.001, 0.01, 0.1]
+classifier__gamma:[0.001, 0.01, 0.1]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 2)]
+
+### End Time Tue Sep 26 15:09:09 2017
+
+Fitting 5 folds for each of 9 candidates, totalling 45 fits
+### Start Time Tue Sep 26 15:09:51 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 1
+Random Seeds:	randForClassifier=21	randForSplit=10	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.66      0.90      0.76       406
+
+avg / total       0.66      0.90      0.76       406
+
+Train F1: 0.762
+
+['yes', 'no']
+[[365  41]
+ [187 699]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.71      0.83      0.76       111
+
+avg / total       0.71      0.83      0.76       111
+
+Test  F1: 0.763
+
+['yes', 'no']
+[[ 92  19]
+ [ 38 174]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.1
+classifier__gamma: 0.1
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 2)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.1, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.1, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=21, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+CountVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 2), preprocessor=None, stop_words='english',
+        strip_accents='unicode', token_pattern=u'(?i)\\b([a-z_]\\w+)\\b',
+        tokenizer=None, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.001, 0.01, 0.1]
+classifier__gamma:[0.001, 0.01, 0.1]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 2)]
+
+### End Time Tue Sep 26 15:10:17 2017
+
+Fitting 5 folds for each of 6 candidates, totalling 30 fits
+### Start Time Tue Sep 26 15:11:02 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 1
+Random Seeds:	randForClassifier=483	randForSplit=33	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.66      0.91      0.76       401
+
+avg / total       0.66      0.91      0.76       401
+
+Train F1: 0.763
+
+['yes', 'no']
+[[363  38]
+ [188 703]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.69      0.89      0.78       116
+
+avg / total       0.69      0.89      0.78       116
+
+Test  F1: 0.777
+
+['yes', 'no']
+[[103  13]
+ [ 46 161]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.1
+classifier__gamma: 0.1
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 2)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.1, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.1, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=483, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+CountVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 2), preprocessor=None, stop_words='english',
+        strip_accents='unicode', token_pattern=u'(?i)\\b([a-z_]\\w+)\\b',
+        tokenizer=None, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.001, 0.01, 0.1]
+classifier__gamma:[0.1, 1]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 2)]
+
+### End Time Tue Sep 26 15:11:20 2017
+
+Fitting 5 folds for each of 6 candidates, totalling 30 fits
+### Start Time Tue Sep 26 15:12:10 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 1
+Random Seeds:	randForClassifier=285	randForSplit=793	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.72      0.90      0.80       413
+
+avg / total       0.72      0.90      0.80       413
+
+Train F1: 0.797
+
+['yes', 'no']
+[[370  43]
+ [146 733]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.61      0.79      0.69       104
+
+avg / total       0.61      0.79      0.69       104
+
+Test  F1: 0.689
+
+['yes', 'no']
+[[ 82  22]
+ [ 52 167]]
+
+### Best Pipeline Parameters:
+classifier__C: 1
+classifier__gamma: 0.1
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 2)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=1, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.1, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=285, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+CountVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 2), preprocessor=None, stop_words='english',
+        strip_accents='unicode', token_pattern=u'(?i)\\b([a-z_]\\w+)\\b',
+        tokenizer=None, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.01, 0.1, 1]
+classifier__gamma:[0.1, 1]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 2)]
+
+### End Time Tue Sep 26 15:12:26 2017
+
+Fitting 5 folds for each of 9 candidates, totalling 45 fits
+### Start Time Tue Sep 26 15:21:24 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 4
+Random Seeds:	randForClassifier=272	randForSplit=930	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.81      0.78      0.79       424
+
+avg / total       0.81      0.78      0.79       424
+
+Train F4: 0.784
+
+['yes', 'no']
+[[332  92]
+ [ 80 788]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.68      0.71      0.69        93
+
+avg / total       0.68      0.71      0.69        93
+
+Test  F4: 0.708
+
+['yes', 'no']
+[[ 66  27]
+ [ 31 199]]
+
+### Best Pipeline Parameters:
+classifier__C: 1
+classifier__gamma: 0.1
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 2)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=1, cache_size=200, class_weight=None, coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.1, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=272, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+CountVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 2), preprocessor=None, stop_words='english',
+        strip_accents='unicode', token_pattern=u'(?i)\\b([a-z_]\\w+)\\b',
+        tokenizer=None, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.01, 0.1, 1]
+classifier__gamma:[0.01, 0.1, 1]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 2)]
+
+### End Time Tue Sep 26 15:21:45 2017
+
+Fitting 5 folds for each of 12 candidates, totalling 60 fits
+### Start Time Tue Sep 26 15:22:52 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 4
+Random Seeds:	randForClassifier=709	randForSplit=821	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       1.00      0.98      0.99       411
+
+avg / total       1.00      0.98      0.99       411
+
+Train F4: 0.982
+
+['yes', 'no']
+[[403   8]
+ [  0 881]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.76      0.65      0.70       106
+
+avg / total       0.76      0.65      0.70       106
+
+Test  F4: 0.656
+
+['yes', 'no']
+[[ 69  37]
+ [ 22 195]]
+
+### Best Pipeline Parameters:
+classifier__C: 10
+classifier__gamma: 0.01
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 2)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=10, cache_size=200, class_weight=None, coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.01, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=709, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+CountVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 2), preprocessor=None, stop_words='english',
+        strip_accents='unicode', token_pattern=u'(?i)\\b([a-z_]\\w+)\\b',
+        tokenizer=None, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.01, 0.1, 1, 10]
+classifier__gamma:[0.01, 0.1, 1]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 2)]
+
+### End Time Tue Sep 26 15:23:19 2017
+
+Fitting 5 folds for each of 3 candidates, totalling 15 fits
+### Start Time Tue Sep 26 15:25:14 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 4
+Random Seeds:	randForClassifier=871	randForSplit=193	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       1.00      0.52      0.69       423
+
+avg / total       1.00      0.52      0.69       423
+
+Train F4: 0.538
+
+['yes', 'no']
+[[221 202]
+ [  0 869]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.81      0.22      0.35        94
+
+avg / total       0.81      0.22      0.35        94
+
+Test  F4: 0.233
+
+['yes', 'no']
+[[ 21  73]
+ [  5 224]]
+
+### Best Pipeline Parameters:
+classifier__C: 1
+classifier__gamma: 0.01
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 2)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=1, cache_size=200, class_weight=None, coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.01, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=871, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+CountVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 2), preprocessor=None, stop_words='english',
+        strip_accents='unicode', token_pattern=u'(?i)\\b([a-z_]\\w+)\\b',
+        tokenizer=None, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.01, 0.1, 1]
+classifier__gamma:[0.01]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 2)]
+
+### End Time Tue Sep 26 15:25:24 2017
+
+Fitting 5 folds for each of 9 candidates, totalling 45 fits
+### Start Time Tue Sep 26 15:26:46 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 4
+Random Seeds:	randForClassifier=377	randForSplit=679	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.00      0.00      0.00       420
+
+avg / total       0.00      0.00      0.00       420
+
+Train F4: 0.000
+
+['yes', 'no']
+[[  0 420]
+ [  0 872]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.00      0.00      0.00        97
+
+avg / total       0.00      0.00      0.00        97
+
+Test  F4: 0.000
+
+['yes', 'no']
+[[  0  97]
+ [  0 226]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.01
+classifier__degree: 2
+classifier__gamma: 0.01
+classifier__kernel: 'poly'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 2)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.01, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=2, gamma=0.01, kernel='poly',
+  max_iter=-1, probability=False, random_state=377, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+CountVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 2), preprocessor=None, stop_words='english',
+        strip_accents='unicode', token_pattern=u'(?i)\\b([a-z_]\\w+)\\b',
+        tokenizer=None, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.01, 0.1, 1]
+classifier__degree:[2]
+classifier__gamma:[0.01, 0.1, 1]
+classifier__kernel:['poly']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 2)]
+
+### End Time Tue Sep 26 15:27:12 2017
+
+Fitting 5 folds for each of 9 candidates, totalling 45 fits
+### Start Time Tue Sep 26 15:28:23 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 4
+Random Seeds:	randForClassifier=211	randForSplit=927	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       1.00      1.00      1.00       427
+
+avg / total       1.00      1.00      1.00       427
+
+Train F4: 1.000
+
+['yes', 'no']
+[[427   0]
+ [  0 865]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.72      0.26      0.38        90
+
+avg / total       0.72      0.26      0.38        90
+
+Test  F4: 0.266
+
+['yes', 'no']
+[[ 23  67]
+ [  9 224]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.1
+classifier__degree: 2
+classifier__gamma: 1
+classifier__kernel: 'poly'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 2)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.1, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=2, gamma=1, kernel='poly',
+  max_iter=-1, probability=False, random_state=211, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+CountVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 2), preprocessor=None, stop_words='english',
+        strip_accents='unicode', token_pattern=u'(?i)\\b([a-z_]\\w+)\\b',
+        tokenizer=None, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.01, 0.1, 1]
+classifier__degree:[2]
+classifier__gamma:[0.1, 1, 10]
+classifier__kernel:['poly']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 2)]
+
+### End Time Tue Sep 26 15:28:49 2017
+
+Fitting 5 folds for each of 3 candidates, totalling 15 fits
+### Start Time Tue Sep 26 15:29:20 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 4
+Random Seeds:	randForClassifier=400	randForSplit=517	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       1.00      1.00      1.00       423
+
+avg / total       1.00      1.00      1.00       423
+
+Train F4: 1.000
+
+['yes', 'no']
+[[423   0]
+ [  0 869]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.87      0.35      0.50        94
+
+avg / total       0.87      0.35      0.50        94
+
+Test  F4: 0.364
+
+['yes', 'no']
+[[ 33  61]
+ [  5 224]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.01
+classifier__degree: 2
+classifier__gamma: 10
+classifier__kernel: 'poly'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 2)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.01, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=2, gamma=10, kernel='poly',
+  max_iter=-1, probability=False, random_state=400, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+CountVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 2), preprocessor=None, stop_words='english',
+        strip_accents='unicode', token_pattern=u'(?i)\\b([a-z_]\\w+)\\b',
+        tokenizer=None, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.01]
+classifier__degree:[2]
+classifier__gamma:[0.1, 1, 10]
+classifier__kernel:['poly']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 2)]
+
+### End Time Tue Sep 26 15:29:32 2017
+
+Fitting 5 folds for each of 6 candidates, totalling 30 fits
+### Start Time Tue Sep 26 15:30:16 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 4
+Random Seeds:	randForClassifier=287	randForSplit=685	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       1.00      1.00      1.00       414
+
+avg / total       1.00      1.00      1.00       414
+
+Train F4: 1.000
+
+['yes', 'no']
+[[414   0]
+ [  0 878]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.79      0.33      0.47       103
+
+avg / total       0.79      0.33      0.47       103
+
+Test  F4: 0.342
+
+['yes', 'no']
+[[ 34  69]
+ [  9 211]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.001
+classifier__degree: 2
+classifier__gamma: 10
+classifier__kernel: 'poly'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 2)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.001, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=2, gamma=10, kernel='poly',
+  max_iter=-1, probability=False, random_state=287, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+CountVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 2), preprocessor=None, stop_words='english',
+        strip_accents='unicode', token_pattern=u'(?i)\\b([a-z_]\\w+)\\b',
+        tokenizer=None, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.0001, 0.001]
+classifier__degree:[2]
+classifier__gamma:[0.1, 1, 10]
+classifier__kernel:['poly']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 2)]
+
+### End Time Tue Sep 26 15:30:35 2017
+
+Fitting 5 folds for each of 3 candidates, totalling 15 fits
+### Start Time Tue Sep 26 15:31:02 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 4
+Random Seeds:	randForClassifier=988	randForSplit=921	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.00      0.00      0.00       411
+
+avg / total       0.00      0.00      0.00       411
+
+Train F4: 0.000
+
+['yes', 'no']
+[[  0 411]
+ [  0 881]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.00      0.00      0.00       106
+
+avg / total       0.00      0.00      0.00       106
+
+Test  F4: 0.000
+
+['yes', 'no']
+[[  0 106]
+ [  0 217]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.0001
+classifier__degree: 2
+classifier__gamma: 0.1
+classifier__kernel: 'poly'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 2)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.0001, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=2, gamma=0.1, kernel='poly',
+  max_iter=-1, probability=False, random_state=988, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+CountVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 2), preprocessor=None, stop_words='english',
+        strip_accents='unicode', token_pattern=u'(?i)\\b([a-z_]\\w+)\\b',
+        tokenizer=None, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.0001]
+classifier__degree:[2]
+classifier__gamma:[0.1, 1, 10]
+classifier__kernel:['poly']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 2)]
+
+### End Time Tue Sep 26 15:31:13 2017
+
+Fitting 5 folds for each of 3 candidates, totalling 15 fits
+### Start Time Tue Sep 26 15:31:30 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 4
+Random Seeds:	randForClassifier=639	randForSplit=575	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.95      0.55      0.69       412
+
+avg / total       0.95      0.55      0.69       412
+
+Train F4: 0.560
+
+['yes', 'no']
+[[225 187]
+ [ 13 867]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.69      0.28      0.39       105
+
+avg / total       0.69      0.28      0.39       105
+
+Test  F4: 0.286
+
+['yes', 'no']
+[[ 29  76]
+ [ 13 205]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.0001
+classifier__degree: 1
+classifier__gamma: 10
+classifier__kernel: 'poly'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 2)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.0001, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=1, gamma=10, kernel='poly',
+  max_iter=-1, probability=False, random_state=639, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+CountVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 2), preprocessor=None, stop_words='english',
+        strip_accents='unicode', token_pattern=u'(?i)\\b([a-z_]\\w+)\\b',
+        tokenizer=None, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.0001]
+classifier__degree:[1]
+classifier__gamma:[0.1, 1, 10]
+classifier__kernel:['poly']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 2)]
+
+### End Time Tue Sep 26 15:31:42 2017
+
+Fitting 5 folds for each of 9 candidates, totalling 45 fits
+### Start Time Tue Sep 26 15:33:04 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 4
+Random Seeds:	randForClassifier=264	randForSplit=857	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.31      1.00      0.47       401
+
+avg / total       0.31      1.00      0.47       401
+
+Train F4: 0.884
+
+['yes', 'no']
+[[401   0]
+ [891   0]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.36      1.00      0.53       116
+
+avg / total       0.36      1.00      0.53       116
+
+Test  F4: 0.905
+
+['yes', 'no']
+[[116   0]
+ [207   0]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.01
+classifier__gamma: 0.1
+classifier__kernel: 'rbf'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 2)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.01, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.1, kernel='rbf',
+  max_iter=-1, probability=False, random_state=264, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+CountVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 2), preprocessor=None, stop_words='english',
+        strip_accents='unicode', token_pattern=u'(?i)\\b([a-z_]\\w+)\\b',
+        tokenizer=None, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.0001, 0.001, 0.01]
+classifier__gamma:[0.1, 1, 10]
+classifier__kernel:['rbf']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 2)]
+
+### End Time Tue Sep 26 15:33:32 2017
+
+Fitting 5 folds for each of 12 candidates, totalling 60 fits
+### Start Time Tue Sep 26 15:34:14 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 4
+Random Seeds:	randForClassifier=806	randForSplit=90	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       1.00      1.00      1.00       422
+
+avg / total       1.00      1.00      1.00       422
+
+Train F4: 1.000
+
+['yes', 'no']
+[[422   0]
+ [  0 870]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.78      0.15      0.25        95
+
+avg / total       0.78      0.15      0.25        95
+
+Test  F4: 0.155
+
+['yes', 'no']
+[[ 14  81]
+ [  4 224]]
+
+### Best Pipeline Parameters:
+classifier__C: 1
+classifier__gamma: 0.1
+classifier__kernel: 'rbf'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 2)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=1, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.1, kernel='rbf',
+  max_iter=-1, probability=False, random_state=806, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+CountVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 2), preprocessor=None, stop_words='english',
+        strip_accents='unicode', token_pattern=u'(?i)\\b([a-z_]\\w+)\\b',
+        tokenizer=None, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.0001, 0.001, 0.01, 1]
+classifier__gamma:[0.1, 1, 10]
+classifier__kernel:['rbf']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 2)]
+
+### End Time Tue Sep 26 15:34:49 2017
+
+Fitting 5 folds for each of 16 candidates, totalling 80 fits
+### Start Time Tue Sep 26 15:35:33 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 4
+Random Seeds:	randForClassifier=831	randForSplit=797	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.32      0.98      0.49       407
+
+avg / total       0.32      0.98      0.49       407
+
+Train F4: 0.878
+
+['yes', 'no']
+[[400   7]
+ [834  51]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.34      0.94      0.50       110
+
+avg / total       0.34      0.94      0.50       110
+
+Test  F4: 0.849
+
+['yes', 'no']
+[[103   7]
+ [199  14]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.1
+classifier__gamma: 0.1
+classifier__kernel: 'rbf'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 2)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.1, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.1, kernel='rbf',
+  max_iter=-1, probability=False, random_state=831, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+CountVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 2), preprocessor=None, stop_words='english',
+        strip_accents='unicode', token_pattern=u'(?i)\\b([a-z_]\\w+)\\b',
+        tokenizer=None, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.0001, 0.001, 0.01, 0.1]
+classifier__gamma:[0.01, 0.1, 1, 10]
+classifier__kernel:['rbf']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 2)]
+
+### End Time Tue Sep 26 15:36:19 2017
+
+Fitting 5 folds for each of 16 candidates, totalling 80 fits
+### Start Time Tue Sep 26 15:37:28 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 4
+Random Seeds:	randForClassifier=925	randForSplit=596	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.00      0.00      0.00       411
+
+avg / total       0.00      0.00      0.00       411
+
+Train F4: 0.000
+
+['yes', 'no']
+[[  0 411]
+ [  0 881]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.00      0.00      0.00       106
+
+avg / total       0.00      0.00      0.00       106
+
+Test  F4: 0.000
+
+['yes', 'no']
+[[  0 106]
+ [  0 217]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.001
+classifier__gamma: 0.01
+classifier__kernel: 'rbf'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 2)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.001, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.01, kernel='rbf',
+  max_iter=-1, probability=False, random_state=925, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+CountVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 2), preprocessor=None, stop_words='english',
+        strip_accents='unicode', token_pattern=u'(?i)\\b([a-z_]\\w+)\\b',
+        tokenizer=None, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.001, 0.01, 0.1, 1]
+classifier__gamma:[0.01, 0.1, 1, 10]
+classifier__kernel:['rbf']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 2)]
+
+### End Time Tue Sep 26 15:38:15 2017
+
+Fitting 5 folds for each of 16 candidates, totalling 80 fits
+### Start Time Tue Sep 26 15:39:51 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 4
+Random Seeds:	randForClassifier=864	randForSplit=154	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.00      0.00      0.00       423
+
+avg / total       0.00      0.00      0.00       423
+
+Train F4: 0.000
+
+['yes', 'no']
+[[  0 423]
+ [  0 869]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.00      0.00      0.00        94
+
+avg / total       0.00      0.00      0.00        94
+
+Test  F4: 0.000
+
+['yes', 'no']
+[[  0  94]
+ [  0 229]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.1
+classifier__gamma: 1
+classifier__kernel: 'rbf'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 3)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.1, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=1, kernel='rbf',
+  max_iter=-1, probability=False, random_state=864, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+CountVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 3), preprocessor=None, stop_words='english',
+        strip_accents='unicode', token_pattern=u'(?i)\\b([a-z_]\\w+)\\b',
+        tokenizer=None, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.001, 0.01, 0.1, 1]
+classifier__gamma:[0.01, 0.1, 1, 10]
+classifier__kernel:['rbf']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 3)]
+
+### End Time Tue Sep 26 15:40:53 2017
+
+Fitting 5 folds for each of 9 candidates, totalling 45 fits
+### Start Time Tue Sep 26 15:41:53 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 4
+Random Seeds:	randForClassifier=474	randForSplit=841	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.47      0.98      0.64       407
+
+avg / total       0.47      0.98      0.64       407
+
+Train F4: 0.922
+
+['yes', 'no']
+[[399   8]
+ [442 443]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.50      0.96      0.66       110
+
+avg / total       0.50      0.96      0.66       110
+
+Test  F4: 0.913
+
+['yes', 'no']
+[[106   4]
+ [107 106]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.01
+classifier__gamma: 1
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 3)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.01, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=1, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=474, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+CountVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 3), preprocessor=None, stop_words='english',
+        strip_accents='unicode', token_pattern=u'(?i)\\b([a-z_]\\w+)\\b',
+        tokenizer=None, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.01, 0.1, 1]
+classifier__gamma:[0.01, 0.1, 1]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 3)]
+
+### End Time Tue Sep 26 15:42:26 2017
+
+Fitting 5 folds for each of 6 candidates, totalling 30 fits
+### Start Time Tue Sep 26 15:43:03 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 4
+Random Seeds:	randForClassifier=911	randForSplit=192	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.48      0.99      0.65       424
+
+avg / total       0.48      0.99      0.65       424
+
+Train F4: 0.928
+
+['yes', 'no']
+[[418   6]
+ [452 416]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.42      0.99      0.59        93
+
+avg / total       0.42      0.99      0.59        93
+
+Test  F4: 0.916
+
+['yes', 'no']
+[[ 92   1]
+ [128 102]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.01
+classifier__gamma: 1
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 3)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.01, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=1, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=911, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+CountVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 3), preprocessor=None, stop_words='english',
+        strip_accents='unicode', token_pattern=u'(?i)\\b([a-z_]\\w+)\\b',
+        tokenizer=None, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.01, 0.1, 1]
+classifier__gamma:[1, 10]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 3)]
+
+### End Time Tue Sep 26 15:43:26 2017
+
+Fitting 5 folds for each of 6 candidates, totalling 30 fits
+### Start Time Tue Sep 26 15:44:21 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 4
+Random Seeds:	randForClassifier=152	randForSplit=510	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.46      0.80      0.59       421
+
+avg / total       0.46      0.80      0.59       421
+
+Train F4: 0.766
+
+['yes', 'no']
+[[336  85]
+ [389 482]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.43      0.83      0.57        96
+
+avg / total       0.43      0.83      0.57        96
+
+Test  F4: 0.789
+
+['yes', 'no']
+[[ 80  16]
+ [107 120]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.01
+classifier__gamma: 5
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 3)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.01, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=5, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=152, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+CountVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 3), preprocessor=None, stop_words='english',
+        strip_accents='unicode', token_pattern=u'(?i)\\b([a-z_]\\w+)\\b',
+        tokenizer=None, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.01, 0.1, 1]
+classifier__gamma:[5, 10]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 3)]
+
+### End Time Tue Sep 26 15:44:44 2017
+
+Fitting 5 folds for each of 6 candidates, totalling 30 fits
+### Start Time Tue Sep 26 15:46:13 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 4
+Random Seeds:	randForClassifier=99	randForSplit=244	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.38      0.99      0.55       425
+
+avg / total       0.38      0.99      0.55       425
+
+Train F4: 0.908
+
+['yes', 'no']
+[[422   3]
+ [678 189]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.33      0.99      0.50        92
+
+avg / total       0.33      0.99      0.50        92
+
+Test  F4: 0.887
+
+['yes', 'no']
+[[ 91   1]
+ [182  49]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.01
+classifier__gamma: 5
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 3)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.01, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=5, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=99, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 3), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.01, 0.1, 1]
+classifier__gamma:[5, 10]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 3)]
+
+### End Time Tue Sep 26 15:46:37 2017
+
+Fitting 5 folds for each of 9 candidates, totalling 45 fits
+### Start Time Tue Sep 26 15:47:13 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 4
+Random Seeds:	randForClassifier=960	randForSplit=155	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.34      1.00      0.50       418
+
+avg / total       0.34      1.00      0.50       418
+
+Train F4: 0.895
+
+['yes', 'no']
+[[417   1]
+ [817  57]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.32      1.00      0.48        99
+
+avg / total       0.32      1.00      0.48        99
+
+Test  F4: 0.889
+
+['yes', 'no']
+[[ 99   0]
+ [211  13]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.01
+classifier__gamma: 10
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 3)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.01, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=10, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=960, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 3), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.01, 0.1, 1]
+classifier__gamma:[0.1, 1, 10]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 3)]
+
+### End Time Tue Sep 26 15:47:46 2017
+
+Fitting 5 folds for each of 9 candidates, totalling 45 fits
+### Start Time Tue Sep 26 15:48:24 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 1
+Random Seeds:	randForClassifier=469	randForSplit=782	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.70      0.92      0.79       401
+
+avg / total       0.70      0.92      0.79       401
+
+Train F1: 0.794
+
+['yes', 'no']
+[[369  32]
+ [159 732]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.71      0.95      0.81       116
+
+avg / total       0.71      0.95      0.81       116
+
+Test  F1: 0.812
+
+['yes', 'no']
+[[110   6]
+ [ 45 162]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.1
+classifier__gamma: 0.1
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 3)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.1, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.1, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=469, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 3), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.01, 0.1, 1]
+classifier__gamma:[0.1, 1, 10]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 3)]
+
+### End Time Tue Sep 26 15:48:56 2017
+
+Fitting 5 folds for each of 1 candidates, totalling 5 fits
+### Start Time Tue Sep 26 15:49:59 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 1
+Random Seeds:	randForClassifier=702	randForSplit=776	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.73      0.92      0.82       419
+
+avg / total       0.73      0.92      0.82       419
+
+Train F1: 0.817
+
+['yes', 'no']
+[[387  32]
+ [141 732]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.64      0.88      0.74        98
+
+avg / total       0.64      0.88      0.74        98
+
+Test  F1: 0.741
+
+['yes', 'no']
+[[ 86  12]
+ [ 48 177]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.1
+classifier__gamma: 0.1
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 3)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.1, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.1, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=702, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 3), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.1]
+classifier__gamma:[0.1]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 3)]
+
+### End Time Tue Sep 26 15:50:07 2017
+
+Fitting 5 folds for each of 1 candidates, totalling 5 fits
+### Start Time Tue Sep 26 15:50:21 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 1
+Random Seeds:	randForClassifier=21	randForSplit=287	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.72      0.93      0.81       404
+
+avg / total       0.72      0.93      0.81       404
+
+Train F1: 0.809
+
+['yes', 'no']
+[[374  30]
+ [147 741]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.68      0.88      0.77       113
+
+avg / total       0.68      0.88      0.77       113
+
+Test  F1: 0.767
+
+['yes', 'no']
+[[ 99  14]
+ [ 46 164]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.1
+classifier__gamma: 0.1
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 3)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.1, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.1, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=21, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 3), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.1]
+classifier__gamma:[0.1]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 3)]
+
+### End Time Tue Sep 26 15:50:30 2017
+
+Fitting 5 folds for each of 2 candidates, totalling 10 fits
+### Start Time Tue Sep 26 15:51:10 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 1
+Random Seeds:	randForClassifier=289	randForSplit=400	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.74      0.92      0.82       416
+
+avg / total       0.74      0.92      0.82       416
+
+Train F1: 0.817
+
+['yes', 'no']
+[[382  34]
+ [137 739]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.65      0.85      0.74       101
+
+avg / total       0.65      0.85      0.74       101
+
+Test  F1: 0.735
+
+['yes', 'no']
+[[ 86  15]
+ [ 47 175]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.1
+classifier__gamma: 0.1
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 3)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.1, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.1, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=289, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 3), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.1]
+classifier__gamma:[0.1, 0.5]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 3)]
+
+### End Time Tue Sep 26 15:51:22 2017
+
+Fitting 5 folds for each of 2 candidates, totalling 10 fits
+### Start Time Tue Sep 26 15:52:37 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 1
+Random Seeds:	randForClassifier=469	randForSplit=886	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.71      0.93      0.81       418
+
+avg / total       0.71      0.93      0.81       418
+
+Train F1: 0.805
+
+['yes', 'no']
+[[389  29]
+ [159 715]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.64      0.89      0.74        99
+
+avg / total       0.64      0.89      0.74        99
+
+Test  F1: 0.743
+
+['yes', 'no']
+[[ 88  11]
+ [ 50 174]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.1
+classifier__gamma: 0.1
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 3)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.1, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.1, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=469, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 3), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.1]
+classifier__gamma:[0.1, 0.5]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 3)]
+
+### End Time Tue Sep 26 15:52:50 2017
+
+Fitting 5 folds for each of 2 candidates, totalling 10 fits
+### Start Time Tue Sep 26 15:53:20 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 1
+Random Seeds:	randForClassifier=469	randForSplit=582	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.72      0.93      0.81       415
+
+avg / total       0.72      0.93      0.81       415
+
+Train F1: 0.811
+
+['yes', 'no']
+[[384  31]
+ [148 729]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.61      0.91      0.73       102
+
+avg / total       0.61      0.91      0.73       102
+
+Test  F1: 0.732
+
+['yes', 'no']
+[[ 93   9]
+ [ 59 162]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.1
+classifier__gamma: 0.1
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 3)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.1, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.1, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=469, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 3), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.1]
+classifier__gamma:[0.1, 0.5]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 3)]
+
+### End Time Tue Sep 26 15:53:32 2017
+

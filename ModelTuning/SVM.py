@@ -6,7 +6,7 @@ import textTuningLib as tl
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 from sklearn.preprocessing import StandardScaler, MaxAbsScaler
 from sklearn.linear_model import LogisticRegression
-from sklearn.svm import LinearSVC
+from sklearn.svm import SVC
 from sklearn.pipeline import Pipeline
 #-----------------------
 def process():
@@ -27,19 +27,22 @@ def process():
 			),
 	),
 	#('scaler'    ,StandardScaler(copy=True,with_mean=False,with_std=True)),
-	#('scaler'    , MaxAbsScaler(copy=True)),
-	('classifier', LinearSVC(verbose=0, class_weight='balanced',
+	('scaler'    , MaxAbsScaler(copy=True)),
+	('classifier', SVC(class_weight='balanced',
 			random_state=randomSeeds['randForClassifier'],
-			max_iter=200) ),
+			) ),
 	] )
-    parameters={'vectorizer__ngram_range':[(1,2) ],
+    parameters={'vectorizer__ngram_range':[(1,3) ],
 		'vectorizer__min_df':[2],
 		'vectorizer__max_df':[.98],
 		#'vectorizer__preprocessor':[tl.vectorizer_preprocessor,
 		#			    tl.vectorizer_preprocessor_stem],
-		'classifier__C':[    .0000001,  ],
-		'classifier__loss':[ 'hinge',  ],
-		'classifier__penalty':[ 'l2', ],
+		'classifier__C':[      .1, ],
+		'classifier__gamma':[  .1,],  # 'auto' ?
+		'classifier__kernel':[ 'sigmoid', ],
+		#'classifier__degree':[ 1, ],
+		#'classifier__loss':[ 'hinge',  ],
+		#'classifier__penalty':[ 'l2', ],
 		}
     ht = tl.TextPipelineTuningHelper( \
 	pipeline, parameters, beta=beta, cv=5, randomSeeds=randomSeeds,
