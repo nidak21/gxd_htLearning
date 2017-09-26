@@ -6,7 +6,7 @@ Given Yasmine's work and results, what next:
 Get updated data from GXD - OMIT superseries experiments
 
     (DONE) change SQL to skip superseries
-    (SKIP for now) include experimental factor text. - where is this stored????
+    (Done) include experimental factor text. - where is this stored????
     (DONE) See about getting runsql.py to work on linux server
     (DONE) reimplement the split into directories script
     (DONE) use argparse and ConfigParser (config file)
@@ -45,15 +45,15 @@ Rerun analyses
 
 Reevaluate the models Yasmine looked at more carefully and more consistently
     (DONE) clean up code
-    ??pull out token reg ex, strip_actents='ascii'
+    (DONE) pull out token reg ex, strip_actents='ascii'
     Try increasing iterations
-    Try with different random seeds to see if things are consistent
-    Try stemming and lemmatization.
+    (DONE) Try with different random seeds to see if things are consistent
+    (DONE) Try stemming and lemmatization.
 
 understand matplotlib - try running the graphs from scripts instead of Jupyter
 debugging in Jupyter?
 
-Github it
+(DONE) Github it
 
 Try different SGD solvers.
 
