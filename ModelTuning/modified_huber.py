@@ -17,12 +17,13 @@ def process():
     beta=4		# >1 weighs recall more than precision
     pipeline = Pipeline( [
 	#('vectorizer', tl.StemmedCountVectorizer(
+	#('vectorizer', CountVectorizer(
 	('vectorizer', TfidfVectorizer(
 			strip_accents='unicode', decode_error='replace',
 			token_pattern=u'(?i)\\b([a-z_]\w+)\\b',
 			stop_words="english",
+			lowercase=True,
 			#preprocessor=tl.vectorizer_preprocessor,
-			#preprocessor=tl.vectorizer_preprocessor_stem,
 			),
 	),
 	#('scaler'    ,StandardScaler(copy=True,with_mean=False,with_std=True)),
@@ -30,16 +31,17 @@ def process():
 	('classifier', SGDClassifier(verbose=0, class_weight='balanced',
 			random_state=randomSeeds['randForClassifier']) ),
 	] )
-    parameters={'vectorizer__ngram_range':[(1,3)],
+    parameters={'vectorizer__ngram_range':[(1,1)],
 		'vectorizer__min_df':[2],
 		'vectorizer__max_df':[.98],
-                #'vectorizer__preprocessor':[tl.vectorizer_preprocessor,
-                #                            tl.vectorizer_preprocessor_stem],
-		'classifier__alpha':[1],
-		'classifier__learning_rate':['invscaling'],
-		'classifier__eta0':[ .01],
-		'classifier__loss':[ 'hinge' ],
-		'classifier__penalty':['l2'],
+		#'classifier__alpha':[.00001, .0001,.001,.01, ],
+		'classifier__alpha':[.00001, .0001, .001, ],
+		'classifier__eta0':[.00001, .0001, .001, ],
+		#'classifier__eta0':[ .0001, ],
+		'classifier__learning_rate':[ 'constant' , 'optimal'],
+		#'classifier__learning_rate':['constant','optimal','invscaling'],
+		'classifier__loss':[ 'modified_huber' ],
+		'classifier__penalty':['l2', ],
 		}
     ht = tl.TextPipelineTuningHelper( \
 	pipeline, parameters, beta=beta, cv=5, randomSeeds=randomSeeds,

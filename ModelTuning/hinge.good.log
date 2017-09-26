@@ -1,0 +1,297 @@
+NOTE: These seem really good. P ~ 60,  R in the 90's
+
+    Beta=2 or 4 seem to give similar results
+    Data_expFactors
+    Countvectorizer - better than TfidfVectorizer
+    ### Best Pipeline Parameters:
+    classifier__alpha: 0.001
+    classifier__eta0: 0.001
+    classifier__learning_rate: 'constant'
+    classifier__loss: 'hinge'
+    classifier__penalty: 'l2'
+    vectorizer__max_df: 0.98
+    vectorizer__min_df: 2
+    vectorizer__ngram_range: (1, 2)  Better than (1,1) and (1,3)
+
+
+
+Fitting 5 folds for each of 8 candidates, totalling 40 fits
+### Start Time Thu Sep 21 15:02:52 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 2
+Random Seeds:	randForClassifier=173	randForSplit=78	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.70      0.98      0.82       416
+
+avg / total       0.70      0.98      0.82       416
+
+Train F2: 0.905
+
+['yes', 'no']
+[[406  10]
+ [174 702]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.54      0.94      0.69       101
+
+avg / total       0.54      0.94      0.69       101
+
+Test  F2: 0.819
+
+['yes', 'no']
+[[ 95   6]
+ [ 81 141]]
+
+### Best Pipeline Parameters:
+classifier__alpha: 0.001
+classifier__eta0: 0.001
+classifier__learning_rate: 'constant'
+classifier__loss: 'hinge'
+classifier__penalty: 'l2'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 2)
+
+### GridSearch Pipeline:
+classifier:
+SGDClassifier(alpha=0.001, average=False, class_weight='balanced',
+       epsilon=0.1, eta0=0.001, fit_intercept=True, l1_ratio=0.15,
+       learning_rate='constant', loss='hinge', n_iter=5, n_jobs=1,
+       penalty='l2', power_t=0.5, random_state=173, shuffle=True,
+       verbose=0, warm_start=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+CountVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 2), preprocessor=None, stop_words='english',
+        strip_accents='unicode', token_pattern=u'(?i)\\b([a-z_]\\w+)\\b',
+        tokenizer=None, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__alpha:[0.001]
+classifier__eta0:[0.0001, 0.001, 0.01, 0.1]
+classifier__learning_rate:['optimal', 'constant']
+classifier__loss:['hinge']
+classifier__penalty:['l2']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 2)]
+
+### Top positive features (20)
++0.2722	genotype_ef
++0.2562	organism_part_ef
++0.2559	age_ef
++0.1196	develop
++0.1168	organismpart_ef
++0.1042	tissu
++0.0801	mutant
++0.0788	litterm
++0.0783	pool
++0.0781	liver
++0.0763	mice
++0.0761	knockout
++0.0733	genotyp
++0.0732	embryon day
++0.0724	development
++0.0719	heart
++0.0715	mutant embryo
++0.0714	developmentalstage_ef
++0.0712	mice genotype_ef
++0.0688	brain
+
+### Top negative features (20)
+-0.0820	primari
+-0.0833	cultur
+-0.0839	sort
+-0.0864	infect
+-0.0880	follow
+-0.1007	stem
+-0.1029	genotype_ef compound_ef
+-0.1042	stem cell
+-0.1365	cell
+-0.1381	induc
+-0.1426	dose_ef
+-0.1639	fibroblast mef
+-0.1697	fibroblast
+-0.1721	mous embryon
+-0.1774	embryon fibroblast
+-0.1995	mef
+-0.2587	treatment_ef
+-0.2789	compound_ef
+-0.2900	cell_type_ef
+-0.3160	time_ef
+
+### Vectorizer:   Number of Features: 16998
+First 10 features: [u'a2', u'aa', u'aa4', u'aad', u'abdomin', u'abdomin obes', u'aberr', u'aberr gene', u'aberr transcript', u'abil']
+
+Middle 10 features: [u'ko mous', u'ko sampl', u'ko vs', u'ko wild', u'ko wildtyp', u'ko wt', u'kras', u'kras mutant', u'krasg12d', u'krt14']
+
+Last 10 features: [u'zone', u'zone neural', u'zone svz', u'zooepidemicus', u'zooepidemicus coloni', u'zooepidemicus strong', u'zurich', u'zurich anim', u'zygot', u'zygot genom']
+
+### False positives: 81
+E-GEOD-71585
+E-GEOD-41042
+E-GEOD-25506
+E-GEOD-59463
+E-GEOD-16192
+
+### False negatives: 6
+E-MTAB-3707
+E-GEOD-8360
+E-GEOD-43517
+E-GEOD-59127
+E-ERAD-433
+
+### Train Test Split Report, test % = 0.20
+All Samples:   1615	Training Samples:   1292	Test Samples:    323
+Yes count:      517	Yes count:           416	Yes count:       101
+No  count:     1098	No  count:           876	No  count:       222
+Percent Yes:    32%	Percent Yes:         32%	Percent Yes:     31%
+### End Time Thu Sep 21 15:03:02 2017
+
+Fitting 5 folds for each of 8 candidates, totalling 40 fits
+### Start Time Thu Sep 21 15:03:40 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 2
+Random Seeds:	randForClassifier=815	randForSplit=771	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.68      0.98      0.80       408
+
+avg / total       0.68      0.98      0.80       408
+
+Train F2: 0.897
+
+['yes', 'no']
+[[398  10]
+ [188 696]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.64      0.97      0.77       109
+
+avg / total       0.64      0.97      0.77       109
+
+Test  F2: 0.882
+
+['yes', 'no']
+[[106   3]
+ [ 59 155]]
+
+### Best Pipeline Parameters:
+classifier__alpha: 0.001
+classifier__eta0: 0.001
+classifier__learning_rate: 'constant'
+classifier__loss: 'hinge'
+classifier__penalty: 'l2'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 2)
+
+### GridSearch Pipeline:
+classifier:
+SGDClassifier(alpha=0.001, average=False, class_weight='balanced',
+       epsilon=0.1, eta0=0.001, fit_intercept=True, l1_ratio=0.15,
+       learning_rate='constant', loss='hinge', n_iter=5, n_jobs=1,
+       penalty='l2', power_t=0.5, random_state=815, shuffle=True,
+       verbose=0, warm_start=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+CountVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 2), preprocessor=None, stop_words='english',
+        strip_accents='unicode', token_pattern=u'(?i)\\b([a-z_]\\w+)\\b',
+        tokenizer=None, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__alpha:[0.001]
+classifier__eta0:[0.0001, 0.001, 0.01, 0.1]
+classifier__learning_rate:['optimal', 'constant']
+classifier__loss:['hinge']
+classifier__penalty:['l2']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 2)]
+
+### Top positive features (20)
++0.2560	organism_part_ef
++0.2273	genotype_ef
++0.2061	age_ef
++0.1219	developmental_stage_ef
++0.1192	develop
++0.1072	tissu
++0.0964	organismpart_ef
++0.0846	liver
++0.0829	heart
++0.0815	profil mous
++0.0801	litterm
++0.0796	organism_ef
++0.0784	developmental_stage_ef organism_part_ef
++0.0709	mutant
++0.0691	embryon day
++0.0674	postnat
++0.0669	tissue_ef
++0.0664	oligonucleotid microarray
++0.0655	knockout
++0.0642	strainorline_ef
+
+### Top negative features (20)
+-0.0722	genotype_ef cell_type_ef
+-0.0764	primari
+-0.0787	follow
+-0.0836	phenotype_ef
+-0.0877	stem
+-0.0924	stem cell
+-0.0998	genotype_ef compound_ef
+-0.1184	cell
+-0.1283	induc
+-0.1388	treat
+-0.1544	dose_ef
+-0.1722	fibroblast mef
+-0.1765	mous embryon
+-0.1782	fibroblast
+-0.1826	mef
+-0.1938	embryon fibroblast
+-0.2564	treatment_ef
+-0.2802	time_ef
+-0.2957	compound_ef
+-0.3037	cell_type_ef
+
+### Vectorizer:   Number of Features: 17054
+First 10 features: [u'a2', u'aa', u'aa4', u'aa4 purifi', u'aad', u'abdomin', u'abdomin obes', u'aberr', u'aberr transcript', u'abil']
+
+Middle 10 features: [u'knockout pten', u'knockout strain', u'knockout studi', u'knockout versus', u'knockout vs', u'knockout wild', u'knockout wildtyp', u'know', u'knowledg', u'known']
+
+Last 10 features: [u'zooepidemicus', u'zooepidemicus coloni', u'zooepidemicus strong', u'zt20', u'zt6', u'zt6 zt20', u'zurich', u'zurich anim', u'zygot', u'zygot genom']
+
+### False positives: 59
+E-GEOD-23421
+E-GEOD-41095
+E-GEOD-59241
+E-GEOD-5338
+E-GEOD-10235
+
+### False negatives: 3
+E-GEOD-59127
+E-GEOD-10246
+E-ERAD-231
+
+### Train Test Split Report, test % = 0.20
+All Samples:   1615	Training Samples:   1292	Test Samples:    323
+Yes count:      517	Yes count:           408	Yes count:       109
+No  count:     1098	No  count:           884	No  count:       214
+Percent Yes:    32%	Percent Yes:         31%	Percent Yes:     33%
+### End Time Thu Sep 21 15:03:50 2017
+

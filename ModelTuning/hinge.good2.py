@@ -16,16 +16,12 @@ def process():
 			} )
     beta=4		# >1 weighs recall more than precision
     pipeline = Pipeline( [
-	#('vectorizer', tl.StemmedCountVectorizer(
-	('vectorizer', TfidfVectorizer(
+	('vectorizer', CountVectorizer(
 			strip_accents='unicode', decode_error='replace',
-			token_pattern=u'(?i)\\b([a-z_]\w+)\\b',
+			token_pattern=u'(?u)\\b([a-z_]\w+)\\b',
 			stop_words="english",
-			#preprocessor=tl.vectorizer_preprocessor,
-			#preprocessor=tl.vectorizer_preprocessor_stem,
-			),
-	),
-	#('scaler'    ,StandardScaler(copy=True,with_mean=False,with_std=True)),
+			preprocessor=tl.vectorizer_preprocessor),),
+	#('scaler'    , StandardScaler(copy=True,with_mean=False,with_std=True)),
 	('scaler'    , MaxAbsScaler(copy=True)),
 	('classifier', SGDClassifier(verbose=0, class_weight='balanced',
 			random_state=randomSeeds['randForClassifier']) ),
@@ -33,13 +29,12 @@ def process():
     parameters={'vectorizer__ngram_range':[(1,3)],
 		'vectorizer__min_df':[2],
 		'vectorizer__max_df':[.98],
-                #'vectorizer__preprocessor':[tl.vectorizer_preprocessor,
-                #                            tl.vectorizer_preprocessor_stem],
 		'classifier__alpha':[1],
 		'classifier__learning_rate':['invscaling'],
 		'classifier__eta0':[ .01],
 		'classifier__loss':[ 'hinge' ],
 		'classifier__penalty':['l2'],
+		#'classifier__n_iter':[10],
 		}
     ht = tl.TextPipelineTuningHelper( \
 	pipeline, parameters, beta=beta, cv=5, randomSeeds=randomSeeds,
@@ -56,11 +51,11 @@ def parseCmdLine():
     parser.add_argument('-v', '--verbose', dest='verbose', action='store_true',
 			help='verbose: print longer tuning report')
 
-    parser.add_argument('randForClassifier', nargs='?', default=None, type=int,
-			help="random seed for classifier")
-
     parser.add_argument('randForSplit', nargs='?', default=None, type=int,
 			help="random seed for test_train_split")
+
+    parser.add_argument('randForClassifier', nargs='?', default=None, type=int,
+			help="random seed for classifier")
     return parser.parse_args()
 #-----------------------
 if __name__ == "__main__": process()

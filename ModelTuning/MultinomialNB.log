@@ -1,0 +1,252 @@
+Fitting 5 folds for each of 12 candidates, totalling 60 fits
+### Start Time Mon Sep 25 15:13:39 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 4
+Random Seeds:	randForClassifier=447	randForSplit=791	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.89      0.98      0.93       413
+
+avg / total       0.89      0.98      0.93       413
+
+Train F4: 0.972
+
+['yes', 'no']
+[[404   9]
+ [ 51 828]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.74      0.81      0.77       104
+
+avg / total       0.74      0.81      0.77       104
+
+Test  F4: 0.803
+
+['yes', 'no']
+[[ 84  20]
+ [ 30 189]]
+
+### Best Pipeline Parameters:
+classifier__alpha: 1
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 1)
+
+### GridSearch Pipeline:
+classifier:
+MultinomialNB(alpha=1, class_prior=None, fit_prior=True)
+
+vectorizer:
+CountVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 1), preprocessor=None, stop_words='english',
+        strip_accents='unicode', token_pattern=u'(?i)\\b([a-z_]\\w+)\\b',
+        tokenizer=None, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__alpha:[0.01, 0.1, 1, 10]
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 1), (1, 2), (1, 3)]
+
+### Top positive features (20)
+-3.7996	gene
+-3.8805	express
+-4.1452	mice
+-4.3317	mous
+-4.5045	transcript
+-4.5799	use
+-4.6755	profil
+-4.7380	cell
+-4.7708	rna
+-4.8288	develop
+-4.9812	type
+-5.1274	tissu
+-5.1422	wild
+-5.2439	analysi
+-5.2689	control
+-5.2816	sampl
+-5.2859	microarray
+-5.3253	regul
+-5.3756	embryo
+-5.3946	identifi
+
+### Top negative features (20)
+-10.7369	viscera
+-10.7369	wat
+-10.7369	weigh
+-10.7369	whipworm
+-10.7369	wire
+-10.7369	wish
+-10.7369	withdraw
+-10.7369	wnt3a
+-10.7369	women
+-10.7369	wors
+-10.7369	xbp1
+-10.7369	xenograft
+-10.7369	xt
+-10.7369	yamanaka
+-10.7369	yang
+-10.7369	yfp
+-10.7369	zn
+-10.7369	zona
+-10.7369	zooepidemicus
+-10.7369	zygot
+
+### Vectorizer:   Number of Features: 4468
+First 10 features: [u'a1', u'a2', u'aa', u'aa4', u'aad', u'abdomin', u'aberr', u'abil', u'abl', u'abl1']
+
+Middle 10 features: [u'languag', u'larg', u'larger', u'larva', u'laser', u'late', u'latenc', u'latent', u'later', u'lats2']
+
+Last 10 features: [u'zero', u'zfp36', u'zinc', u'zipper', u'zn', u'zona', u'zone', u'zooepidemicus', u'zurich', u'zygot']
+
+### False positives: 30
+E-GEOD-55340
+E-GEOD-14424
+E-RZPD-1
+E-GEOD-33292
+E-GEOD-47401
+
+### False negatives: 20
+E-GEOD-33979
+E-GEOD-65617
+E-GEOD-17141
+E-ERAD-72
+E-GEOD-4656
+
+### Train Test Split Report, test % = 0.20
+All Samples:   1615	Training Samples:   1292	Test Samples:    323
+Yes count:      517	Yes count:           413	Yes count:       104
+No  count:     1098	No  count:           879	No  count:       219
+Percent Yes:    32%	Percent Yes:         31%	Percent Yes:     32%
+### End Time Mon Sep 25 15:13:53 2017
+
+Fitting 5 folds for each of 12 candidates, totalling 60 fits
+### Start Time Mon Sep 25 15:31:06 2017
+Data dir: /Users/jak/work/gxd_htLearning/Data/Data_expFactors,	Beta: 8
+Random Seeds:	randForClassifier=371	randForSplit=247	
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.87      0.97      0.92       409
+
+avg / total       0.87      0.97      0.92       409
+
+Train F8: 0.971
+
+['yes', 'no']
+[[398  11]
+ [ 58 825]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.77      0.81      0.79       108
+
+avg / total       0.77      0.81      0.79       108
+
+Test  F8: 0.805
+
+['yes', 'no']
+[[ 87  21]
+ [ 26 189]]
+
+### Best Pipeline Parameters:
+classifier__alpha: 1
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 1)
+
+### GridSearch Pipeline:
+classifier:
+MultinomialNB(alpha=1, class_prior=None, fit_prior=True)
+
+vectorizer:
+CountVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 1), preprocessor=None, stop_words='english',
+        strip_accents='unicode', token_pattern=u'(?i)\\b([a-z_]\\w+)\\b',
+        tokenizer=None, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__alpha:[0.01, 0.1, 1, 10]
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 1), (1, 2), (1, 3)]
+
+### Top positive features (20)
+-3.7738	gene
+-3.8735	express
+-4.1090	mice
+-4.3806	mous
+-4.4783	transcript
+-4.5761	use
+-4.6845	profil
+-4.7496	rna
+-4.7956	cell
+-4.8547	develop
+-5.0233	type
+-5.0566	tissu
+-5.1829	analysi
+-5.2261	microarray
+-5.2383	wild
+-5.2840	data
+-5.3231	sampl
+-5.3275	regul
+-5.3637	control
+-5.4503	identifi
+
+### Top negative features (20)
+-10.7436	wat
+-10.7436	weigh
+-10.7436	whipworm
+-10.7436	wilcoxon
+-10.7436	wire
+-10.7436	wish
+-10.7436	withdraw
+-10.7436	women
+-10.7436	wors
+-10.7436	wta
+-10.7436	xav
+-10.7436	xav939
+-10.7436	xenobiot
+-10.7436	xenograft
+-10.7436	xt
+-10.7436	yamanaka
+-10.7436	yfp
+-10.7436	zona
+-10.7436	zooepidemicus
+-10.7436	zygot
+
+### Vectorizer:   Number of Features: 4496
+First 10 features: [u'a1', u'a10', u'a2', u'a9', u'aa', u'aa4', u'abdomin', u'aberr', u'abil', u'abl']
+
+Middle 10 features: [u'larger', u'laser', u'late', u'latenc', u'later', u'lats2', u'lavag', u'layer', u'lc', u'lcm']
+
+Last 10 features: [u'zero', u'zfp36', u'zinc', u'zipper', u'zona', u'zone', u'zooepidemicus', u'zt20', u'zt6', u'zygot']
+
+### False positives: 26
+E-GEOD-15694
+E-GEOD-8551
+E-GEOD-3621
+E-GEOD-64004
+E-GEOD-46298
+
+### False negatives: 21
+E-GEOD-32511
+E-GEOD-7020
+E-GEOD-15794
+E-GEOD-36026
+E-GEOD-48339
+
+### Train Test Split Report, test % = 0.20
+All Samples:   1615	Training Samples:   1292	Test Samples:    323
+Yes count:      517	Yes count:           409	Yes count:       108
+No  count:     1098	No  count:           883	No  count:       215
+Percent Yes:    32%	Percent Yes:         31%	Percent Yes:     33%
+### End Time Mon Sep 25 15:31:19 2017
+
