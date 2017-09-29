@@ -6,13 +6,19 @@ from ArrayExpress as "relevant" for GXD to curate the samples ('yes' or 'no').
 This project was started by summer student Yasmine Boukataya during summer 2017.
 Continued by Jim.
 
+For an overview of how I see the process of tuning and defining a good model:
+https://docs.google.com/drawings/d/1Uei93UsNBN7W0X31vuIN4gcfkDKD8nnw7UTnzNhhJvc/edit
+
+Here is a folder for google docs related to this work:
+https://drive.google.com/drive/folders/0B78xUMnOyPSNNmc5ZDYwTTB6VVk
+
 Subdirectories
 
     Data/
         where the 'yes' and 'no' directories are holding the text for the
             already classified (training set) experiments that sklearn can
             read easily.
-    SQL/
+    Getdata/
         the sql scripts for extracting the already classified experiments from
             the db.
 
@@ -21,11 +27,10 @@ Subdirectories
         Most scripts are .py and produce various output text files to
             evaluate their performance.
 
-        Python files vs. Jupyter notebook files: (I'm writing this down to
-        think it through)
+        Python files vs. Jupyter notebook files:
 
-        The idea is to edit the python scripts directly rather than
-            jupyter notebook files. So the .py files are the source files.
+	I've given up on developing/tuning with Jupyter notebooks.
+	I just edit and run .py files.
 
             The advantages of notebook files:
                 - can see/run the python code and see its output all in one
@@ -49,6 +54,7 @@ Subdirectories
                     I can easily get these output files from the python scripts
                     directly.
 
-            There is a script py2notebook.py that will convert whenever we
-            want to import a model/evaluation code into a notebook.
+	There is a script py2notebook.py that will convert whenever we
+	want to import a model/evaluation code into a notebook.
+	So we could pull anything back in Jupyter if we want at some point.
 
