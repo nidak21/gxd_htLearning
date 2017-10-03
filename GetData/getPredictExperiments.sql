@@ -10,6 +10,7 @@ and t.term = 'raw experimental factor'
 and p._MGIType_key = 42
 and a._Object_key = p._Object_key
 and a._mgitype_key = 42
+and a._logicaldb_key = 189
 group by a.accid;
 
 create index idx1 on tmp_expFactors(accid);
@@ -19,7 +20,6 @@ select  a.accid "exp ID", ht.name "title", ht.description, f.factors
 from gxd_htexperiment ht
     join acc_accession a  on (a._object_key = ht._experiment_key
 				and a._logicaldb_key = 189) -- ArrayExpress
-    join voc_term t	  on (ht._evaluationstate_key = t._term_key)
     join tmp_expFactors f on (a.accid = f.accid)
 where a._logicaldb_key = 189	-- ArrayExpress logical db
-and t.term = 'Not Evaluated'
+and ht._evaluationstate_key = 20225941 -- "Not Evaluated"
