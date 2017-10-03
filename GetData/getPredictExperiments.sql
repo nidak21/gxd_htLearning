@@ -1,0 +1,25 @@
+-- Get all unevaluated HT experiments to predict relevance for
+
+-- 1) get experimental factors for each experiment joined together with ' | '
+create temporary table tmp_expFactors
+as
+select a.accid, string_agg(p.value, ' | ') factors
+from mgi_property p, voc_term t, acc_accession a
+where p._PropertyTerm_key = t._Term_key
+and t.term = 'raw experimental factor'
+and p._MGIType_key = 42
+and a._Object_key = p._Object_key
+and a._mgitype_key = 42
+group by a.accid;
+
+create index idx1 on tmp_expFactors(accid);
+
+-- 2) pull title, description, experimental factors together.
+select  a.accid "exp ID", ht.name "title", ht.description, f.factors
+from gxd_htexperiment ht
+    join acc_accession a  on (a._object_key = ht._experiment_key
+				and a._logicaldb_key = 189) -- ArrayExpress
+    join voc_term t	  on (ht._evaluationstate_key = t._term_key)
+    join tmp_expFactors f on (a.accid = f.accid)
+where a._logicaldb_key = 189	-- ArrayExpress logical db
+and t.term = 'Not Evaluated'
