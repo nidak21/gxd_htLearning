@@ -97,7 +97,7 @@ goodPipelines = [ \
 	] ),
 ]
 NUMTRIES = 20
-DATADIR = '/Users/jak/work/gxd_htLearning/Data/Data_expFactors'
+DATADIR = '/Users/jak/work/gxd_htLearning/Data/training/expFactors'
 TESTSIZE=0.20
 RANDOMSEED=None
 BETA=4
