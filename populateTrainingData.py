@@ -1,6 +1,6 @@
 #!/usr/bin/env python2.7 
 #
-# createDataDir.py
+# populateTrainingData.py
 #
 # Script to take a tab-delimited GXD HT experiment file containing training
 # data and split it into individual experiment files, one for each experiment.
@@ -15,7 +15,8 @@
 # The file names are the experiment IDs
 #
 # The input file structure is 4 columns, tab-delimited:
-#       title  description exp ID, eval state
+#       title  description, experimental factors, exp ID, eval state
+# experimental factors is a string of factor terms separated by '|'
 #
 # Author: Jim Kadin
 #
@@ -26,14 +27,10 @@ sys.path.append('..')
 sys.path.append('../..')
 import string
 import os
-import re
-import textTuningLib
-TUNINGMODULE = 'textTuningLib'
-#import itertools
-#import time
-#import types
 import argparse
 from ConfigParser import ConfigParser
+import gxd_htLearningLib as htLib
+import textTuningLib as ppLib	# module holding preprocessor function
 
 #-----------------------------------
 # Load config
@@ -41,14 +38,9 @@ cp = ConfigParser()
 cp.optionxform = str # make keys case sensitive
 cp.read(["config.cfg","../config.cfg"])
 
-DATADIR	= cp.get("DEFAULT", "DATADIR")
-ENCODE_ID_PREFIX = "ENCSR"	# Prefix of Encode IDs (not ArrayExpress IDs)
-				#   that appear in the title of many Encode
-				#   titles.
-				# The titles/desc's of these exp's are not
-				#  informative.
-				# We provide an option to exclude these from
-				#  the sample set.
+TRAINING_DATA = cp.get("DEFAULT", "TRAINING_DATA")
+PREPROCESSOR  = cp.get("DEFAULT", "PREPROCESSOR")
+
 def parseCmdLine():
     parser = argparse.ArgumentParser( \
     description='Splits GXD HT training data into sklearn directory structure')
@@ -57,21 +49,16 @@ def parseCmdLine():
     	help='tab-delimited input file of training data')
 
     parser.add_argument('-p', '--preprocessor', dest='preprocessor',
-	action='store', required=False, default=None,
-    	help='preprocessor function name in %s' % TUNINGMODULE)
+	action='store', required=False, default=PREPROCESSOR,
+    	help='preprocessor function name. Default= %s' % PREPROCESSOR)
 
     parser.add_argument('--noencode', dest='omitEncode',
 	action='store_const', required=False, default=False, const=True,
-    	help='omit Encode experiments w/ ID prefixes "%s" from the dataset'  \
-						% ENCODE_ID_PREFIX)
+    	help='omit Encode experiments from the dataset')
 
     parser.add_argument('-o', '--outputDir', dest='outputDir', action='store',
-	required=False, default=DATADIR,
-    	help='parent dir where /no and /yes are created. Default=%s' % DATADIR)
-
-    parser.add_argument('--expFactors', dest='expFactor', action='store',
-	required=False, default=None,
-    	help='file mapping experiments to experimental-factors')
+	required=False, default=TRAINING_DATA,
+    	help='parent dir where /no and /yes exist. Default=%s' % TRAINING_DATA)
 
     args = parser.parse_args()
     return args
@@ -96,70 +83,34 @@ def parseCmdLine():
 # (3) is what we are trying here for now. (probably won't make any difference!)
 #----------------------
 
-def getExpFactors(fileName):
-    '''
-    Return dict mapping experiment IDs to a set of their exp factors (strings)
-    '''
-    expToFactor = {}	# expToFactor[ expID ] = set of converted factor terms
-
-    with open(fileName, 'r') as fp:
-	for line in fp.readlines()[1:]:
-	    expId, term = line.split('\t', 1)
-	    term = convertExpFactorTerm(term)
-	    expToFactor.setdefault( expId, set()).add(term)
-    return expToFactor
-#----------------------
-punct = re.compile( '[^a-z0-9_]' ) 	# anything not a letter, digit, _
-
-def convertExpFactorTerm(term):
-    '''
-    Smoosh exp factor terms so each will tokenize as a single token.
-    (remove all spaces and convert all punct to "_")
-    Add "_EF" to differentiate these terms from other words,
-    (will also prevent stemming of the term, not sure that is good or bad)
-    '''
-    term = term.strip().lower()
-    term = re.sub(punct, '_', term) + "_EF"
-    return term
-#----------------------
-  
 # Main prog
 def main():
     args = parseCmdLine()
 
-    if args.preprocessor != None:
-	preproc = getattr( textTuningLib, args.preprocessor )
-
-    if args.expFactor != None:
-	expToFactors = getExpFactors(args.expFactor)
+    if args.preprocessor == 'None':
+	preprocess = None
+    else: preprocess = getattr( ppLib, args.preprocessor )
 
     # for now assume directories exist
     # could create directories instead.
 
     fp = open( args.inputFile, 'r')
-    for i, line in enumerate( fp.readlines()[1:] ):
+    for line in fp.readlines()[1:]:
 
-	title, desc, ID, yesNo = map( string.strip, line.split('\t') )
+	title, expFactorStr, desc, ID, yesNo = \
+					map(string.strip, line.split('\t'))
 
-	if args.omitEncode and title.find(ENCODE_ID_PREFIX) > -1:
-	    print "Skipping ENCODE exp: '%s'" % ID
+	if args.omitEncode and htLib.isEncodeExperiment(title):
+	    print "Skipping ENCODE experiment: '%s'" % ID
 	    continue
 	
 	filename = os.sep.join( [ args.outputDir, yesNo.lower(), ID ] )
 
 	with open(filename, 'w') as newFile:
 
-	    # separate title and desc with punctuation just so we can
-	    #  look in the files. sklearn vectorizer will ignore punctuation.
-	    doc =  title + ' ---- ' + desc
+	    doc = htLib.constructDoc( title, desc, expFactorStr)
 
-	    if args.expFactor != None:
-		factorsText = ' '.join(expToFactors.setdefault(ID,set()))
-		doc += ' ' + factorsText
-		#if factorsText != '': print "%s '%s'" % (ID,doc)
-
-	    if args.preprocessor != None:
-		doc = preproc(doc)
+	    if preprocess: doc = preprocess(doc)
 	    newFile.write( doc )
 #
 main()
