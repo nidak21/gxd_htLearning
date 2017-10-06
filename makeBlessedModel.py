@@ -18,7 +18,7 @@ cp = ConfigParser()
 cp.optionxform = str	# makekeys case sensitive
 cp.read(["config.cfg", "../config.cfg"])
 
-DATADIR = cp.get("DEFAULT", "DATADIR")
+TRAINING_DATA = cp.get("DEFAULT", "TRAINING_DATA")
 PICKLE_FILE = cp.get("DEFAULT", "BLESSED_MODEL")
 #-----------------------
 
@@ -28,11 +28,13 @@ def parseCmdLine():
 
     parser.add_argument('-p', '--pickle', dest='pickleFile',
 			default=PICKLE_FILE,
-                        help='pickle file to write to.')
+                        help='pickle file to write to. Default: "%s"' \
+				% PICKLE_FILE)
 
     parser.add_argument('-t', '--training', dest='trainingDataDir',
-			default=DATADIR,
-                        help="where the training set lives.")
+			default=TRAINING_DATA,
+                        help='where the training set lives. Default: "%s"' \
+				% TRAINING_DATA)
 
     return parser.parse_args()
 #-----------------------
