@@ -52,9 +52,9 @@ def parseCmdLine():
 	action='store', required=False, default=PREPROCESSOR,
     	help='preprocessor function name. Default= %s' % PREPROCESSOR)
 
-    parser.add_argument('--noencode', dest='omitEncode',
-	action='store_const', required=False, default=False, const=True,
-    	help='omit Encode experiments from the dataset')
+    parser.add_argument('--encode', dest='omitEncode',
+	action='store_const', required=False, default=True, const=False,
+    	help='keep Encode experiments in the dataset')
 
     parser.add_argument('-o', '--outputDir', dest='outputDir', action='store',
 	required=False, default=TRAINING_DATA,

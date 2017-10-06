@@ -22,7 +22,6 @@ import sys
 sys.path.append('..')
 sys.path.append('../..')
 import string
-import re
 import pickle
 import argparse
 from ConfigParser import ConfigParser
@@ -36,8 +35,7 @@ cp.optionxform = str # make keys case sensitive
 cp.read(["config.cfg","../config.cfg"])
 
 DATA_TO_PREDICT	 = cp.get("DEFAULT", "DATA_TO_PREDICT")
-DEFAULT_OUTPUT   = "predicted.txt"
-ENCODE_ID_PREFIX = cp.get("DEFAULT", "ENCODE_ID_PREFIX")
+DEFAULT_OUTPUT   = "predicted.tsv"
 BLESSED_MODEL	 = cp.get("DEFAULT", "BLESSED_MODEL")
 PREPROCESSOR     = cp.get("DEFAULT", "PREPROCESSOR")
 
@@ -49,25 +47,22 @@ def parseCmdLine():
 
     parser.add_argument('-i', '--input', dest='inputFile', action='store', 
 	required=False, default=DATA_TO_PREDICT,
-    	help='tab-delimited experiment input file')
+    	help='tab-delimited experiment input file. Default: "%s"' \
+				% DATA_TO_PREDICT)
 
     parser.add_argument('-o', '--output', dest='outputFile', action='store',
 	required=False, default=DEFAULT_OUTPUT,
-    	help='tab-delimited output file')
+    	help='tab-delimited output file. Default: "%s"' \
+				% DEFAULT_OUTPUT)
 
     parser.add_argument('-b', '--blessed', dest='blessedModel', action='store',
 	required=False, default=BLESSED_MODEL,
     	help='pickled model file')
 
-#    parser.add_argument('-p', '--preprocessor', dest='preprocessor',
-#	action='store', required=False, default=None,
-#    	help='preprocessor function name in %s' % TUNINGMODULE)
+    parser.add_argument('--encode', dest='omitEncode',
+        action='store_const', required=False, default=True, const=False,
+        help='keep Encode experiments in the dataset')
 
-#    parser.add_argument('--noencode', dest='omitEncode',
-#	action='store_const', required=False, default=False, const=True,
-#    	help='omit Encode experiments w/ ID prefixes "%s" from the dataset'  \
-#						% ENCODE_ID_PREFIX)
-#
     args = parser.parse_args()
     return args
 #----------------------
@@ -75,14 +70,13 @@ def parseCmdLine():
 # Main prog
 def main():
     args = parseCmdLine()
-    #print args
 
     with open(args.blessedModel, 'rb') as bp:
 	blessedModel = pickle.load(bp)
 
-    if PREPROCESSOR != 'None':
-	preprocess = getattr( ppLib, PREPROCESSOR )
-    else: preprocess = None
+    if PREPROCESSOR == 'None':
+	preprocess = None
+    else: preprocess = getattr( ppLib, PREPROCESSOR )
 
     ip = open(args.inputFile, 'r')
 
@@ -93,10 +87,12 @@ def main():
     expFactors = []
     for expLine in ip.readlines()[1:]:
 
-	expFactorStr, desc, expId, title = expLine.split('\t')
-	if htLib.isEncodeExperiment(title):	# need to add omit flag check
+	expFactorStr, desc, expId, title = \
+				    map(string.strip, expLine.split('\t'))
+	if args.omitEncode and htLib.isEncodeExperiment(title):
             print "Skipping ENCODE experiment: '%s'" % ID
             continue
+
 	doc = htLib.constructDoc( title, desc, expFactorStr)
 	if preprocess: doc = preprocess(doc)
 
@@ -115,9 +111,9 @@ def main():
 	    op.write('\t'.join( [\
 				id,
 				CLASS_NAMES[y],
-				expFactorStr.strip(),
-				title.strip(),
-				desc.strip(),
+				expFactorStr,
+				title,
+				desc,
 				str(doc).strip(),
 				]
 			    ) + '\n')
