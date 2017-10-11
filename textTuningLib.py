@@ -182,23 +182,6 @@ class TextPipelineTuningHelper (object):
 	return falsePositives, falseNegatives
     # ---------------------------
 
-    def getOrderedFeatures( self) :
-	'''
-	Return list of pairs, [ (feature, coef), (feature, coef), ... ]
-	    ordered from highest coef to lowest.
-	'''
-	if not hasattr(self.bestClassifier, 'coef_'): # not all have coef's
-	    return []
-
-	coefficients = self.bestClassifier.coef_[0].tolist()
-	featureNames = self.bestVectorizer.get_feature_names()
-	
-	pairList = zip(featureNames, coefficients)
-
-	selCoef = lambda x: x[1]	# select the coefficient in the pair
-	return sorted(pairList, key=selCoef, reverse=True)
-    # ---------------------------
-
     def getReports(self, verbose=True):
 
 	output = getReportStart( self.time, self.beta, self.randomSeeds,
@@ -213,7 +196,8 @@ class TextPipelineTuningHelper (object):
 
 	if verbose: 
 	    output += getTopFeaturesReport( \
-			self.getOrderedFeatures(), self.nTopFeatures) 
+		    getOrderedFeatures(self.bestVectorizer,self.bestClassifier),
+		    self.nTopFeatures) 
 
 	    output += getVectorizerReport(self.bestVectorizer,
 					    nFeatures=self.nFeaturesReport)
@@ -389,6 +373,26 @@ def getFormatedCM( \
 		str( confusion_matrix(y_true, y_predicted, labels=LABELS) ) )
     return output
 #  ---------------------------
+
+def getOrderedFeatures( vectorizer,	# fitted vectorizer from a pipeline
+			classifier	# trained classifier from a pipeline
+    ) :
+    '''
+    Return list of pairs, [ (feature, coef), (feature, coef), ... ]
+	ordered from highest coef to lowest.
+    Assumes:  vectorizer has get_feature_names() method
+    '''
+    if not hasattr(classifier, 'coef_'): # not all have coef's
+	return []
+
+    coefficients = classifier.coef_[0].tolist()
+    featureNames = vectorizer.get_feature_names()
+    
+    pairList = zip(featureNames, coefficients)
+
+    selCoef = lambda x: x[1]	# select the coefficient in the pair
+    return sorted(pairList, key=selCoef, reverse=True)
+# ----------------------------
 
 def getTopFeaturesReport(  \
     orderedFeatures,	# features: [ ('feature name', coef), ...]

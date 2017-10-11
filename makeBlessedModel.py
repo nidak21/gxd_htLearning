@@ -9,9 +9,9 @@ from ConfigParser import ConfigParser
 import argparse
 import pickle
 
-#import textTuningLib as tl
+import textTuningLib as tl
 from sklearn.datasets import load_files
-#from sklearn.pipeline import Pipeline
+from sklearn.pipeline import Pipeline
 from BlessedPipeline import blessedPipeline
 #-----------------------
 cp = ConfigParser()
@@ -19,7 +19,8 @@ cp.optionxform = str	# makekeys case sensitive
 cp.read(["config.cfg", "../config.cfg"])
 
 TRAINING_DATA = cp.get("DEFAULT", "TRAINING_DATA")
-PICKLE_FILE = cp.get("DEFAULT", "BLESSED_MODEL")
+PICKLE_FILE   = cp.get("DEFAULT", "BLESSED_MODEL")
+NUM_TOP_FEATURES=20	# number of highly weighted features to report
 #-----------------------
 
 def parseCmdLine():
@@ -50,5 +51,11 @@ def process():
 	pickle.dump(blessedPipeline, fp)
 
     print "Trained model written to '%s'" % args.pickleFile
+
+    # print features report
+    vectorizer = blessedPipeline.named_steps['vectorizer']
+    classifier = blessedPipeline.named_steps['classifier']
+    orderedFeatures = tl.getOrderedFeatures(vectorizer,classifier)
+    print tl.getTopFeaturesReport( orderedFeatures, NUM_TOP_FEATURES)
 #-----------------------
 if __name__ == "__main__": process()
