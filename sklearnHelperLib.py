@@ -6,7 +6,7 @@ In particular classes/functions to do stemming.
 Convention: trying to use camelCase for all the names here, but
     sklearn typically_uses_names with underscores.
 
-See notes on stemming at the bottom of this file...
+SEE NOTES ON STEMMING AT THE BOTTOM OF THIS FILE...
 '''
 import sys
 import re
@@ -22,14 +22,6 @@ import nltk.stem.snowball as nltk
 #cp = ConfigParser()
 #cp.optionxform = str # make keys case sensitive
 #cp.read(["config.cfg", "../config.cfg"])
-
-#DATADIR = cp.get("DEFAULT", "DATADIR")
-
-# in the list of classifications labels for evaluating text data
-#INDEX_OF_YES = 1
-#INDEX_OF_NO = 0
-#LABELS = [ INDEX_OF_YES, INDEX_OF_NO ]
-#TARGET_NAMES = ['yes', 'no']
 
 # ---------------------------
 # Probably best to preprocess the whole data set once

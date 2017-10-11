@@ -96,8 +96,9 @@ goodPipelines = [ \
 		tol=0.001, verbose=False,) ),
 	] ),
 ]
-NUMTRIES = 20
-DATADIR = '/Users/jak/work/gxd_htLearning/Data/training/expFactors'
+NUMTRIES = 3
+# JIM: NEED TO USE CONFIG FILE
+TRAINING_DATA = '/Users/jak/work/gxd_htLearning/Data/training/expFactors'
 TESTSIZE=0.20
 RANDOMSEED=None
 BETA=4
@@ -128,7 +129,7 @@ def y_vote( theYs,	# [ [y1's], [y2's], ...] parallel arrays of class assn's
 #-----------------------
 
 def process():
-    dataSet = load_files( DATADIR )
+    dataSet = load_files( TRAINING_DATA )
     pipelineInfo = [ {	'fscores':0,	# metric totals across each pipeline/try
 			'precisions': 0,#    for computing avgs
 			'recalls': 0, } for i in range(len(goodPipelines)+1) ]

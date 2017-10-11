@@ -15,7 +15,7 @@ def process():
 			'randForSplit'      : args.randForSplit,
 			'randForClassifier' : args.randForClassifier,
 			} )
-    beta=4		# >1 weighs recall more than precision
+    beta=4		# beta for the GridSearch
     pipeline = Pipeline( [
 	#('vectorizer', hl.StemmedCountVectorizer(
 	('vectorizer', TfidfVectorizer(

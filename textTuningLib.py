@@ -35,8 +35,6 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import make_scorer, fbeta_score,\
 			    classification_report, confusion_matrix
 
-#from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
-
 #-----------------------------------
 # Config, constants, ...
 # ---------------------------
@@ -44,11 +42,13 @@ cp = ConfigParser()
 cp.optionxform = str # make keys case sensitive
 cp.read(["config.cfg", "../config.cfg"])
 
-DATADIR = cp.get("DEFAULT", "DATADIR")
+TRAINING_DATA = cp.get("DEFAULT", "TRAINING_DATA")
+INDEX_OF_YES  = cp.getint("DEFAULT", "INDEX_OF_YES")
+INDEX_OF_NO   = cp.getint("DEFAULT", "INDEX_OF_NO")
+GRIDSEARCH_BETA = cp.getint("MODEL_TUNING", "GRIDSEARCH_BETA")
+COMPARE_BETA   = cp.getint("MODEL_TUNING", "COMPARE_BETA")
 
 # in the list of classifications labels for evaluating text data
-INDEX_OF_YES = 1
-INDEX_OF_NO = 0
 LABELS = [ INDEX_OF_YES, INDEX_OF_NO ]
 TARGET_NAMES = ['yes', 'no']
 
@@ -56,7 +56,7 @@ TARGET_NAMES = ['yes', 'no']
 # Some basic utilities...
 # ---------------------------
 
-def makeFscorer(beta=1):
+def makeFscorer(beta=GRIDSEARCH_BETA):
     '''
     Return an fbeta_score function that scores the 'yes's
     '''
@@ -70,7 +70,7 @@ class TextPipelineTuningHelper (object):
     def __init__(self,
 	pipeline,
 	pipelineParameters,
-	beta=1,
+	beta=GRIDSEARCH_BETA,
 	cv=5,			# number of cross validation folds to use
 	gsVerbose=1,		# verbose setting for grid search (to stdout)
 	testSize=0.20,		# size of the test set from the dataSet
@@ -105,7 +105,7 @@ class TextPipelineTuningHelper (object):
     #---------------------
 
     def getDataDir(self):
-	return DATADIR
+	return TRAINING_DATA
     # ---------------------------
 
     def getDataSet(self):
@@ -205,9 +205,9 @@ class TextPipelineTuningHelper (object):
 							    self.getDataDir() )
 
 	output += getFormatedMetrics("Training Set", self.y_train,
-					self.y_predicted_train, self.beta)
+					self.y_predicted_train, COMPARE_BETA)
 	output += getFormatedMetrics("Test Set", self.y_test,
-					self.y_predicted_test, self.beta)
+					self.y_predicted_test, COMPARE_BETA)
 	output += getBestParamsReport(self.gs, self.pipelineParameters)
 	output += getGridSearchReport(self.gs, self.pipelineParameters)
 
