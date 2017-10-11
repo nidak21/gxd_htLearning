@@ -3,6 +3,7 @@ import sys
 sys.path.append('..')
 import argparse
 import textTuningLib as tl
+import sklearnHelperLib as hl
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 from sklearn.preprocessing import StandardScaler, MaxAbsScaler
 from sklearn.linear_model import SGDClassifier
@@ -10,19 +11,19 @@ from sklearn.pipeline import Pipeline
 #-----------------------
 def process():
     args = parseCmdLine()
-    randomSeeds = tl.getRandomSeeds( { 	# None means generate a random seed
+    randomSeeds = hl.getRandomSeeds( { 	# None means generate a random seed
 			'randForSplit'      : args.randForSplit,
 			'randForClassifier' : args.randForClassifier,
 			} )
     beta=4		# >1 weighs recall more than precision
     pipeline = Pipeline( [
-	#('vectorizer', tl.StemmedCountVectorizer(
+	#('vectorizer', hl.StemmedCountVectorizer(
 	('vectorizer', TfidfVectorizer(
 			strip_accents='unicode', decode_error='replace',
 			token_pattern=u'(?i)\\b([a-z_]\w+)\\b',
 			stop_words="english",
-			#preprocessor=tl.vectorizer_preprocessor,
-			#preprocessor=tl.vectorizer_preprocessor_stem,
+			#preprocessor=hl.vectorizer_preprocessor,
+			#preprocessor=hl.vectorizer_preprocessor_stem,
 			),
 	),
 	#('scaler'    ,StandardScaler(copy=True,with_mean=False,with_std=True)),
@@ -33,8 +34,8 @@ def process():
     parameters={'vectorizer__ngram_range':[(1,3)],
 		'vectorizer__min_df':[2],
 		'vectorizer__max_df':[.98],
-                #'vectorizer__preprocessor':[tl.vectorizer_preprocessor,
-                #                            tl.vectorizer_preprocessor_stem],
+                #'vectorizer__preprocessor':[hl.vectorizer_preprocessor,
+                #                            hl.vectorizer_preprocessor_stem],
 		'classifier__alpha':[1],
 		'classifier__learning_rate':['invscaling'],
 		'classifier__eta0':[ .01],
