@@ -27,15 +27,15 @@ import os.path
 sys.path.append('..')
 from ConfigParser import ConfigParser
 
-import numpy as np
+import sklearnHelperLib as skhelper
+
 from sklearn.datasets import load_files
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import make_scorer, fbeta_score,\
 			    classification_report, confusion_matrix
 
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
-import nltk.stem.snowball as nltk
+#from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 
 #-----------------------------------
 # Config, constants, ...
@@ -53,107 +53,6 @@ LABELS = [ INDEX_OF_YES, INDEX_OF_NO ]
 TARGET_NAMES = ['yes', 'no']
 
 # ---------------------------
-# Probably best to preprocess the whole data set once
-#  and stem it (and remove URLs) if stemming makes a big enough difference.
-#
-# Stemming in Vectorizer subclasses:
-# See: https://stackoverflow.com/questions/36182502/add-stemming-support-to-countvectorizer-sklearn
-# This is subtle:
-# Vectorizers have build_preprocessor() method that returns a preprocessor()
-#   function.
-# The preprocessor() function is called for each document (string) to do any
-#   preprocessing, returning string.
-# What we do here:    Subclass each of the common Vectorizers
-#  and override the build_preprocessor() method to return a stemming
-#    preprocessor function.
-# ---------------------------
-stemmer = nltk.EnglishStemmer()
-token_re = re.compile("\\b([a-z_]\w+)\\b",re.IGNORECASE) # match words
-
-class StemmedCountVectorizer(CountVectorizer):
-    def build_preprocessor(self):# override super's build_preprocessor method
-	'''
-	Return preprocessor function that stems.
-	'''
-	# get the super class's preprocessor function for this object.
-        preprocessor = super(type(self), self).build_preprocessor()
-
-	# Tokenize and stem the string returned by the super's preprocessor
-	#   method.
-	# This should stem all words in  {bi|tri|...}grams and preserve any
-	#  functionality implemented in the preprocessor.
-	# (at the cost of an extra tokenizing step)
-	def my_preprocessor( doc):
-	    output = ''
-	    for m in token_re.finditer( preprocessor(doc) ):
-		output += " " + stemmer.stem(m.group())
-	    return output
-
-        return my_preprocessor
-# ---------------------------
-
-class StemmedTfidfVectorizer(TfidfVectorizer):
-    def build_preprocessor(self):# override super's build_preprocessor method
-	'''
-	Return preprocessor function that stems.
-	'''
-	# get the super class's preprocessor function for this object.
-        preprocessor = super(type(self), self).build_preprocessor()
-
-	# Tokenize and stem the string returned by the super's preprocessor
-	#   method.
-	# This should stem all words in  {bi|tri|...}grams and preserve any
-	#  functionality implemented in the preprocessor.
-	# (at the cost of an extra tokenizing step)
-	def my_preprocessor( doc):
-	    output = ''
-	    for m in token_re.finditer( preprocessor(doc) ):
-		output += " " + stemmer.stem(m.group())
-	    return output
-
-        return my_preprocessor
-
-# ---------------------------
-
-# Different stemming approach: Stemming in a custom preprocessor.
-# This might be faster than the above classes since we will be stemming
-#  at the same time as the rest of the preprocessor.
-# Also you CAN try vectorizer_preprocessor{_stem} as options in GridSearch.
-#  BUT this doesn't generalize to arbritary preprocessors.
-
-urls_re = re.compile("\\bhttps?://\\S*",re.IGNORECASE) # match URLs
-
-def vectorizer_preprocessor_stem(input):
-    '''
-    Cleanse documents (strings) before they are passed to a vectorizer
-       tokenizer.
-    Currently: lower case everyting, remove URLs, and stem
-    To use:
-    vectorizer = CountVectorizer(preprocessor=vectorizer_preprocessor_stem)
-    '''
-    output = ''
-    
-    for s in urls_re.split(input):	# split (and remove) URLs
-	s.lower()
-	for m in token_re.finditer(s):
-	    output += " " + stemmer.stem(m.group())
-    return output
-# ---------------------------
-
-def vectorizer_preprocessor(input):
-    '''
-    Cleanse documents (strings) before they are passed to a vectorizer
-       tokenizer.
-    Currently: lower case everything, remove URLs 
-    To use: vectorizer = CountVectorizer(preprocessor=vectorizer_preprocessor)
-    '''
-    output = ''
-
-    for s in urls_re.split(input):
-	output += ' ' + s.lower() 
-    return output
-
-# ---------------------------
 # Some basic utilities...
 # ---------------------------
 
@@ -163,41 +62,6 @@ def makeFscorer(beta=1):
     '''
     return make_scorer(fbeta_score, beta=beta, pos_label=INDEX_OF_YES)
 
-# ---------------------------
-# Random seed support:
-# For various methods, random seeds are used
-#   e.g., for train_test_split() the seed is used to decide which samples
-#         make it into which set.
-# However, often we want to record/report the random seeds used so we can
-#     reproduce results when desired.
-#     So we use these routines to always provide and report a random seed.
-#     If a seed is provided, we use it, if not, we generate one.
-#
-# getRandomSeeds() takes a dictionary of seeds, and generates random seeds
-#     for any key that doesn't already have a numeric seed
-# getRandomSeedReport() formats a seed dictionary in a standard way
-#     for reporting.
-# ---------------------------
-
-def getRandomSeeds( seedDict	# dict: {'seedname' : number or None }
-    ):
-    '''
-    Set a random integer for each key in seedDict that is None
-    '''
-    for k in seedDict.keys():
-	if seedDict[k] == None: seedDict[k] = np.random.randint(1000)
-
-    return seedDict
-# ---------------------------
-
-def getRandomSeedReport( seedDict ):
-    output = "Random Seeds:\t"
-    for k in sorted(seedDict.keys()):
-	output += "%s=%d\t" % (k, seedDict[k])
-
-    return output
-
-# ---------------------------
 # Main class
 # ---------------------------
 
@@ -373,7 +237,7 @@ def getReportStart( curtime, beta, randomSeeds,dataDir):
 
     output = SSTART + "Start Time %s\n" % curtime
     output += "Data dir: %s,\tBeta: %d\n" % (dataDir, beta)
-    output += getRandomSeedReport(randomSeeds)
+    output += skhelper.getRandomSeedReport(randomSeeds)
     output += "\n"
     return output
 # ---------------------------
