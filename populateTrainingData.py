@@ -71,25 +71,6 @@ def parseCmdLine():
     args = parser.parse_args()
     return args
 #----------------------
-# Experimental factors:
-# These are terms associated with experiments by ArrayExpress curators.
-# NOT a controlled vocab - there are >1000 distinct terms.
-#
-# Want to see if these help distinguish relevant/irrelevant experiments.
-# Can think of several ways to include these:
-# 1) treat the terms as a separate text field from the title/description and
-#    tokenize to get separate features for the tokens in these terms.
-#    (this seemed quite involved to do, but seems useful IF these annotations
-#     are really significant. I.e., if an exp factor term of "development"
-#     carries more weight than "development" in the regular text.)
-# 2) just throw these terms into the text/description text and tokenize these
-#    altogether. So the distinction that  individual tokens are part of
-#     exp Factors is lost.
-# 3) Something in the middle: smoosh the tokens of these factor terms into
-#    indivisible tokens and add some suffix to differentiate these from
-#    regular text features. Then add these "terms" to the title/desc text.
-# (3) is what we are trying here for now. (probably won't make any difference!)
-#----------------------
 
 # Main prog
 def main():
