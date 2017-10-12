@@ -26,7 +26,7 @@ import pickle
 import argparse
 from ConfigParser import ConfigParser
 import gxd_htLearningLib as htLib
-import textTuningLib as ppLib	# module holding the preprocessor function
+import sklearnHelperLib as ppLib	# module holding preprocessor function
 
 #-----------------------------------
 # Load config
@@ -35,9 +35,10 @@ cp.optionxform = str # make keys case sensitive
 cp.read(["config.cfg","../config.cfg"])
 
 DATA_TO_PREDICT	 = cp.get("DEFAULT", "DATA_TO_PREDICT")
-DEFAULT_OUTPUT   = "predicted.tsv"
 BLESSED_MODEL	 = cp.get("DEFAULT", "BLESSED_MODEL")
 PREPROCESSOR     = cp.get("DEFAULT", "PREPROCESSOR")
+KEEP_ENCODE      = cp.getboolean("DEFAULT", "KEEP_ENCODE")
+DEFAULT_OUTPUT   = "predicted.tsv"
 
 CLASS_NAMES      = eval( cp.get("DEFAULT", "CLASS_NAMES") )
 
@@ -47,21 +48,31 @@ def parseCmdLine():
 
     parser.add_argument('-i', '--input', dest='inputFile', action='store', 
 	required=False, default=DATA_TO_PREDICT,
-    	help='tab-delimited experiment input file. Default: "%s"' \
+    	help='tab-delimited experiment input file. Default: %s' \
 				% DATA_TO_PREDICT)
 
     parser.add_argument('-o', '--output', dest='outputFile', action='store',
 	required=False, default=DEFAULT_OUTPUT,
-    	help='tab-delimited output file. Default: "%s"' \
-				% DEFAULT_OUTPUT)
+    	help='tab-delimited output file. Default: %s' % DEFAULT_OUTPUT)
+
+    parser.add_argument('--encode', dest='keepEncode',
+        action='store_const', required=False, default=KEEP_ENCODE, const=True,
+        help='keep Encode experiments in the dataset. Default: %s'  \
+							% str(KEEP_ENCODE)
+	)
+    parser.add_argument('--noencode', dest='keepEncode',
+        action='store_const', required=False, default=not KEEP_ENCODE,
+	const=False,
+        help='omit Encode experiments in the dataset. Default: %s'  \
+							% str(not KEEP_ENCODE)
+	)
+    parser.add_argument('-p', '--preprocessor', dest='preprocessor',
+        action='store', required=False, default=PREPROCESSOR,
+        help='preprocessor function name. Default= %s' % PREPROCESSOR)
 
     parser.add_argument('-b', '--blessed', dest='blessedModel', action='store',
 	required=False, default=BLESSED_MODEL,
-    	help='pickled model file')
-
-    parser.add_argument('--encode', dest='omitEncode',
-        action='store_const', required=False, default=True, const=False,
-        help='keep Encode experiments in the dataset')
+    	help='pickled model file. Default: %s' % BLESSED_MODEL)
 
     args = parser.parse_args()
     return args
@@ -74,22 +85,23 @@ def main():
     with open(args.blessedModel, 'rb') as bp:
 	blessedModel = pickle.load(bp)
 
-    if PREPROCESSOR == 'None':
+    if args.preprocessor == 'None':
 	preprocess = None
-    else: preprocess = getattr( ppLib, PREPROCESSOR )
-
-    ip = open(args.inputFile, 'r')
+    else: preprocess = getattr( ppLib, args.preprocessor )
 
     docs = []		# list of text docs (experiments) to be predicted
     ids = []		# parallel list of experiment ids
     titles = []
     descriptions = []
     expFactors = []
+
+    # read tab-delimited experiment file
+    ip = open(args.inputFile, 'r')
     for expLine in ip.readlines()[1:]:
 
 	expFactorStr, desc, expId, title = \
 				    map(string.strip, expLine.split('\t'))
-	if args.omitEncode and htLib.isEncodeExperiment(title):
+	if not args.keepEncode and htLib.isEncodeExperiment(title):
             print "Skipping ENCODE experiment: '%s'" % ID
             continue
 
@@ -102,12 +114,23 @@ def main():
 	descriptions.append(desc)
 	expFactors.append(expFactorStr)
 
+    # PREDICT!
     y_predict = blessedModel.predict(docs)
+
+    # write tab-delimited output file with the predictions
     with  open(args.outputFile, 'w') as op:
+	op.write('\t'.join( [\
+			    "ID",
+			    "Prediction",
+			    "Experimental Factors",
+			    "Title",
+			    "Description",
+			    "Processed Document"
+			    ]
+			) + '\n')
 	for doc, id, title, desc, expFactorStr, y in \
 		zip(docs, ids, titles, descriptions, expFactors, y_predict): 
 
-	    print id
 	    op.write('\t'.join( [\
 				id,
 				CLASS_NAMES[y],
@@ -117,5 +140,7 @@ def main():
 				str(doc).strip(),
 				]
 			    ) + '\n')
+    print "%d experiment predictions written to %s" % \
+    						(len(docs), args.outputFile)
 #
 main()
