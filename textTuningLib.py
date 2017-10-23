@@ -2,7 +2,7 @@
 Stuff for helping to tune sklearn pipelines for text classification
 
 Assumes:
-* Tuning a binary text classification pipeline
+* Tuning a binary text classification pipeline (maybe this assumption can go?)
 * 'Yes' is index 1 of list of classification labels (targets)
 * 'No' is index 0 
 * The text sample data is in sklearn load_files directory structure
@@ -29,6 +29,7 @@ from ConfigParser import ConfigParser
 
 import sklearnHelperLib as skhelper
 
+import numpy as np
 from sklearn.datasets import load_files
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV
@@ -51,6 +52,40 @@ COMPARE_BETA   = cp.getint("MODEL_TUNING", "COMPARE_BETA")
 # in the list of classifications labels for evaluating text data
 LABELS = [ INDEX_OF_YES, INDEX_OF_NO ]
 TARGET_NAMES = ['yes', 'no']
+
+# ---------------------------
+# Random seed support:
+# For various methods, random seeds are used
+#   e.g., for train_test_split() the seed is used to decide which samples
+#         make it into which set.
+# However, often we want to record/report the random seeds used so we can
+#     reproduce results when desired.
+#     So we use these routines to always provide and report a random seed.
+#     If a seed is provided, we use it, if not, we generate one.
+#
+# getRandomSeeds() takes a dictionary of seeds, and generates random seeds
+#     for any key that doesn't already have a numeric seed
+# getRandomSeedReport() formats a seed dictionary in a standard way
+#     for reporting.
+# ---------------------------
+
+def getRandomSeeds( seedDict    # dict: {'seedname' : number or None }
+    ):
+    '''
+    Set a random integer for each key in seedDict that is None
+    '''
+    for k in seedDict.keys():
+        if seedDict[k] == None: seedDict[k] = np.random.randint(1000)
+
+    return seedDict
+# ---------------------------
+
+def getRandomSeedReport( seedDict ):
+    output = "Random Seeds:\t"
+    for k in sorted(seedDict.keys()):
+        output += "%s=%d\t" % (k, seedDict[k])
+    return output
+# ---------------------------
 
 # ---------------------------
 # Some basic utilities...
@@ -221,7 +256,7 @@ def getReportStart( curtime, beta, randomSeeds,dataDir):
 
     output = SSTART + "Start Time %s\n" % curtime
     output += "Data dir: %s,\tBeta: %d\n" % (dataDir, beta)
-    output += skhelper.getRandomSeedReport(randomSeeds)
+    output += getRandomSeedReport(randomSeeds)
     output += "\n"
     return output
 # ---------------------------

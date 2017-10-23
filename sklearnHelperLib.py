@@ -1,5 +1,5 @@
 '''
-Stuff for helping to tune sklearn pipelines for text classification
+Sklearn helper stuff.
 
 In particular classes/functions to do stemming.
 
@@ -12,7 +12,6 @@ import sys
 import re
 import string
 
-import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 import nltk.stem.snowball as nltk
 
@@ -123,39 +122,7 @@ def vectorizer_preprocessor(input):
     for s in urls_re.split(input):
 	output += ' ' + s.lower() 
     return output
-
 # ---------------------------
-# Random seed support:
-# For various methods, random seeds are used
-#   e.g., for train_test_split() the seed is used to decide which samples
-#         make it into which set.
-# However, often we want to record/report the random seeds used so we can
-#     reproduce results when desired.
-#     So we use these routines to always provide and report a random seed.
-#     If a seed is provided, we use it, if not, we generate one.
-#
-# getRandomSeeds() takes a dictionary of seeds, and generates random seeds
-#     for any key that doesn't already have a numeric seed
-# getRandomSeedReport() formats a seed dictionary in a standard way
-#     for reporting.
-# ---------------------------
-
-def getRandomSeeds( seedDict	# dict: {'seedname' : number or None }
-    ):
-    '''
-    Set a random integer for each key in seedDict that is None
-    '''
-    for k in seedDict.keys():
-	if seedDict[k] == None: seedDict[k] = np.random.randint(1000)
-
-    return seedDict
-# ---------------------------
-
-def getRandomSeedReport( seedDict ):
-    output = "Random Seeds:\t"
-    for k in sorted(seedDict.keys()):
-	output += "%s=%d\t" % (k, seedDict[k])
-    return output
 
 stemmingNotes= \
 '''

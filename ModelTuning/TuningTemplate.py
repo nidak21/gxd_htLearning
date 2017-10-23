@@ -11,7 +11,7 @@ from sklearn.pipeline import Pipeline
 #-----------------------
 def process():
     args = parseCmdLine()
-    randomSeeds = hl.getRandomSeeds( { 	# None means generate a random seed
+    randomSeeds = tl.getRandomSeeds( { 	# None means generate a random seed
 			'randForSplit'      : args.randForSplit,
 			'randForClassifier' : args.randForClassifier,
 			} )
