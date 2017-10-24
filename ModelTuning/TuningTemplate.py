@@ -1,7 +1,5 @@
-
 import sys
-sys.path.append('..')
-import argparse
+sys.path.extend(['..','../..'])
 import textTuningLib as tl
 import sklearnHelperLib as hl
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
@@ -10,12 +8,11 @@ from sklearn.linear_model import SGDClassifier
 from sklearn.pipeline import Pipeline
 #-----------------------
 def process():
-    args = parseCmdLine()
+    args = tl.parseCmdLine()
     randomSeeds = tl.getRandomSeeds( { 	# None means generate a random seed
 			'randForSplit'      : args.randForSplit,
 			'randForClassifier' : args.randForClassifier,
 			} )
-    beta=4		# beta for the GridSearch
     pipeline = Pipeline( [
 	#('vectorizer', hl.StemmedCountVectorizer(
 	('vectorizer', TfidfVectorizer(
@@ -43,25 +40,8 @@ def process():
 		'classifier__penalty':['l2'],
 		}
     ht = tl.TextPipelineTuningHelper( \
-	pipeline, parameters, beta=beta, cv=5, randomSeeds=randomSeeds,
+	pipeline, parameters, randomSeeds=randomSeeds, #beta=4, cv=5,
 	).fit()
     print ht.getReports(verbose=args.verbose)
-#-----------------------
-def parseCmdLine():
-    """
-    Usage: scriptname [-v] [ randForSplit [ randForClassifier] ]
-    """
-    parser = argparse.ArgumentParser( \
-    description='Run a tuning experiment, log to tuning.log')
-
-    parser.add_argument('-v', '--verbose', dest='verbose', action='store_true',
-			help='verbose: print longer tuning report')
-
-    parser.add_argument('randForClassifier', nargs='?', default=None, type=int,
-			help="random seed for classifier")
-
-    parser.add_argument('randForSplit', nargs='?', default=None, type=int,
-			help="random seed for test_train_split")
-    return parser.parse_args()
 #-----------------------
 if __name__ == "__main__": process()

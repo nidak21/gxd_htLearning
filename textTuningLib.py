@@ -1,5 +1,16 @@
 '''
-Stuff for helping to tune sklearn pipelines for text classification
+Support for "tuning scripts" for text machine learning projects.
+
+Separate from this module, there are tuning scripts that define Pipelines and
+parameter options to try/compare via GridSearchCV.
+
+The idea is that, as much as possible, all code is here for these scripts, and
+only the Pipelines and parameters to try are in the tuning scripts.
+
+So the code here is coupled with TuningTemplate.py.
+
+The biggest part of this module is the implementation of various tuning
+reports used to analyze the tuning runs.
 
 Assumes:
 * Tuning a binary text classification pipeline (maybe this assumption can go?)
@@ -7,14 +18,16 @@ Assumes:
 * 'No' is index 0 
 * The text sample data is in sklearn load_files directory structure
 * Topmost directory in that folder is specified in config file
-* We are Tuning a Pipeline via GridsearchCV
+* We are Tuning a Pipeline via GridSearchCV
 * The Pipeline has named steps: 'vectorizer', 'classifier' with their
 *   obvious meanings (may have other steps too)
-* The 'classifier' supports getting weighted coefficients vi classifier.coef_
 * We are scoring GridSearchCV Pipeline parameter runs via an F-Score
 *   (beta is a parameter to this library)
 * probably other things...
 *
+If the 'classifier' supports getting weighted coefficients via
+classifier.coef_, then the output from here can include a TopFeaturesReport
+
 Convention: trying to use camelCase for all the names here, but
     sklearn typically_uses_names with underscores.
 '''
@@ -25,6 +38,7 @@ import string
 import os
 import os.path
 sys.path.append('..')
+import argparse
 from ConfigParser import ConfigParser
 
 import sklearnHelperLib as skhelper
@@ -35,33 +49,56 @@ from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import make_scorer, fbeta_score,\
 			    classification_report, confusion_matrix
-
 #-----------------------------------
-# Config, constants, ...
-# ---------------------------
 cp = ConfigParser()
 cp.optionxform = str # make keys case sensitive
 cp.read(["config.cfg", "../config.cfg"])
 
-TRAINING_DATA = cp.get("DEFAULT", "TRAINING_DATA")
-INDEX_OF_YES  = cp.getint("DEFAULT", "INDEX_OF_YES")
-INDEX_OF_NO   = cp.getint("DEFAULT", "INDEX_OF_NO")
+TRAINING_DATA   = cp.get("DEFAULT", "TRAINING_DATA")
+INDEX_OF_YES    = cp.getint("DEFAULT", "INDEX_OF_YES")
+INDEX_OF_NO     = cp.getint("DEFAULT", "INDEX_OF_NO")
 GRIDSEARCH_BETA = cp.getint("MODEL_TUNING", "GRIDSEARCH_BETA")
-COMPARE_BETA   = cp.getint("MODEL_TUNING", "COMPARE_BETA")
+COMPARE_BETA    = cp.getint("MODEL_TUNING", "COMPARE_BETA")
+TEST_SPLIT      = cp.getfloat("MODEL_TUNING", "TEST_SPLIT")
+GRIDSEARCH_CV   = cp.getint("MODEL_TUNING", "GRIDSEARCH_CV")
 
 # in the list of classifications labels for evaluating text data
 LABELS = [ INDEX_OF_YES, INDEX_OF_NO ]
 TARGET_NAMES = ['yes', 'no']
 
 # ---------------------------
+# Common command line parameter handling for the tuning scripts
+# ---------------------------
+
+def parseCmdLine():
+    """
+    shared among the ModelTuning scripts
+    """
+    parser = argparse.ArgumentParser( \
+    description='Run a tuning experiment script')
+
+    parser.add_argument('-v', '--verbose', dest='verbose', action='store_true',
+                        help='verbose: print longer tuning report')
+
+    parser.add_argument('--rsplit', dest='randForSplit',
+			default=None, type=int,
+                        help="integer random seed for test_train_split")
+
+    parser.add_argument('--rclassifier', dest='randForClassifier',
+			default=None, type=int,
+                        help="integer random seed for classifier")
+
+    return parser.parse_args()
+
+# ---------------------------
 # Random seed support:
 # For various methods, random seeds are used
 #   e.g., for train_test_split() the seed is used to decide which samples
 #         make it into which set.
-# However, often we want to record/report the random seeds used so we can
+# However, we want to record/report the random seeds used so we can
 #     reproduce results when desired.
 #     So we use these routines to always provide and report a random seed.
-#     If a seed is provided, we use it, if not, we generate one.
+#     If a seed is provided, we use it, if not, we generate one here.
 #
 # getRandomSeeds() takes a dictionary of seeds, and generates random seeds
 #     for any key that doesn't already have a numeric seed
@@ -83,9 +120,8 @@ def getRandomSeeds( seedDict    # dict: {'seedname' : number or None }
 def getRandomSeedReport( seedDict ):
     output = "Random Seeds:\t"
     for k in sorted(seedDict.keys()):
-        output += "%s=%d\t" % (k, seedDict[k])
+        output += "%s=%d   " % (k, seedDict[k])
     return output
-# ---------------------------
 
 # ---------------------------
 # Some basic utilities...
@@ -105,10 +141,10 @@ class TextPipelineTuningHelper (object):
     def __init__(self,
 	pipeline,
 	pipelineParameters,
-	beta=GRIDSEARCH_BETA,
-	cv=5,			# number of cross validation folds to use
+	beta=GRIDSEARCH_BETA,	# beta=None implies use GRIDSEARCH_BETA
+	cv=GRIDSEARCH_CV,	# number of cross validation folds to use
 	gsVerbose=1,		# verbose setting for grid search (to stdout)
-	testSize=0.20,		# size of the test set from the dataSet
+	testSize=TEST_SPLIT,	# size of the test set from the dataSet
 	randomSeeds={'randForSplit':1},	# random seeds. Assume all are not None
 	nFeaturesReport=10,
 	nFalsePosNegReport=5,
@@ -117,11 +153,13 @@ class TextPipelineTuningHelper (object):
 
 	self.pipeline = pipeline
 	self.pipelineParameters = pipelineParameters
-	self.beta = beta
+
+	if beta == None: self.gridSearchBeta = GRIDSEARCH_BETA
+	else: self.gridSearchBeta = beta
 
 	self.gs = GridSearchCV(pipeline,
 				pipelineParameters,
-				scoring=makeFscorer(beta=beta),
+				scoring=makeFscorer(beta=self.gridSearchBeta),
 				cv=cv,
 				verbose=gsVerbose,
 				n_jobs=-1,
@@ -165,7 +203,7 @@ class TextPipelineTuningHelper (object):
 
     def fit(self):
 	'''
-	Do the work!
+	run the GridSearchCV
 	'''
 	# using _train _test variable names as is the custom in sklearn.
 	# "y_" are the correct classifications (labels) for the corresponding
@@ -185,7 +223,7 @@ class TextPipelineTuningHelper (object):
 
 	self.gs.fit( self.docs_train, self.y_train )	# DO THE GRIDSEARCH
 
-	# need getter's for these
+	# FIXME: Should implement getter's for these
 	self.bestEstimator  = self.gs.best_estimator_
 	self.bestVectorizer = self.bestEstimator.named_steps['vectorizer']
 	self.bestClassifier = self.bestEstimator.named_steps['classifier']
@@ -219,8 +257,8 @@ class TextPipelineTuningHelper (object):
 
     def getReports(self, verbose=True):
 
-	output = getReportStart( self.time, self.beta, self.randomSeeds,
-							    self.getDataDir() )
+	output = getReportStart( self.time, self.gridSearchBeta,
+					self.randomSeeds, self.getDataDir() )
 
 	output += getFormatedMetrics("Training Set", self.y_train,
 					self.y_predicted_train, COMPARE_BETA)
@@ -255,7 +293,7 @@ SSTART = "### "			# output section start delimiter
 def getReportStart( curtime, beta, randomSeeds,dataDir):
 
     output = SSTART + "Start Time %s\n" % curtime
-    output += "Data dir: %s,\tBeta: %d\n" % (dataDir, beta)
+    output += "Data dir: %s,\tGridSearch Beta: %d\n" % (dataDir, beta)
     output += getRandomSeedReport(randomSeeds)
     output += "\n"
     return output
@@ -273,7 +311,7 @@ def getTrainTestSplitReport( \
 	):
     '''
     Report on the sizes and makeup of the training and test sets
-    JIM:  this is very yucky...
+    FIXME:  this is very yucky code...
     '''
     output = SSTART + 'Train Test Split Report, test %% = %4.2f\n' % (testSize)
     output += \
@@ -402,6 +440,7 @@ def getFormatedCM( \
     ):
     '''
     Return (minorly) formated confusion matrix
+    FIXME: this could be greatly improved
     '''
     output = "%s\n%s\n" % ( \
 		str( TARGET_NAMES ),
@@ -411,7 +450,7 @@ def getFormatedCM( \
 
 def getOrderedFeatures( vectorizer,	# fitted vectorizer from a pipeline
 			classifier	# trained classifier from a pipeline
-    ) :
+    ):
     '''
     Return list of pairs, [ (feature, coef), (feature, coef), ... ]
 	ordered from highest coef to lowest.
@@ -431,7 +470,7 @@ def getOrderedFeatures( vectorizer,	# fitted vectorizer from a pipeline
 
 def getTopFeaturesReport(  \
     orderedFeatures,	# features: [ ('feature name', coef), ...]
-    num,		# number of features w/ highest & lowest coefs to rpt
+    num=20,		# number of features w/ highest & lowest coefs to rpt
     ):
     '''
     Return report of the features w/ the highest (positive) and lowest
