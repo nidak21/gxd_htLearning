@@ -1,0 +1,8 @@
+#!/bin/bash
+# run a tuning script file, log the output and write to the index file.
+# usage:   run foo.py [args]
+
+pyscript="${1}"
+nopy=`basename -s .py ${pyscript}`
+shift
+python ${pyscript} -i $* | tee -a ${nopy}.log | more; 

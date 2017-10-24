@@ -1,13 +1,6 @@
 # useful shell aliases for running tuning experiments
 # source this file
 
-# Assumes we have a "current" tuning.log file to use.
-
-# run a tuning experiment
-function run() {
-    python $* | tee -a `basename -s .py ${1}`.log | more;
-}
-
 # add a note to the current tuning log file
 function lognote() {
     filename=`basename -s .log ${1}`;

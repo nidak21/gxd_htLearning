@@ -47,20 +47,21 @@ import numpy as np
 from sklearn.datasets import load_files
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV
-from sklearn.metrics import make_scorer, fbeta_score,\
-			    classification_report, confusion_matrix
+from sklearn.metrics import make_scorer, fbeta_score, precision_score,\
+			recall_score, classification_report, confusion_matrix
 #-----------------------------------
 cp = ConfigParser()
 cp.optionxform = str # make keys case sensitive
 cp.read(["config.cfg", "../config.cfg"])
 
-TRAINING_DATA   = cp.get("DEFAULT", "TRAINING_DATA")
-INDEX_OF_YES    = cp.getint("DEFAULT", "INDEX_OF_YES")
-INDEX_OF_NO     = cp.getint("DEFAULT", "INDEX_OF_NO")
-GRIDSEARCH_BETA = cp.getint("MODEL_TUNING", "GRIDSEARCH_BETA")
-COMPARE_BETA    = cp.getint("MODEL_TUNING", "COMPARE_BETA")
-TEST_SPLIT      = cp.getfloat("MODEL_TUNING", "TEST_SPLIT")
-GRIDSEARCH_CV   = cp.getint("MODEL_TUNING", "GRIDSEARCH_CV")
+TRAINING_DATA    = cp.get("DEFAULT", "TRAINING_DATA")
+INDEX_OF_YES     = cp.getint("DEFAULT", "INDEX_OF_YES")
+INDEX_OF_NO      = cp.getint("DEFAULT", "INDEX_OF_NO")
+GRIDSEARCH_BETA  = cp.getint("MODEL_TUNING", "GRIDSEARCH_BETA")
+COMPARE_BETA     = cp.getint("MODEL_TUNING", "COMPARE_BETA")
+TEST_SPLIT       = cp.getfloat("MODEL_TUNING", "TEST_SPLIT")
+GRIDSEARCH_CV    = cp.getint("MODEL_TUNING", "GRIDSEARCH_CV")
+TUNING_INDEX_FILE = cp.get("MODEL_TUNING", "TUNING_INDEX_FILE")
 
 # in the list of classifications labels for evaluating text data
 LABELS = [ INDEX_OF_YES, INDEX_OF_NO ]
@@ -75,21 +76,32 @@ def parseCmdLine():
     shared among the ModelTuning scripts
     """
     parser = argparse.ArgumentParser( \
-    description='Run a tuning experiment script')
+    description='Run a tuning experiment script.')
 
     parser.add_argument('-v', '--verbose', dest='verbose', action='store_true',
-                        help='verbose: print longer tuning report')
+                        help='verbose: print longer tuning report.')
 
     parser.add_argument('--rsplit', dest='randForSplit',
 			default=None, type=int,
-                        help="integer random seed for test_train_split")
+                        help="integer random seed for test_train_split.")
 
     parser.add_argument('--rclassifier', dest='randForClassifier',
 			default=None, type=int,
-                        help="integer random seed for classifier")
+                        help="integer random seed for classifier.")
 
+    parser.add_argument('-i', '--index', dest='index', action='store_true',
+			default=False,
+                        help='write to index file.')
+
+    parser.add_argument('--noindex', dest='index', action='store_false',
+			default=False,
+                        help="don't write to index file (default).")
+
+    parser.add_argument('--indexfile', dest='indexFile', 
+			default=TUNING_INDEX_FILE,
+                        help='index file name. Default: %s' % \
+							TUNING_INDEX_FILE)
     return parser.parse_args()
-
 # ---------------------------
 # Random seed support:
 # For various methods, random seeds are used
@@ -146,9 +158,6 @@ class TextPipelineTuningHelper (object):
 	gsVerbose=1,		# verbose setting for grid search (to stdout)
 	testSize=TEST_SPLIT,	# size of the test set from the dataSet
 	randomSeeds={'randForSplit':1},	# random seeds. Assume all are not None
-	nFeaturesReport=10,
-	nFalsePosNegReport=5,
-	nTopFeatures=20
 	):
 
 	self.pipeline = pipeline
@@ -168,11 +177,7 @@ class TextPipelineTuningHelper (object):
 	self.randomSeeds = randomSeeds
 	self.randForSplit = randomSeeds['randForSplit']	# required seed
 
-	self.nFeaturesReport = nFeaturesReport
-	self.nFalsePosNegReport = nFalsePosNegReport
-	self.nTopFeatures = nTopFeatures
-
-	self.time = time.asctime()
+	self.time = getFormattedTime()
 	self.readDataSet()
 	self.findSampleNames()
     #---------------------
@@ -255,14 +260,17 @@ class TextPipelineTuningHelper (object):
 	return falsePositives, falseNegatives
     # ---------------------------
 
-    def getReports(self, verbose=True):
+    def getReports(self, verbose=True, index=False, indexFile='',
+	nFeaturesReport=10, nFalsePosNegReport=5, nTopFeatures=20,
+	):
 
-	output = getReportStart( self.time, self.gridSearchBeta,
-					self.randomSeeds, self.getDataDir() )
+	self.writeIndexFile(index, indexFile)
+	output = getReportStart(self.time,self.gridSearchBeta,self.randomSeeds,
+				    self.getDataDir(), index, indexFile)
 
-	output += getFormatedMetrics("Training Set", self.y_train,
+	output += getFormattedMetrics("Training Set", self.y_train,
 					self.y_predicted_train, COMPARE_BETA)
-	output += getFormatedMetrics("Test Set", self.y_test,
+	output += getFormattedMetrics("Test Set", self.y_test,
 					self.y_predicted_test, COMPARE_BETA)
 	output += getBestParamsReport(self.gs, self.pipelineParameters)
 	output += getGridSearchReport(self.gs, self.pipelineParameters)
@@ -270,29 +278,57 @@ class TextPipelineTuningHelper (object):
 	if verbose: 
 	    output += getTopFeaturesReport( \
 		    getOrderedFeatures(self.bestVectorizer,self.bestClassifier),
-		    self.nTopFeatures) 
+		    nTopFeatures) 
 
 	    output += getVectorizerReport(self.bestVectorizer,
-					    nFeatures=self.nFeaturesReport)
+					    nFeatures=nFeaturesReport)
 
 	    falsePos, falseNeg = self.getFalsePosNeg()
 	    output += getFalsePosNegReport( falsePos, falseNeg,
-						num=self.nFalsePosNegReport)
+						num=nFalsePosNegReport)
 
 	    output += getTrainTestSplitReport(self.dataSet.target, self.y_train,
 						self.y_test, self.testSize)
 
 	output += getReportEnd()
 	return output
+# ---------------------------
+
+    def writeIndexFile(self, index, indexFile):
+	'''
+	Handle writing a one-line summary of this run to an index file
+	'''
+	if index == False:  return
+
+	y_true = self.y_test
+	y_predicted = self.y_predicted_test
+
+	if len(sys.argv) > 0: tuningFile = sys.argv[0]
+	else: tuningFile = ''
+
+	with open(indexFile, 'a') as fp:
+	    fp.write("%s\tP,R,F%d\t%4.2f\t%4.2f\t%4.2f\t%s\n" % \
+	    (self.time,
+	    COMPARE_BETA,
+	    precision_score( y_true, y_predicted, pos_label=INDEX_OF_YES),
+	    recall_score( y_true, y_predicted, pos_label=INDEX_OF_YES),
+	    fbeta_score( y_true, y_predicted, COMPARE_BETA,
+						    pos_label=INDEX_OF_YES), 
+	    tuningFile,
+	    ) )
 # end class TextPipelineTuningHelper
+# ---------------------------
+
 # ---------------------------
 # Functions to format output reports
 # ---------------------------
 SSTART = "### "			# output section start delimiter
 
-def getReportStart( curtime, beta, randomSeeds,dataDir):
+def getReportStart( curtime, beta, randomSeeds,dataDir, index, indexFile):
 
-    output = SSTART + "Start Time %s\n" % curtime
+    output = SSTART + "Start Time %s" % curtime
+    if index: output += "\tindex file: %s" % indexFile
+    output += "\n"
     output += "Data dir: %s,\tGridSearch Beta: %d\n" % (dataDir, beta)
     output += getRandomSeedReport(randomSeeds)
     output += "\n"
@@ -300,7 +336,7 @@ def getReportStart( curtime, beta, randomSeeds,dataDir):
 # ---------------------------
 
 def getReportEnd():
-    return SSTART + "End Time %s\n" % (time.asctime())
+    return SSTART + "End Time %s\n" % getFormattedTime()
 # ---------------------------
 
 def getTrainTestSplitReport( \
@@ -405,7 +441,7 @@ def getFalsePosNegReport( \
     return output
 # ---------------------------
 
-def getFormatedMetrics( \
+def getFormattedMetrics( \
 	title,		# string title
 	y_true,		# true category assignments
 	y_predicted,	# predicted assignments
@@ -429,12 +465,12 @@ def getFormatedMetrics( \
     output += "%s F%d: %5.3f\n\n" % (title[:5],beta,
 				fbeta_score( y_true, y_predicted, beta,
 					     pos_label=INDEX_OF_YES ) )
-    output += "%s\n" % getFormatedCM(y_true, y_predicted)
+    output += "%s\n" % getFormattedCM(y_true, y_predicted)
 
     return output
 # ---------------------------
 
-def getFormatedCM( \
+def getFormattedCM( \
     y_true,	# true category assignments for test set
     y_predicted	# predicted assignments
     ):
@@ -498,3 +534,6 @@ def getTopFeaturesReport(  \
 
     return output
 # ---------------------------
+
+def getFormattedTime():
+    return time.strftime("%Y/%m/%d-%H-%M-%S")
