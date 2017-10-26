@@ -253,18 +253,23 @@ class TextPipelineTuningHelper (object):
 	falseNegatives = []
 
 	for trueY, predY, name in zip(y_true, y_predicted, sampleNames):
-	    if trueY != predY:
-		if predY == 1: falsePositives.append(name)
-		else: falseNegatives.append(name)
+	    predType = predictionType(trueY, predY)
+	    if predType == 'FP':
+		falsePositives.append(name)
+	    elif predType == 'FN':
+		falseNegatives.append(name)
 
 	return falsePositives, falseNegatives
     # ---------------------------
 
     def getReports(self, verbose=True, index=False, indexFile='',
+	writePredictions=True,
 	nFeaturesReport=10, nFalsePosNegReport=5, nTopFeatures=20,
 	):
 
-	self.writeIndexFile(index, indexFile)
+	if index: self.writeIndexFile(indexFile)
+	if writePredictions: self.writePredictions()
+
 	output = getReportStart(self.time,self.gridSearchBeta,self.randomSeeds,
 				    self.getDataDir(), index, indexFile)
 
@@ -294,12 +299,10 @@ class TextPipelineTuningHelper (object):
 	return output
 # ---------------------------
 
-    def writeIndexFile(self, index, indexFile):
+    def writeIndexFile(self, indexFile):
 	'''
 	Handle writing a one-line summary of this run to an index file
 	'''
-	if index == False:  return
-
 	y_true = self.y_test
 	y_predicted = self.y_predicted_test
 
@@ -316,9 +319,81 @@ class TextPipelineTuningHelper (object):
 						    pos_label=INDEX_OF_YES), 
 	    tuningFile,
 	    ) )
+# ---------------------------
+
+    def writePredictions(self):
+	'''
+	Write files with predictions from training set and test set
+	'''
+	writePredictionFile( \
+	    "predictions_train.tsv",
+	    self.bestEstimator,
+	    self.docs_train,
+	    self.sampleNames_train,
+	    self.y_train,
+	    self.y_predicted_train,
+	    )
+	writePredictionFile( \
+	    "predictions_test.tsv",
+	    self.bestEstimator,
+	    self.docs_test,
+	    self.sampleNames_test,
+	    self.y_test,
+	    self.y_predicted_test,
+	    )
+# ---------------------------
 # end class TextPipelineTuningHelper
 # ---------------------------
 
+def writePredictionFile( \
+    fileName,		# file to write to
+    estimator,		# the trained model to use
+    docs,		# the documents to predict
+    sampleNames,	# sample names for those docs
+    y_true,		# true labels/classifications for those docs 0|1
+    y_predicted,	# predicted labels/classifications for those docs 0|1
+    ):
+    '''
+    Write a prediction file, with confidence values if available.
+    Prediction file has a line for each doc,
+	samplename, y_true, y_predicted, FP/FN, [confidence, abs value]
+    '''
+    predTypes = [ predictionType(t,p) for t,p in zip(y_true, y_predicted) ]
+    
+    if hasattr(estimator, "decision_function"):
+	conf = estimator.decision_function(docs).tolist()
+	absConf = map(abs, conf)
+	predictions = \
+	    zip(sampleNames, y_true, y_predicted, predTypes, conf, absConf)
+
+	selConf = lambda x: x[5]	# select confidence value 
+	predictions = sorted(predictions, key=selConf)
+
+	header = "Sample\tTrue\tPrediction\tFP/FN\tConfidence\tAbs value\n"
+	template = "%s\t%d\t%d\t%s\t%5.3f\t%5.3f\n"
+    else:			# no confidence values available
+	predictions = zip(sampleNames, y_true, y_predicted, predTypes)
+
+	header = "Sample\tTrue\tPrediction\FP/FN\n"
+	template = "%s\t%d\t%d\t%s\n"
+
+    with open(fileName, 'w') as fp:
+	fp.write(header)
+	for p in predictions:
+	    fp.write(template % p)
+    return
+# ---------------------------
+
+def predictionType(trueY, predY):
+    '''
+    Return 'FP', 'FN' or '' depending on trueY and predY.
+    Assumes trueY and predY are (scalar) values 0 or 1
+    '''
+    retVal = ''
+    if trueY != predY:
+	if predY == 1: retVal = 'FP'
+	else: retVal = 'FN'
+    return retVal
 # ---------------------------
 # Functions to format output reports
 # ---------------------------
