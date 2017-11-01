@@ -38,5 +38,4 @@ parameters={'vectorizer__ngram_range':[(1,2) ],
 	}
 p = tl.TextPipelineTuningHelper( pipeline, parameters, beta=4, cv=5,
 			randomSeeds=randomSeeds,).fit()
-print p.getReports(verbose=args.verbose,
-			index=args.index, indexFile=args.indexFile)
+print p.getReports()

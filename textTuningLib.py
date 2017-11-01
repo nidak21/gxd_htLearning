@@ -62,6 +62,7 @@ COMPARE_BETA     = cp.getint("MODEL_TUNING", "COMPARE_BETA")
 TEST_SPLIT       = cp.getfloat("MODEL_TUNING", "TEST_SPLIT")
 GRIDSEARCH_CV    = cp.getint("MODEL_TUNING", "GRIDSEARCH_CV")
 TUNING_INDEX_FILE = cp.get("MODEL_TUNING", "TUNING_INDEX_FILE")
+PRED_OUTPUT_FILE_PREFIX = cp.get("MODEL_TUNING", "PRED_OUTPUT_FILE_PREFIX")
 
 # in the list of classifications labels for evaluating text data
 LABELS = [ INDEX_OF_YES, INDEX_OF_NO ]
@@ -71,10 +72,14 @@ TARGET_NAMES = ['yes', 'no']
 # Common command line parameter handling for the tuning scripts
 # ---------------------------
 
+args = {}
+
 def parseCmdLine():
     """
     shared among the ModelTuning scripts
     """
+    global args
+
     parser = argparse.ArgumentParser( \
     description='Run a tuning experiment script.')
 
@@ -101,7 +106,21 @@ def parseCmdLine():
 			default=TUNING_INDEX_FILE,
                         help='index file name. Default: %s' % \
 							TUNING_INDEX_FILE)
-    return parser.parse_args()
+
+    parser.add_argument('-p', '--predict', dest='outputPredictions',
+			action='store_true', default=False,
+                        help='write predictions for test & training sets')
+
+    parser.add_argument('--nopredict', dest='outputPredictions',
+			action='store_false', default=False,
+	    help="don't write predictions for test & training sets (default)")
+
+    parser.add_argument('--predfiles', dest='predFilePrefix', 
+			default=PRED_OUTPUT_FILE_PREFIX,
+	    help='prefix for prediction output filenames. Default: %s' % \
+							PRED_OUTPUT_FILE_PREFIX)
+    args =  parser.parse_args()
+    return args
 # ---------------------------
 # Random seed support:
 # For various methods, random seeds are used
@@ -262,16 +281,15 @@ class TextPipelineTuningHelper (object):
 	return falsePositives, falseNegatives
     # ---------------------------
 
-    def getReports(self, verbose=True, index=False, indexFile='',
-	writePredictions=True,
-	nFeaturesReport=10, nFalsePosNegReport=5, nTopFeatures=20,
+    def getReports(self, nFeaturesReport=10, nFalsePosNegReport=5,
+		    nTopFeatures=20,
 	):
 
-	if index: self.writeIndexFile(indexFile)
-	if writePredictions: self.writePredictions()
+	if args.index: self.writeIndexFile()
+	if args.outputPredictions: self.writePredictions()
 
 	output = getReportStart(self.time,self.gridSearchBeta,self.randomSeeds,
-				    self.getDataDir(), index, indexFile)
+				self.getDataDir(), args.index, args.indexFile)
 
 	output += getFormattedMetrics("Training Set", self.y_train,
 					self.y_predicted_train, COMPARE_BETA)
@@ -280,7 +298,7 @@ class TextPipelineTuningHelper (object):
 	output += getBestParamsReport(self.gs, self.pipelineParameters)
 	output += getGridSearchReport(self.gs, self.pipelineParameters)
 
-	if verbose: 
+	if args.verbose: 
 	    output += getTopFeaturesReport( \
 		    getOrderedFeatures(self.bestVectorizer,self.bestClassifier),
 		    nTopFeatures) 
@@ -299,7 +317,7 @@ class TextPipelineTuningHelper (object):
 	return output
 # ---------------------------
 
-    def writeIndexFile(self, indexFile):
+    def writeIndexFile(self):
 	'''
 	Handle writing a one-line summary of this run to an index file
 	'''
@@ -309,7 +327,7 @@ class TextPipelineTuningHelper (object):
 	if len(sys.argv) > 0: tuningFile = sys.argv[0]
 	else: tuningFile = ''
 
-	with open(indexFile, 'a') as fp:
+	with open(args.indexFile, 'a') as fp:
 	    fp.write("%s\tP,R,F%d\t%4.2f\t%4.2f\t%4.2f\t%s\n" % \
 	    (self.time,
 	    COMPARE_BETA,
@@ -326,7 +344,7 @@ class TextPipelineTuningHelper (object):
 	Write files with predictions from training set and test set
 	'''
 	writePredictionFile( \
-	    "predictions_train.tsv",
+	    args.predFilePrefix + "_train.tsv",
 	    self.bestEstimator,
 	    self.docs_train,
 	    self.sampleNames_train,
@@ -334,7 +352,7 @@ class TextPipelineTuningHelper (object):
 	    self.y_predicted_train,
 	    )
 	writePredictionFile( \
-	    "predictions_test.tsv",
+	    args.predFilePrefix + "_test.tsv",
 	    self.bestEstimator,
 	    self.docs_test,
 	    self.sampleNames_test,
