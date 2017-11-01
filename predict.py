@@ -39,6 +39,7 @@ BLESSED_MODEL	 = cp.get("DEFAULT", "BLESSED_MODEL")
 PREPROCESSOR     = cp.get("DEFAULT", "PREPROCESSOR")
 KEEP_ENCODE      = cp.getboolean("DEFAULT", "KEEP_ENCODE")
 DEFAULT_OUTPUT   = "predicted.tsv"
+DEFAULT_CONF     = "predictedConfidence.tsv"
 
 CLASS_NAMES      = eval( cp.get("DEFAULT", "CLASS_NAMES") )
 
@@ -54,6 +55,11 @@ def parseCmdLine():
     parser.add_argument('-o', '--output', dest='outputFile', action='store',
 	required=False, default=DEFAULT_OUTPUT,
     	help='tab-delimited output file. Default: %s' % DEFAULT_OUTPUT)
+
+    parser.add_argument('-c', '--confidence', dest='confFile', action='store',
+	required=False, default=DEFAULT_CONF,
+    	help='tab-delimited prediction confidences (output) file. Default: %s'\
+							% DEFAULT_CONF)
 
     parser.add_argument('--encode', dest='keepEncode',
         action='store_const', required=False, default=KEEP_ENCODE, const=True,
@@ -77,10 +83,11 @@ def parseCmdLine():
     args = parser.parse_args()
     return args
 #----------------------
+
+args = parseCmdLine()
   
 # Main prog
 def main():
-    args = parseCmdLine()
 
     with open(args.blessedModel, 'rb') as bp:
 	blessedModel = pickle.load(bp)
@@ -90,57 +97,120 @@ def main():
     else: preprocess = getattr( ppLib, args.preprocessor )
 
     docs = []		# list of text docs (experiments) to be predicted
-    ids = []		# parallel list of experiment ids
+    sampleNames = []		# parallel list of experiment ids
     titles = []
     descriptions = []
     expFactors = []
 
     # read tab-delimited experiment file
+    print "Reading documents from %s...." % args.inputFile
     ip = open(args.inputFile, 'r')
     for expLine in ip.readlines()[1:]:
 
 	expFactorStr, desc, expId, title = \
 				    map(string.strip, expLine.split('\t'))
 	if not args.keepEncode and htLib.isEncodeExperiment(title):
-            print "Skipping ENCODE experiment: '%s'" % ID
+            print "Skipping ENCODE experiment: '%s'" % expId
             continue
 
 	doc = htLib.constructDoc( title, desc, expFactorStr)
-	if preprocess: doc = preprocess(doc)
+	if preprocess: doc = preprocess(doc)	# this may add white space
 
-	docs.append(doc)
-	ids.append(expId)
+	docs.append(str(doc).strip())
+	sampleNames.append(expId)
 	titles.append(title)
 	descriptions.append(desc)
 	expFactors.append(expFactorStr)
+    print "...done %d documents" % len(docs)
 
     # PREDICT!
-    y_predict = blessedModel.predict(docs)
+    y_predicted = blessedModel.predict(docs)
 
-    # write tab-delimited output file with the predictions
-    with  open(args.outputFile, 'w') as op:
-	op.write('\t'.join( [\
-			    "ID",
-			    "Prediction",
-			    "Experimental Factors",
-			    "Title",
-			    "Description",
-			    "Processed Document"
-			    ]
-			) + '\n')
-	for doc, id, title, desc, expFactorStr, y in \
-		zip(docs, ids, titles, descriptions, expFactors, y_predict): 
+    # write prediction file(s)
+    writePredictions(blessedModel,
+	    sampleNames, y_predicted, expFactors, titles, descriptions, docs)
+    return
 
-	    op.write('\t'.join( [\
-				id,
-				CLASS_NAMES[y],
-				expFactorStr,
-				title,
-				desc,
-				str(doc).strip(),
-				]
-			    ) + '\n')
-    print "%d experiment predictions written to %s" % \
-    						(len(docs), args.outputFile)
-#
+# ---------------------------
+def writePredictions( estimator,
+            sampleNames,
+            y_predicted,
+            expFactors,
+            titles,
+            descriptions,
+            docs
+    ):
+    '''
+    Write prediction file(s).
+    We always write a "full" file that includes the predicted classification, 
+        experimental factors, title, description, and the processed document.
+    If confidence values are available from the estimator, we'll include
+        the confidence values in this full file AND write an abbreviated
+        "confidence" file that is easier to run analyses on.
+    '''
+    if hasattr(estimator, "decision_function"):         # have confidence vals
+        confs = estimator.decision_function(docs).tolist()
+        absConfs = map(abs, confs)
+
+        # prediction tuples for the full prediction file
+        fullPreds = zip(sampleNames, y_predicted, confs, absConfs,
+                                    expFactors, titles, descriptions, docs)
+
+        # prediction tuples for the abbreviated confidence prediction file
+        confPreds = zip(sampleNames, y_predicted, confs, absConfs)
+
+        selConf = lambda x: x[3]        # select abs confidence value 
+        fullPreds = sorted(fullPreds, key=selConf)
+        confPreds = sorted(confPreds, key=selConf)
+
+        fullHeader = '\t'.join(["Sample",
+                                "Prediction",
+                                "Confidence",
+                                "Abs value",
+                                "Experimental Factors",
+                                "Title",
+                                "Description",
+                                "Processed Document",
+				]) + '\n'
+        fullTemplate = '\t'.join(["%s", "%d", "%5.3f", "%5.3f",
+                                        "%s", "%s", "%s", "%s",]
+                                ) + '\n'
+
+        confHeader = '\t'.join(["Sample",
+                                "Prediction",
+                                "Confidence",
+                                "Abs value",
+                                ]) + '\n'
+        confTemplate = '\t'.join(["%s", "%d", "%5.3f", "%5.3f",]) + '\n'
+
+        # write confidence file
+	print "Writing confidence file %s...." % args.confFile
+        with open(args.confFile, 'w') as fp:
+            fp.write(confHeader)
+            for p in confPreds:
+                fp.write(confTemplate % p)
+	print "...done %d lines written" % len(sampleNames)
+
+    else:                       # no confidence values available
+        fullPreds = zip(sampleNames, y_predicted,
+                                    expFactors, titles, descriptions, docs)
+
+        fullHeader = '\t'.join(["Sample",
+                                "Prediction",
+                                "Experimental Factors",
+                                "Title",
+                                "Description",
+                                "Processed Document",
+                                ]) + '\n'
+        fullTemplate = '\t'.join(["%s", "%d", "%s", "%s", "%s", "%s",]) + '\n'
+
+    # write full predictions file
+    print "Writing predictions file %s...." % args.outputFile
+    with open(args.outputFile, 'w') as fp:
+        fp.write(fullHeader)
+        for p in fullPreds:
+            fp.write(fullTemplate % p)
+    print "...done %d lines written" % len(docs)
+    return
+# ---------------------------
 main()
