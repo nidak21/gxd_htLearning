@@ -32,7 +32,7 @@ parameters={'vectorizer__ngram_range':[(1,2) ],
 	'vectorizer__max_df':[.98],
 	#'vectorizer__preprocessor':[hl.vectorizer_preprocessor,
 	#                            hl.vectorizer_preprocessor_stem],
-	'classifier__C':[    0.00001,  ],
+	'classifier__C':[    0.000001,  ],
 	'classifier__loss':[ 'hinge', ],
 	'classifier__penalty':[ 'l2', ],
 	}

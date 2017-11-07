@@ -21,7 +21,7 @@ blessedPipeline = Pipeline( [
     ('scaler'    ,StandardScaler(copy=True,with_mean=False,with_std=True)),
     ('classifier', LinearSVC(verbose=0,
 		    loss='hinge', penalty='l2',
-		    C=0.00001,
+		    C=0.000001,
 		    max_iter=200,
 		    class_weight='balanced',) )
     ]

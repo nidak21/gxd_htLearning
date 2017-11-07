@@ -1,66 +1,41 @@
-
 import sys
-sys.path.append('..')
-import argparse
+sys.path.extend(['..','../..'])
 import textTuningLib as tl
+import sklearnHelperLib as hl
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 from sklearn.preprocessing import StandardScaler, MaxAbsScaler
-from sklearn.linear_model import LogisticRegression
 from sklearn.svm import LinearSVC
 from sklearn.pipeline import Pipeline
 #-----------------------
-def process():
-    args = parseCmdLine()
-    randomSeeds = tl.getRandomSeeds( { 	# None means generate a random seed
-			'randForSplit'      : args.randForSplit,
-			'randForClassifier' : args.randForClassifier,
-			} )
-    beta=1		# >1 weighs recall more than precision
-    pipeline = Pipeline( [
-	('vectorizer', TfidfVectorizer(
-	#('vectorizer', CountVectorizer(
-			strip_accents='unicode', decode_error='replace',
-			token_pattern=u'(?i)\\b([a-z_]\w+)\\b',
-			stop_words="english",
-			#preprocessor=tl.vectorizer_preprocessor,
-			#preprocessor=tl.vectorizer_preprocessor_stem,
-			),
-	),
-	#('scaler'    ,StandardScaler(copy=True,with_mean=False,with_std=True)),
-	#('scaler'    , MaxAbsScaler(copy=True)),
-	('classifier', LinearSVC(verbose=0, class_weight='balanced',
-			random_state=randomSeeds['randForClassifier'],
-			max_iter=200) ),
-	] )
-    parameters={'vectorizer__ngram_range':[(1,2) ],
-		'vectorizer__min_df':[2],
-		'vectorizer__max_df':[.98],
-		#'vectorizer__preprocessor':[tl.vectorizer_preprocessor,
-		#			    tl.vectorizer_preprocessor_stem],
-		'classifier__C':[    .0000001,  ],
-		'classifier__loss':[ 'hinge',  ],
-		'classifier__penalty':[ 'l2', ],
-		}
-    ht = tl.TextPipelineTuningHelper( \
-	pipeline, parameters, beta=beta, cv=5, randomSeeds=randomSeeds,
-	).fit()
-    print ht.getReports(verbose=args.verbose)
-#-----------------------
-def parseCmdLine():
-    """
-    Usage: scriptname [-v] [ randForSplit [ randForClassifier] ]
-    """
-    parser = argparse.ArgumentParser( \
-    description='Run a tuning experiment, log to tuning.log')
-
-    parser.add_argument('-v', '--verbose', dest='verbose', action='store_true',
-			help='verbose: print longer tuning report')
-
-    parser.add_argument('randForClassifier', nargs='?', default=None, type=int,
-			help="random seed for classifier")
-
-    parser.add_argument('randForSplit', nargs='?', default=None, type=int,
-			help="random seed for test_train_split")
-    return parser.parse_args()
-#-----------------------
-if __name__ == "__main__": process()
+args = tl.parseCmdLine()
+randomSeeds = tl.getRandomSeeds( { 	# None means generate a random seed
+		'randForSplit'      : args.randForSplit,
+		'randForClassifier' : args.randForClassifier,
+		} )
+pipeline = Pipeline( [
+('vectorizer', TfidfVectorizer(
+#('vectorizer', CountVectorizer(
+		strip_accents='unicode', decode_error='replace',
+		token_pattern=u'(?i)\\b([a-z_]\w+)\\b', stop_words="english",
+		#preprocessor=hl.vectorizer_preprocessor,
+		#preprocessor=hl.vectorizer_preprocessor_stem,
+		),
+),
+('scaler'    ,StandardScaler(copy=True,with_mean=False,with_std=True)),
+#('scaler'    , MaxAbsScaler(copy=True)),
+('classifier', LinearSVC(verbose=0, class_weight='balanced',
+		random_state=randomSeeds['randForClassifier'],
+		max_iter=200) ),
+] )
+parameters={'vectorizer__ngram_range':[(1,2) ],
+	'vectorizer__min_df':[2],
+	'vectorizer__max_df':[.98],
+	#'vectorizer__preprocessor':[hl.vectorizer_preprocessor,
+	#                            hl.vectorizer_preprocessor_stem],
+	'classifier__C':[ 0.000001, 0.0000001, 0.00000001, ],
+	'classifier__loss':[ 'hinge', ],
+	'classifier__penalty':[ 'l2', ],
+	}
+p = tl.TextPipelineTuningHelper( pipeline, parameters, beta=4, cv=5,
+			randomSeeds=randomSeeds,).fit()
+print p.getReports()
