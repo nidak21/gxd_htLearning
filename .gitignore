@@ -2,7 +2,6 @@
 __pycache__/
 *.py[cod]
 *$py.class
-*.pdf
 *.tsv
 
 
@@ -18,3 +17,4 @@ cache/
 .DS_Store
 .RData
 .Rapp.history
+.Rhistory
