@@ -38,8 +38,8 @@ DATA_TO_PREDICT	 = cp.get("DEFAULT", "DATA_TO_PREDICT")
 BLESSED_MODEL	 = cp.get("DEFAULT", "BLESSED_MODEL")
 PREPROCESSOR     = cp.get("DEFAULT", "PREPROCESSOR")
 KEEP_ENCODE      = cp.getboolean("DEFAULT", "KEEP_ENCODE")
-DEFAULT_OUTPUT   = "predicted.tsv"
-DEFAULT_CONF     = "predictedConfidence.tsv"
+DEFAULT_OUTPUT   = "predictions_long.tsv"
+DEFAULT_CONF     = "predictions_unknowns.tsv"
 
 CLASS_NAMES      = eval( cp.get("DEFAULT", "CLASS_NAMES") )
 

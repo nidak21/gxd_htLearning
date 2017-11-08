@@ -30,7 +30,8 @@ PIPELINE_DEFS = 'goodPipelines.py'
 #----------------------
 
 def parseCmdLine():
-    parser = argparse.ArgumentParser(description = 'Compare pipelines')
+    parser = argparse.ArgumentParser(description = \
+		    'Compare pipelines. Write output to stdout.')
 
     parser.add_argument('-d', '--data', dest='trainingData', action='store', 
         required=False, default=TRAINING_DATA,
@@ -56,7 +57,7 @@ def parseCmdLine():
   
 def main():
     args = parseCmdLine()
-    execfile(args.pipelineDefs)
+    execfile(args.pipelineDefs)		# define pipelines, list of Pipelines
 
     # totals across all the split tries for each pipeline + voted predictions
     #  for computing averages

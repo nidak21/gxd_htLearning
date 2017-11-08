@@ -9,6 +9,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.svm import LinearSVC
 from sklearn.pipeline import Pipeline
 
+global blessedPipeline
 blessedPipeline = Pipeline( [
     ('vectorizer', TfidfVectorizer( analyzer='word',
 		    strip_accents='unicode', decode_error='replace',
