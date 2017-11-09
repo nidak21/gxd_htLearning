@@ -18,7 +18,7 @@ cp.optionxform = str	# makekeys case sensitive
 cp.read(["config.cfg", "../config.cfg"])
 
 TRAINING_DATA = cp.get("DEFAULT", "TRAINING_DATA")
-NUM_TOP_FEATURES=20	# number of highly weighted features to report
+NUM_TOP_FEATURES=50	# number of highly weighted features to report
 PICKLE_FILE   = "BlessedModel.pkl"
 BLESSED_PIPELINE_FILE = "BlessedPipeline.py"
 FEATURE_FILE = "Blessed.features"

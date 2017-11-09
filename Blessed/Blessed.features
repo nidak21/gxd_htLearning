@@ -1,0 +1,104 @@
+### Top positive features (50)
++0.0007	develop
++0.0006	mutant
++0.0006	embryo
++0.0005	organism_part_ef
++0.0005	wild
++0.0005	wild type
++0.0005	tissu
++0.0005	stage
++0.0005	developmental_stage_ef
++0.0005	testi
++0.0004	postnat
++0.0004	e12
++0.0004	pool
++0.0004	age_ef
++0.0004	knockout
++0.0004	dissect
++0.0004	embryon day
++0.0004	type
++0.0004	litterm
++0.0004	development
++0.0004	defect
++0.0004	heart
++0.0004	development stage
++0.0004	e15
++0.0004	mutant embryo
++0.0004	mous
++0.0004	mutant mice
++0.0004	mous embryo
++0.0003	mammal
++0.0003	e18
++0.0003	organ
++0.0003	pirna
++0.0003	e9
++0.0003	genotyp
++0.0003	mammalian
++0.0003	type embryo
++0.0003	spermatogenesi
++0.0003	microdissect
++0.0003	gonad
++0.0003	birth
++0.0003	somit
++0.0003	postnat day
++0.0003	bud
++0.0003	e10
++0.0003	adult
++0.0003	format
++0.0003	vesicl
++0.0003	brain
++0.0003	piwi interact
++0.0003	mous heart
+
+### Top negative features (50)
+-0.0003	cell treat
+-0.0003	activ
+-0.0003	pluripot
+-0.0003	hematopoiet
+-0.0003	macrophag
+-0.0003	cell sort
+-0.0003	vehicl
+-0.0003	stimul
+-0.0003	inhibit
+-0.0003	expos
+-0.0003	c2c12
+-0.0003	overexpress
+-0.0003	ml
+-0.0003	primari
+-0.0003	line
+-0.0003	marrow
+-0.0003	bone marrow
+-0.0003	inject
+-0.0003	exposur
+-0.0004	es cell
+-0.0004	vitro
+-0.0004	cell line
+-0.0004	mous embryon
+-0.0004	es
+-0.0004	effect
+-0.0004	transgen
+-0.0004	embryon stem
+-0.0004	compound_ef dose_ef
+-0.0004	fibroblast mef
+-0.0004	follow
+-0.0004	hour
+-0.0004	dose_ef
+-0.0004	respons
+-0.0004	fac
+-0.0004	cell_type_ef
+-0.0005	infect
+-0.0005	embryon fibroblast
+-0.0005	sort
+-0.0005	cultur
+-0.0005	mef
+-0.0006	time_ef
+-0.0006	stem cell
+-0.0006	fibroblast
+-0.0006	stem
+-0.0006	treatment
+-0.0006	treatment_ef
+-0.0006	compound_ef
+-0.0007	induc
+-0.0007	treat
+-0.0010	cell
+

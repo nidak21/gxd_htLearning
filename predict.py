@@ -4,8 +4,7 @@
 #  un-classified (evaluation status = "Not Evaluated")
 # experiments and predict their relevance based on the "Blessed model".
 #
-# Write out a new tab-delimited file included the predicted relevance
-#  ('yes' or 'no')
+# Write out a tab-delimited predictions file(s)
 #
 # The input file columns are:
 # 	ArrayExpress experiment ID
@@ -17,7 +16,6 @@
 # Author: Jim Kadin
 #
 
-# standard libs
 import sys
 sys.path.append('..')
 sys.path.append('../..')
@@ -38,10 +36,12 @@ DATA_TO_PREDICT	 = cp.get("DEFAULT", "DATA_TO_PREDICT")
 BLESSED_MODEL	 = cp.get("DEFAULT", "BLESSED_MODEL")
 PREPROCESSOR     = cp.get("DEFAULT", "PREPROCESSOR")
 KEEP_ENCODE      = cp.getboolean("DEFAULT", "KEEP_ENCODE")
-DEFAULT_OUTPUT   = "predictions_long.tsv"
-DEFAULT_CONF     = "predictions_unknowns.tsv"
+DEFAULT_OUTPUT   = "predictions_unknowns.tsv"
+DEFAULT_OUTPUT_LONG  = "predictions_long.tsv"
 
-CLASS_NAMES      = eval( cp.get("DEFAULT", "CLASS_NAMES") )
+# if we want to print out class names ("yes", "no") instead of 1, 0,
+#    we could use this.
+#CLASS_NAMES      = eval( cp.get("DEFAULT", "CLASS_NAMES") )
 
 def parseCmdLine():
     parser = argparse.ArgumentParser( \
@@ -54,12 +54,18 @@ def parseCmdLine():
 
     parser.add_argument('-o', '--output', dest='outputFile', action='store',
 	required=False, default=DEFAULT_OUTPUT,
-    	help='tab-delimited output file. Default: %s' % DEFAULT_OUTPUT)
+    	help='output file name, predictions + confidences. Default: %s'\
+							% DEFAULT_OUTPUT)
 
-    parser.add_argument('-c', '--confidence', dest='confFile', action='store',
-	required=False, default=DEFAULT_CONF,
-    	help='tab-delimited prediction confidences (output) file. Default: %s'\
-							% DEFAULT_CONF)
+    parser.add_argument('--long', dest='writeLong',
+        action='store_const', required=False, default=False, const=True,
+        help='write long output file too. Default: False'
+	)
+
+    parser.add_argument('-l', '--longfile', dest='longFile', action='store',
+	required=False, default=DEFAULT_OUTPUT_LONG,
+    	help='long output file name: predictions + text... . Default: %s' \
+						% DEFAULT_OUTPUT_LONG)
 
     parser.add_argument('--encode', dest='keepEncode',
         action='store_const', required=False, default=KEEP_ENCODE, const=True,
@@ -124,7 +130,9 @@ def main():
     print "...done %d documents" % len(docs)
 
     # PREDICT!
+    print "Predicting...."
     y_predicted = blessedModel.predict(docs)
+    print "...done"
 
     # write prediction file(s)
     writePredictions(blessedModel,
@@ -142,75 +150,90 @@ def writePredictions( estimator,
     ):
     '''
     Write prediction file(s).
-    We always write a "full" file that includes the predicted classification, 
-        experimental factors, title, description, and the processed document.
-    If confidence values are available from the estimator, we'll include
-        the confidence values in this full file AND write an abbreviated
-        "confidence" file that is easier to run analyses on.
+    We always write the "short" file (typically predictions_unknowns.tsv) that
+	contains the predictions (1 or 0) and confidence values if available.
+    If "writelong" we will also write a big file that includes the title,
+    	descriptions, experimental factors, etc.
     '''
+
     if hasattr(estimator, "decision_function"):         # have confidence vals
         confs = estimator.decision_function(docs).tolist()
         absConfs = map(abs, confs)
 
-        # prediction tuples for the full prediction file
-        fullPreds = zip(sampleNames, y_predicted, confs, absConfs,
-                                    expFactors, titles, descriptions, docs)
+        selConf = lambda x: x[2]        # select confidence value for sorting
 
-        # prediction tuples for the abbreviated confidence prediction file
-        confPreds = zip(sampleNames, y_predicted, confs, absConfs)
+        # prediction tuples for the "short" prediction file
+        preds = zip(sampleNames, y_predicted, confs, absConfs)
+        preds = sorted(preds, key=selConf, reverse=True)
 
-        selConf = lambda x: x[3]        # select abs confidence value 
-        fullPreds = sorted(fullPreds, key=selConf)
-        confPreds = sorted(confPreds, key=selConf)
-
-        fullHeader = '\t'.join(["Sample",
-                                "Prediction",
-                                "Confidence",
-                                "Abs value",
-                                "Experimental Factors",
-                                "Title",
-                                "Description",
-                                "Processed Document",
-				]) + '\n'
-        fullTemplate = '\t'.join(["%s", "%d", "%5.3f", "%5.3f",
-                                        "%s", "%s", "%s", "%s",]
-                                ) + '\n'
-
-        confHeader = '\t'.join(["Sample",
+        header = '\t'.join(["Sample",
                                 "Prediction",
                                 "Confidence",
                                 "Abs value",
                                 ]) + '\n'
-        confTemplate = '\t'.join(["%s", "%d", "%5.3f", "%5.3f",]) + '\n'
+        template = '\t'.join(["%s", "%d", "%5.3f", "%5.3f",]) + '\n'
 
-        # write confidence file
-	print "Writing confidence file %s...." % args.confFile
-        with open(args.confFile, 'w') as fp:
-            fp.write(confHeader)
-            for p in confPreds:
-                fp.write(confTemplate % p)
-	print "...done %d lines written" % len(sampleNames)
+	if args.writeLong:
+	    # prediction tuples for the long prediction file
+	    fullPreds = zip(sampleNames, y_predicted, confs, absConfs,
+					expFactors, titles, descriptions, docs)
+	    fullPreds = sorted(fullPreds, key=selConf, reverse=True)
 
+	    fullHeader = '\t'.join(["Sample",
+				    "Prediction",
+				    "Confidence",
+				    "Abs value",
+				    "Experimental Factors",
+				    "Title",
+				    "Description",
+				    "Processed Document",
+				    ]) + '\n'
+	    fullTemplate = '\t'.join(["%s", "%d", "%5.3f", "%5.3f",
+					    "%s", "%s", "%s", "%s",]
+				    ) + '\n'
     else:                       # no confidence values available
-        fullPreds = zip(sampleNames, y_predicted,
-                                    expFactors, titles, descriptions, docs)
+        selExpID = lambda x: x[0]        # select experiment ID for sorting
+        # prediction tuples for the "short" prediction file
+        preds = zip(sampleNames, y_predicted)
+        preds = sorted(preds, key=selExpID)
 
-        fullHeader = '\t'.join(["Sample",
-                                "Prediction",
-                                "Experimental Factors",
-                                "Title",
-                                "Description",
-                                "Processed Document",
-                                ]) + '\n'
-        fullTemplate = '\t'.join(["%s", "%d", "%s", "%s", "%s", "%s",]) + '\n'
+        header = '\t'.join(["Sample",
+			    "Prediction",
+			    ]) + '\n'
+        template = '\t'.join(["%s", "%d", ]) + '\n'
 
-    # write full predictions file
+	if args.writeLong:
+	    # prediction tuples for the long prediction file
+	    fullPreds = zip(sampleNames, y_predicted,
+					expFactors, titles, descriptions, docs)
+	    fullPreds = sorted(fullPreds, key=selExpID)
+
+	    fullHeader = '\t'.join(["Sample",
+				    "Prediction",
+				    "Experimental Factors",
+				    "Title",
+				    "Description",
+				    "Processed Document",
+				    ]) + '\n'
+	    fullTemplate = '\t'.join(["%s", "%d", "%s", "%s", "%s", "%s",])+'\n'
+
+    # write "short" file
     print "Writing predictions file %s...." % args.outputFile
     with open(args.outputFile, 'w') as fp:
-        fp.write(fullHeader)
-        for p in fullPreds:
-            fp.write(fullTemplate % p)
-    print "...done %d lines written" % len(docs)
+	fp.write(header)
+	for p in preds:
+	    fp.write(template % p)
+    print "...done %d lines written" % len(sampleNames)
+
+    # write "long" predictions file
+    if args.writeLong:
+	print "Writing long predictions file %s...." % args.longFile
+	with open(args.longFile, 'w') as fp:
+	    fp.write(fullHeader)
+	    for p in fullPreds:
+		fp.write(fullTemplate % p)
+	print "...done %d lines written" % len(docs)
+
     return
 # ---------------------------
 main()

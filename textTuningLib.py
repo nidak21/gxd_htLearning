@@ -344,7 +344,7 @@ class TextPipelineTuningHelper (object):
 	Write files with predictions from training set and test set
 	'''
 	writePredictionFile( \
-	    args.predFilePrefix + "_train.tsv",
+	    args.predFilePrefix + "_train.out",
 	    self.bestEstimator,
 	    self.docs_train,
 	    self.sampleNames_train,
@@ -352,7 +352,7 @@ class TextPipelineTuningHelper (object):
 	    self.y_predicted_train,
 	    )
 	writePredictionFile( \
-	    args.predFilePrefix + "_test.tsv",
+	    args.predFilePrefix + "_test.out",
 	    self.bestEstimator,
 	    self.docs_test,
 	    self.sampleNames_test,
