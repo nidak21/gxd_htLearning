@@ -1,4 +1,4 @@
-
+#!/usr/bin/env python2.7 
 # Compare some sklearn Pipelines to each other over multiple
 #  train_test_splits().
 # Computes Fscore, precision, recall over multiple splits and then
@@ -14,7 +14,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import precision_recall_fscore_support
 
 #-----------------------------------
-# Load config
 cp = ConfigParser()
 cp.optionxform = str # make keys case sensitive
 cp.read(["config.cfg","../config.cfg"])

@@ -27,7 +27,6 @@ import gxd_htLearningLib as htLib
 import sklearnHelperLib as ppLib	# module holding preprocessor function
 
 #-----------------------------------
-# Load config
 cp = ConfigParser()
 cp.optionxform = str # make keys case sensitive
 cp.read(["config.cfg","../config.cfg"])

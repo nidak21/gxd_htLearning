@@ -1,4 +1,4 @@
-
+#!/usr/bin/env python2.7 
 # Take the BlessedPipeline, train it, and pickle it as the "BlessedModel"
 #
 # This could/should be cleaned up a lot, command line args or config vars,
