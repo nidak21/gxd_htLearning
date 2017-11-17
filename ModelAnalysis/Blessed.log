@@ -678,3 +678,201 @@ No  count:     2072	No  count:          1645	No  count:       427
 Percent Yes:    35%	Percent Yes:         35%	Percent Yes:     33%
 ### End Time 2017/11/02-10-24-10
 
+Fitting 5 folds for each of 1 candidates, totalling 5 fits
+### Start Time 2017/11/17-13-05-32	index file: index.out
+Data dir: /Users/jak/work/gxd_htLearning/Data/training/current,	GridSearch Beta: 2
+Random Seeds:	randForClassifier=628   randForSplit=603   
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.75      0.96      0.84       888
+
+avg / total       0.75      0.96      0.84       888
+
+Train F4: 0.946
+
+['yes', 'no']
+[[ 854   34]
+ [ 285 1387]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.72      0.93      0.81       241
+
+avg / total       0.72      0.93      0.81       241
+
+Test  F4: 0.918
+
+['yes', 'no']
+[[225  16]
+ [ 87 313]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.0001
+classifier__loss: 'hinge'
+classifier__penalty: 'l2'
+vectorizer__max_df: 0.7
+vectorizer__min_df: 0.01
+vectorizer__ngram_range: (1, 2)
+
+### GridSearch Pipeline:
+classifier:
+LinearSVC(C=0.0001, class_weight='balanced', dual=True, fit_intercept=True,
+     intercept_scaling=1, loss='hinge', max_iter=200, multi_class='ovr',
+     penalty='l2', random_state=628, tol=0.0001, verbose=0)
+
+scaler:
+StandardScaler(copy=True, with_mean=False, with_std=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.7, max_features=None, min_df=0.01,
+        ngram_range=(1, 2), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.0001]
+classifier__loss:['hinge']
+classifier__penalty:['l2']
+vectorizer__max_df:[0.7]
+vectorizer__min_df:[0.01]
+vectorizer__ngram_range:[(1, 2)]
+
+### End Time 2017/11/17-13-05-37
+
+Fitting 5 folds for each of 1 candidates, totalling 5 fits
+### Start Time 2017/11/17-13-05-54	index file: index.out
+Data dir: /Users/jak/work/gxd_htLearning/Data/training/current,	GridSearch Beta: 2
+Random Seeds:	randForClassifier=828   randForSplit=14   
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.74      0.97      0.84       892
+
+avg / total       0.74      0.97      0.84       892
+
+Train F4: 0.949
+
+['yes', 'no']
+[[ 861   31]
+ [ 295 1373]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.72      0.90      0.80       237
+
+avg / total       0.72      0.90      0.80       237
+
+Test  F4: 0.890
+
+['yes', 'no']
+[[214  23]
+ [ 82 322]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.0001
+classifier__loss: 'hinge'
+classifier__penalty: 'l2'
+vectorizer__max_df: 0.7
+vectorizer__min_df: 0.01
+vectorizer__ngram_range: (1, 2)
+
+### GridSearch Pipeline:
+classifier:
+LinearSVC(C=0.0001, class_weight='balanced', dual=True, fit_intercept=True,
+     intercept_scaling=1, loss='hinge', max_iter=200, multi_class='ovr',
+     penalty='l2', random_state=828, tol=0.0001, verbose=0)
+
+scaler:
+StandardScaler(copy=True, with_mean=False, with_std=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.7, max_features=None, min_df=0.01,
+        ngram_range=(1, 2), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.0001]
+classifier__loss:['hinge']
+classifier__penalty:['l2']
+vectorizer__max_df:[0.7]
+vectorizer__min_df:[0.01]
+vectorizer__ngram_range:[(1, 2)]
+
+### End Time 2017/11/17-13-05-59
+
+Fitting 5 folds for each of 1 candidates, totalling 5 fits
+### Start Time 2017/11/17-13-06-11	index file: index.out
+Data dir: /Users/jak/work/gxd_htLearning/Data/training/current,	GridSearch Beta: 2
+Random Seeds:	randForClassifier=452   randForSplit=668   
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.75      0.97      0.84       883
+
+avg / total       0.75      0.97      0.84       883
+
+Train F4: 0.950
+
+['yes', 'no']
+[[ 853   30]
+ [ 289 1388]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.71      0.92      0.80       246
+
+avg / total       0.71      0.92      0.80       246
+
+Test  F4: 0.907
+
+['yes', 'no']
+[[227  19]
+ [ 91 304]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.0001
+classifier__loss: 'hinge'
+classifier__penalty: 'l2'
+vectorizer__max_df: 0.7
+vectorizer__min_df: 0.01
+vectorizer__ngram_range: (1, 2)
+
+### GridSearch Pipeline:
+classifier:
+LinearSVC(C=0.0001, class_weight='balanced', dual=True, fit_intercept=True,
+     intercept_scaling=1, loss='hinge', max_iter=200, multi_class='ovr',
+     penalty='l2', random_state=452, tol=0.0001, verbose=0)
+
+scaler:
+StandardScaler(copy=True, with_mean=False, with_std=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.7, max_features=None, min_df=0.01,
+        ngram_range=(1, 2), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.0001]
+classifier__loss:['hinge']
+classifier__penalty:['l2']
+vectorizer__max_df:[0.7]
+vectorizer__min_df:[0.01]
+vectorizer__ngram_range:[(1, 2)]
+
+### End Time 2017/11/17-13-06-16
+

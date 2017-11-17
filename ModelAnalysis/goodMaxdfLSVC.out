@@ -1,0 +1,105 @@
+Sample Split
+Pipeline 0: F4: 0.9380	 precision: 0.67	 recall: 0.96
+Pipeline 1: F4: 0.9309	 precision: 0.72	 recall: 0.95
+Pipeline 2: F4: 0.9314	 precision: 0.72	 recall: 0.95
+Votes    3: F4: 0.9312	 precision: 0.72	 recall: 0.95
+Sample Split
+Pipeline 0: F4: 0.9221	 precision: 0.67	 recall: 0.94
+Pipeline 1: F4: 0.9097	 precision: 0.67	 recall: 0.93
+Pipeline 2: F4: 0.9057	 precision: 0.67	 recall: 0.93
+Votes    3: F4: 0.9097	 precision: 0.67	 recall: 0.93
+Sample Split
+Pipeline 0: F4: 0.9085	 precision: 0.64	 recall: 0.93
+Pipeline 1: F4: 0.8682	 precision: 0.67	 recall: 0.88
+Pipeline 2: F4: 0.8602	 precision: 0.68	 recall: 0.88
+Votes    3: F4: 0.8599	 precision: 0.67	 recall: 0.88
+Sample Split
+Pipeline 0: F4: 0.9050	 precision: 0.66	 recall: 0.93
+Pipeline 1: F4: 0.8718	 precision: 0.68	 recall: 0.89
+Pipeline 2: F4: 0.8720	 precision: 0.69	 recall: 0.89
+Votes    3: F4: 0.8718	 precision: 0.68	 recall: 0.89
+Sample Split
+Pipeline 0: F4: 0.8984	 precision: 0.65	 recall: 0.92
+Pipeline 1: F4: 0.8899	 precision: 0.72	 recall: 0.90
+Pipeline 2: F4: 0.8817	 precision: 0.71	 recall: 0.89
+Votes    3: F4: 0.8895	 precision: 0.71	 recall: 0.90
+Sample Split
+Pipeline 0: F4: 0.9042	 precision: 0.66	 recall: 0.93
+Pipeline 1: F4: 0.8913	 precision: 0.73	 recall: 0.90
+Pipeline 2: F4: 0.8913	 precision: 0.73	 recall: 0.90
+Votes    3: F4: 0.8952	 precision: 0.73	 recall: 0.91
+Sample Split
+Pipeline 0: F4: 0.9267	 precision: 0.67	 recall: 0.95
+Pipeline 1: F4: 0.9196	 precision: 0.72	 recall: 0.94
+Pipeline 2: F4: 0.9157	 precision: 0.72	 recall: 0.93
+Votes    3: F4: 0.9196	 precision: 0.72	 recall: 0.94
+Sample Split
+Pipeline 0: F4: 0.9104	 precision: 0.63	 recall: 0.94
+Pipeline 1: F4: 0.9258	 precision: 0.69	 recall: 0.95
+Pipeline 2: F4: 0.9420	 precision: 0.69	 recall: 0.96
+Votes    3: F4: 0.9342	 precision: 0.69	 recall: 0.95
+Sample Split
+Pipeline 0: F4: 0.9110	 precision: 0.68	 recall: 0.93
+Pipeline 1: F4: 0.9086	 precision: 0.73	 recall: 0.92
+Pipeline 2: F4: 0.9079	 precision: 0.72	 recall: 0.92
+Votes    3: F4: 0.9082	 precision: 0.72	 recall: 0.92
+Sample Split
+Pipeline 0: F4: 0.9291	 precision: 0.65	 recall: 0.95
+Pipeline 1: F4: 0.9035	 precision: 0.68	 recall: 0.92
+Pipeline 2: F4: 0.9035	 precision: 0.68	 recall: 0.92
+Votes    3: F4: 0.9037	 precision: 0.69	 recall: 0.92
+Sample Split
+Pipeline 0: F4: 0.9268	 precision: 0.70	 recall: 0.95
+Pipeline 1: F4: 0.9206	 precision: 0.71	 recall: 0.94
+Pipeline 2: F4: 0.9169	 precision: 0.72	 recall: 0.93
+Votes    3: F4: 0.9206	 precision: 0.71	 recall: 0.94
+Sample Split
+Pipeline 0: F4: 0.9144	 precision: 0.65	 recall: 0.94
+Pipeline 1: F4: 0.8961	 precision: 0.69	 recall: 0.91
+Pipeline 2: F4: 0.8965	 precision: 0.70	 recall: 0.91
+Votes    3: F4: 0.8963	 precision: 0.70	 recall: 0.91
+Sample Split
+Pipeline 0: F4: 0.9170	 precision: 0.65	 recall: 0.94
+Pipeline 1: F4: 0.9267	 precision: 0.70	 recall: 0.95
+Pipeline 2: F4: 0.9265	 precision: 0.70	 recall: 0.95
+Votes    3: F4: 0.9265	 precision: 0.70	 recall: 0.95
+Sample Split
+Pipeline 0: F4: 0.8993	 precision: 0.63	 recall: 0.92
+Pipeline 1: F4: 0.9037	 precision: 0.70	 recall: 0.92
+Pipeline 2: F4: 0.9037	 precision: 0.70	 recall: 0.92
+Votes    3: F4: 0.9035	 precision: 0.70	 recall: 0.92
+Sample Split
+Pipeline 0: F4: 0.8994	 precision: 0.63	 recall: 0.92
+Pipeline 1: F4: 0.8947	 precision: 0.67	 recall: 0.91
+Pipeline 2: F4: 0.8917	 precision: 0.68	 recall: 0.91
+Votes    3: F4: 0.8910	 precision: 0.67	 recall: 0.91
+Sample Split
+Pipeline 0: F4: 0.9149	 precision: 0.68	 recall: 0.93
+Pipeline 1: F4: 0.9028	 precision: 0.72	 recall: 0.92
+Pipeline 2: F4: 0.9028	 precision: 0.72	 recall: 0.92
+Votes    3: F4: 0.9026	 precision: 0.72	 recall: 0.92
+Sample Split
+Pipeline 0: F4: 0.9053	 precision: 0.65	 recall: 0.93
+Pipeline 1: F4: 0.8931	 precision: 0.69	 recall: 0.91
+Pipeline 2: F4: 0.8971	 precision: 0.68	 recall: 0.91
+Votes    3: F4: 0.8927	 precision: 0.68	 recall: 0.91
+Sample Split
+Pipeline 0: F4: 0.8930	 precision: 0.65	 recall: 0.91
+Pipeline 1: F4: 0.9197	 precision: 0.73	 recall: 0.94
+Pipeline 2: F4: 0.9119	 precision: 0.73	 recall: 0.93
+Votes    3: F4: 0.9197	 precision: 0.73	 recall: 0.94
+Sample Split
+Pipeline 0: F4: 0.9055	 precision: 0.68	 recall: 0.93
+Pipeline 1: F4: 0.9038	 precision: 0.74	 recall: 0.92
+Pipeline 2: F4: 0.8999	 precision: 0.74	 recall: 0.91
+Votes    3: F4: 0.9036	 precision: 0.74	 recall: 0.92
+Sample Split
+Pipeline 0: F4: 0.9071	 precision: 0.64	 recall: 0.93
+Pipeline 1: F4: 0.8969	 precision: 0.66	 recall: 0.92
+Pipeline 2: F4: 0.8969	 precision: 0.66	 recall: 0.92
+Votes    3: F4: 0.8964	 precision: 0.65	 recall: 0.92
+
+Average  0: F4: 0.9118	 precision: 0.66	 recall: 0.93
+Average  1: F4: 0.9039	 precision: 0.70	 recall: 0.92
+Average  2: F4: 0.9028	 precision: 0.70	 recall: 0.92
+Average  3: F4: 0.9038	 precision: 0.70	 recall: 0.92

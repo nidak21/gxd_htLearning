@@ -28,14 +28,14 @@ pipeline = Pipeline( [
 		max_iter=200) ),
 ] )
 parameters={'vectorizer__ngram_range':[(1,2) ],
-	'vectorizer__min_df':[2],
-	'vectorizer__max_df':[.98],
+	'vectorizer__min_df':[.01],
+	'vectorizer__max_df':[.7],
 	#'vectorizer__preprocessor':[hl.vectorizer_preprocessor,
 	#                            hl.vectorizer_preprocessor_stem],
-	'classifier__C':[    0.000001,  ],
+	'classifier__C':[    0.0001,  ],
 	'classifier__loss':[ 'hinge', ],
 	'classifier__penalty':[ 'l2', ],
 	}
-p = tl.TextPipelineTuningHelper( pipeline, parameters, beta=4, cv=5,
+p = tl.TextPipelineTuningHelper( pipeline, parameters, beta=2, cv=5,
 			randomSeeds=randomSeeds,).fit()
 print p.getReports()
