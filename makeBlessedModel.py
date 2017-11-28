@@ -28,14 +28,14 @@ def parseCmdLine():
     parser = argparse.ArgumentParser( \
     description='Train model and pickle it.')
 
-    parser.add_argument('-t', '--training', dest='trainingDataDir',
+    parser.add_argument('-d', '--data', dest='trainingData',
 	    default=TRAINING_DATA,
-	    help='where the training set lives. Default: "%s"' \
+	    help='Directory where training data files live. Default: "%s"' \
 		    % TRAINING_DATA)
 
     parser.add_argument('-p', '--pipeline', dest='pipelineFile',
 	    default=BLESSED_PIPELINE_FILE,
-	    help='python (input) file defining blessedPipeline. Default: "%s"'\
+	    help='Python (input) file defining blessedPipeline. Default: "%s"'\
 		    % BLESSED_PIPELINE_FILE)
 
     parser.add_argument('-o', '--output', dest='pickleFile',
@@ -55,9 +55,9 @@ def process():
     args = parseCmdLine()
     execfile(args.pipelineFile)		# define blessedPipeline
 
-    print "Loading training data from '%s'" % args.trainingDataDir
+    print "Loading training data from '%s'" % args.trainingData
 
-    dataSet = load_files( args.trainingDataDir )
+    dataSet = load_files( args.trainingData )
     blessedPipeline.fit(dataSet.data, dataSet.target)	# train on all samples
 
     with open(args.pickleFile, 'wb') as fp:
