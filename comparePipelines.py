@@ -11,7 +11,7 @@ import argparse
 from ConfigParser import ConfigParser
 from sklearn.datasets import load_files
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import precision_recall_fscore_support
+from sklearn.metrics import precision_recall_fscore_support, f1_score
 
 #-----------------------------------
 cp = ConfigParser()
@@ -62,8 +62,14 @@ def main():
     #  for computing averages
     pipelineInfo = [ {	'fscores':0,
 			'precisions': 0,
+			'f1': 0,
 			'recalls': 0, } for i in range(len(pipelines)+1) ]
 						# +1 for voted predictions
+    # formats for output lines, Pipeline line, votes line, avg line
+    pf="Pipeline %d:   F1: %5.3f   F%d: %5.3f   Precision: %4.2f   Recall: %4.2f"
+    vf="Votes... %d:   F1: %5.3f   F%d: %5.3f   Precision: %4.2f   Recall: %4.2f"
+    af="Average. %d:   F1: %5.3f   F%d: %5.3f   Precision: %4.2f   Recall: %4.2f"
+
     dataSet = load_files( args.trainingData )
 
     for sp in range(args.numSplits):
@@ -73,7 +79,7 @@ def main():
 
 	predictions = []	# predictions[i]= predictions for ith Pipeline
 				#  on this split (for voting)
-	print "Sample Split"
+	print "Sample Split %d" % sp
 	for i, pl in enumerate(pipelines):	# for each Pipeline
 
 	    pl.fit(docs_train, y_train)
@@ -85,12 +91,14 @@ def main():
 							y_test, y_pred, BETA,
 							pos_label=INDEX_OF_YES,
 							average='binary')
+	    f1 = f1_score(y_test, y_pred, pos_label=INDEX_OF_YES,
+							average='binary')
 	    pipelineInfo[i]['fscores']    += fscore
+	    pipelineInfo[i]['f1']	  += f1
 	    pipelineInfo[i]['precisions'] += precision
 	    pipelineInfo[i]['recalls']    += recall
 
-	    l="Pipeline %d: F%d: %6.4f\t precision: %4.2f\t recall: %4.2f" \
-			    % (i, BETA, fscore, precision, recall)
+	    l = pf % (i, f1, BETA, fscore, precision, recall)
 	    print l
 
 	vote_pred = y_vote( predictions )
@@ -99,23 +107,25 @@ def main():
 							y_test, vote_pred, BETA,
 							pos_label=INDEX_OF_YES,
 							average='binary')
+	f1 = f1_score(y_test, vote_pred, pos_label=INDEX_OF_YES,
+						    average='binary')
 	i = len(pipelines)
 	pipelineInfo[i]['fscores']    += fscore
+	pipelineInfo[i]['f1']	      += f1
 	pipelineInfo[i]['precisions'] += precision
 	pipelineInfo[i]['recalls']    += recall
 
-	l="Votes    %d: F%d: %6.4f\t precision: %4.2f\t recall: %4.2f" \
-			% (i , BETA, fscore, precision, recall)
+	l = vf % (i , f1, BETA, fscore, precision, recall)
 	print l
 
     # averages across all the Splits
     print
     for i in range(len(pipelines)+1):
 	avgFscore    = pipelineInfo[i]['fscores']    / args.numSplits
+	avgF1        = pipelineInfo[i]['f1']         / args.numSplits
 	avgPrecision = pipelineInfo[i]['precisions'] / args.numSplits
 	avgRecall    = pipelineInfo[i]['recalls']    / args.numSplits
-	l="Average  %d: F%d: %6.4f\t precision: %4.2f\t recall: %4.2f" \
-			% (i, BETA, avgFscore, avgPrecision, avgRecall)
+	l = af % (i, avgF1, BETA, avgFscore, avgPrecision, avgRecall)
 	print l
 #-----------------------
 
