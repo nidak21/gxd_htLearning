@@ -84,7 +84,7 @@ def main():
     # for now assume directories exist
     # could create directories instead.
 
-    counts = { 'yes':0, 'no':0}
+    counts = { 'yes':0, 'no':0, 'encode':0}
     fp = open( args.inputFile, 'r')
     for line in fp.readlines()[1:]:
 
@@ -93,6 +93,7 @@ def main():
 
 	if not args.keepEncode and htLib.isEncodeExperiment(title):
 	    print "Skipping ENCODE experiment: '%s'" % ID
+	    counts['encode'] += 1
 	    continue
 	
 	yesNo = yesNo.lower()
@@ -110,5 +111,6 @@ def main():
     numFiles = counts['yes'] + counts['no']
     print "%d files written to %s" % (numFiles, args.outputDir)
     print "%d yes, %d no" % (counts['yes'], counts['no'])
+    print "%d Encode files skipped" % counts['encode']
 #
 main()
