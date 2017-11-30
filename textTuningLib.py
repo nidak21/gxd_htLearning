@@ -83,6 +83,11 @@ def parseCmdLine():
     parser = argparse.ArgumentParser( \
     description='Run a tuning experiment script.')
 
+    parser.add_argument('-d', '--data', dest='trainingData',
+            default=TRAINING_DATA,
+            help='Directory where training data files live. Default: "%s"' \
+                    % TRAINING_DATA)
+
     parser.add_argument('-v', '--verbose', dest='verbose', action='store_true',
                         help='verbose: print longer tuning report.')
 
@@ -202,7 +207,7 @@ class TextPipelineTuningHelper (object):
     #---------------------
 
     def getDataDir(self):
-	return TRAINING_DATA
+	return args.trainingData
     # ---------------------------
 
     def getDataSet(self):
