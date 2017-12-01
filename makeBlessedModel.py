@@ -1,8 +1,14 @@
 #!/usr/bin/env python2.7 
-# Take the BlessedPipeline, train it, and pickle it as the "BlessedModel"
+# Take a file defining a Pipeline, train it, and pickle it to a file so it
+#   can be run.
 #
-# This could/should be cleaned up a lot, command line args or config vars,
-#  refactoring,
+# The file should define a variable 'pipelines'.
+#   this can be a Pipeline object
+#   or a list of Pipelines, in which case pipelines[0] is trained
+#
+# If the Pipeline has a method to get features and their weights/coefficients,
+#   also write a top weighted feature report.
+#
 import sys
 sys.path.append('..')
 from ConfigParser import ConfigParser
@@ -26,7 +32,7 @@ FEATURE_FILE = "Blessed.features"
 
 def parseCmdLine():
     parser = argparse.ArgumentParser( \
-    description='Train model and pickle it.')
+    description='Train a model and pickle it so it can be used to predict.')
 
     parser.add_argument('-d', '--data', dest='trainingData',
 	    default=TRAINING_DATA,
@@ -35,7 +41,7 @@ def parseCmdLine():
 
     parser.add_argument('-p', '--pipeline', dest='pipelineFile',
 	    default=BLESSED_PIPELINE_FILE,
-	    help='Python (input) file defining blessedPipeline. Default: "%s"'\
+	    help='Python (input) file defining pipeline to train. Expects "pipelines" a Pipeline object or a list (trains the 0th). Default: "%s"'\
 		    % BLESSED_PIPELINE_FILE)
 
     parser.add_argument('-o', '--output', dest='pickleFile',
@@ -53,25 +59,34 @@ def parseCmdLine():
 
 def process():
     args = parseCmdLine()
-    execfile(args.pipelineFile)		# define blessedPipeline
 
-    print "Loading training data from '%s'" % args.trainingData
+    pyFile = args.pipelineFile
+    if pyFile.endswith('.py'): pyFile = pyFile[:-3]
 
+    pipelineModule = __import__(pyFile)
+    pipeline = pipelineModule.pipelines
+
+    if type(pipeline) == type([]):
+        pipeline = pipeline[0]
+
+    print "Training on data from '%s'" % args.trainingData
     dataSet = load_files( args.trainingData )
-    blessedPipeline.fit(dataSet.data, dataSet.target)	# train on all samples
+    pipeline.fit(dataSet.data, dataSet.target)	# train on all samples
 
     with open(args.pickleFile, 'wb') as fp:
-	pickle.dump(blessedPipeline, fp)
-
-    print "Trained model written to '%s'" % args.pickleFile
+	pickle.dump(pipeline, fp)
+	print "Trained model written to '%s'" % args.pickleFile
 
     # print features report
-    vectorizer = blessedPipeline.named_steps['vectorizer']
-    classifier = blessedPipeline.named_steps['classifier']
+    vectorizer = pipeline.named_steps['vectorizer']
+    classifier = pipeline.named_steps['classifier']
     orderedFeatures = tl.getOrderedFeatures(vectorizer,classifier)
-    with open(args.featureFile, 'w') as fp:
-	fp.write( tl.getTopFeaturesReport( orderedFeatures, NUM_TOP_FEATURES) )
 
-    print "Top weighted features file written to '%s'" % args.featureFile
+    if len(orderedFeatures) == 0: 
+	print "No feature weights/coefficients are available for this Pipeline"
+    else:
+	fp = open(args.featureFile, 'w')
+	fp.write(tl.getTopFeaturesReport(orderedFeatures, NUM_TOP_FEATURES))
+	print "Top weighted features file written to '%s'" % args.featureFile
 #-----------------------
 if __name__ == "__main__": process()

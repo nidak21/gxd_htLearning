@@ -30,7 +30,7 @@ PIPELINE_DEFS = 'goodPipelines.py'
 
 def parseCmdLine():
     parser = argparse.ArgumentParser(description = \
-		    'Compare pipelines. Write output to stdout.')
+    'Compare pipelines over mult train_test_splits. Write output to stdout.')
 
     parser.add_argument('-d', '--data', dest='trainingData', action='store', 
         required=False, default=TRAINING_DATA,
@@ -38,11 +38,12 @@ def parseCmdLine():
 						    % TRAINING_DATA)
     parser.add_argument('-p','--pipelines',dest='pipelineDefs', action='store',
         required=False, default=PIPELINE_DEFS,
-        help='Python file that defines "pipelines" list. Default: %s' \
+        help= \
+	'Python file defining pipelines. Expects "pipelines", a list of Pipeline objects or a single Pipeline obj to run. Default: "%s"'\
 						    % PIPELINE_DEFS)
     parser.add_argument('-s','--splits',dest='numSplits', action='store',
         required=False, default=NUMSPLITS,
-        help='number of train-test splits to run. Default: %s' % NUMSPLITS)
+        help='number of train_test_splits to run. Default: %s' % NUMSPLITS)
 
     parser.add_argument('-t','--testsize',dest='testSize', action='store',
         required=False, default=TESTSIZE,
@@ -55,8 +56,16 @@ def parseCmdLine():
 #----------------------
   
 def main():
+    # Could/should refactor this whole thing
     args = parseCmdLine()
-    execfile(args.pipelineDefs)		# define pipelines, list of Pipelines
+    pyFile = args.pipelineDefs
+    if pyFile.endswith('.py'): pyFile = pyFile[:-3]
+
+    pipelineModule = __import__(pyFile)
+    pipelines = pipelineModule.pipelines
+
+    if type(pipelines) != type([]): 
+	pipelines = [ pipelines ]
 
     # totals across all the split tries for each pipeline + voted predictions
     #  for computing averages
