@@ -1,21 +1,16 @@
 #!/usr/bin/env python2.7 
 #
-# Script to take a tab-delimited GXD HT experiment file containing
-#  un-classified (evaluation status = "Not Evaluated")
-# experiments and predict their relevance based on the "Blessed model".
+# Script to take a samples and predict them using a trained model
 #
-# Write out a tab-delimited predictions file(s)
+# Write out prediction file and optional a long prediction file.
 #
-# The input file columns are:
-# 	ArrayExpress experiment ID
-#	title
-#	description
-#	Experimental factor terms in one field joined by ' | ' into one
-#		text string.
+# See sampleDataLib.py for input and output file formats.
+# This script is intended to be independent of specific ML projects.
+# The details of data samples are intended to be encapsulated in
+#   sampleDataLib.py
 #
 # Author: Jim Kadin
 #
-
 import sys
 sys.path.append('..')
 sys.path.append('../..')
@@ -23,33 +18,32 @@ import string
 import pickle
 import argparse
 from ConfigParser import ConfigParser
-import gxd_htLearningLib as htLib
+import sampleDataLib as sdLib
 import sklearnHelperLib as ppLib	# module holding preprocessor function
 
 #-----------------------------------
 cp = ConfigParser()
 cp.optionxform = str # make keys case sensitive
-cp.read(["config.cfg","../config.cfg"])
+cp.read(["config.cfg","../config.cfg","../../config.cfg","../../../config.cfg"])
 
 DATA_TO_PREDICT	 = cp.get("DEFAULT", "DATA_TO_PREDICT")
 BLESSED_MODEL	 = cp.get("DEFAULT", "BLESSED_MODEL")
 PREPROCESSOR     = cp.get("DEFAULT", "PREPROCESSOR")
-KEEP_ENCODE      = cp.getboolean("DEFAULT", "KEEP_ENCODE")
-DEFAULT_OUTPUT   = "predictions_unknowns.tsv"
+DEFAULT_OUTPUT   = "predictions.tsv"
 DEFAULT_OUTPUT_LONG  = "predictions_long.tsv"
-
-# if we want to print out class names ("yes", "no") instead of 1, 0,
-#    we could use this.
-#CLASS_NAMES      = eval( cp.get("DEFAULT", "CLASS_NAMES") )
 
 def parseCmdLine():
     parser = argparse.ArgumentParser( \
-		    description='predict relevance of GXD HT experiments')
+		description='predict samples/records relevance')
 
     parser.add_argument('-i', '--input', dest='inputFile', action='store', 
 	required=False, default=DATA_TO_PREDICT,
-    	help='tab-delimited experiment input file. Default: %s' \
+    	help='tab-delimited record input file. Default: %s' \
 				% DATA_TO_PREDICT)
+
+    parser.add_argument('-m', '--model', dest='model', action='store',
+	required=False, default=BLESSED_MODEL,
+    	help='pickled model file. Default: %s' % BLESSED_MODEL)
 
     parser.add_argument('-o', '--output', dest='outputFile', action='store',
 	required=False, default=DEFAULT_OUTPUT,
@@ -66,172 +60,77 @@ def parseCmdLine():
     	help='long output file name: predictions + text... . Default: %s' \
 						% DEFAULT_OUTPUT_LONG)
 
-    parser.add_argument('--encode', dest='keepEncode',
-        action='store_const', required=False, default=KEEP_ENCODE, const=True,
-        help='keep Encode experiments in the dataset. Default: %s'  \
-							% str(KEEP_ENCODE)
-	)
-    parser.add_argument('--noencode', dest='keepEncode',
-        action='store_const', required=False, default=not KEEP_ENCODE,
-	const=False,
-        help='omit Encode experiments in the dataset. Default: %s'  \
-							% str(not KEEP_ENCODE)
-	)
     parser.add_argument('-p', '--preprocessor', dest='preprocessor',
         action='store', required=False, default=PREPROCESSOR,
         help='preprocessor function name. Default= %s' % PREPROCESSOR)
 
-    parser.add_argument('-b', '--blessed', dest='blessedModel', action='store',
-	required=False, default=BLESSED_MODEL,
-    	help='pickled model file. Default: %s' % BLESSED_MODEL)
-
     args = parser.parse_args()
+
     return args
 #----------------------
-
-args = parseCmdLine()
   
-# Main prog
 def main():
+    args = parseCmdLine()
 
-    with open(args.blessedModel, 'rb') as bp:
-	blessedModel = pickle.load(bp)
+    #####################
+    # Get Trained Model
+    with open(args.model, 'rb') as bp:
+	model = pickle.load(bp)
 
-    if args.preprocessor == 'None':
-	preprocess = None
-    else: preprocess = getattr( ppLib, args.preprocessor )
+    hasConf = hasattr(model, "decision_function")# confidence values?
 
-    docs = []		# list of text docs (experiments) to be predicted
-    sampleNames = []		# parallel list of experiment ids
-    titles = []
-    descriptions = []
-    expFactors = []
-
-    # read tab-delimited experiment file
+    #####################
+    # Read file of samples to predict
     print "Reading documents from %s...." % args.inputFile
-    ip = open(args.inputFile, 'r')
-    for expLine in ip.readlines()[1:]:
 
-	expFactorStr, desc, expId, title = \
-				    map(string.strip, expLine.split('\t'))
-	if not args.keepEncode and htLib.isEncodeExperiment(title):
-            print "Skipping ENCODE experiment: '%s'" % expId
+    samples = []			# sample records
+    docs = []				# documents (from samples)
+    counts = { 'skipped':0, }
+    
+    ip = open(args.inputFile, 'r')
+
+    for line in ip.readlines()[1:]:
+	sample = sdLib.SampleRecord(line, preprocessor=args.preprocessor,
+						    hasConfidence=hasConf)
+	rejectReason = sample.isReject()
+	if rejectReason != None:
+	    print "skipping sample: %s" % rejectReason
+	    counts['skipped'] += 1
             continue
 
-	doc = htLib.constructDoc( title, desc, expFactorStr)
-	if preprocess: doc = preprocess(doc)	# this may add white space
+	doc = sample.getDocument()
+	docs.append(doc)   		# str(doc).strip()) ?
+	samples.append(sample)
+    print "...done %d documents. Skipped %d" % (len(docs), counts['skipped'])
 
-	docs.append(str(doc).strip())
-	sampleNames.append(expId)
-	titles.append(title)
-	descriptions.append(desc)
-	expFactors.append(expFactorStr)
-    print "...done %d documents" % len(docs)
-
-    # PREDICT!
+    #####################
+    # PREDICT!!
     print "Predicting...."
-    y_predicted = blessedModel.predict(docs)
+    y_predicted = model.predict(docs)
+    if hasConf:
+        confs = model.decision_function(docs).tolist()
     print "...done"
 
-    # write prediction file(s)
-    writePredictions(blessedModel,
-	    sampleNames, y_predicted, expFactors, titles, descriptions, docs)
-    return
+    #####################
+    # Write Output Files
+    print "Writing prediction file(s)..."
 
-# ---------------------------
-def writePredictions( estimator,
-            sampleNames,
-            y_predicted,
-            expFactors,
-            titles,
-            descriptions,
-            docs
-    ):
-    '''
-    Write prediction file(s).
-    We always write the "short" file (typically predictions_unknowns.tsv) that
-	contains the predictions (1 or 0) and confidence values if available.
-    If "writelong" we will also write a big file that includes the title,
-    	descriptions, experimental factors, etc.
-    '''
+    fp = open(args.outputFile, 'w')
+    fp.write(samples[0].getPredOutputHeader())
 
-    if hasattr(estimator, "decision_function"):         # have confidence vals
-        confs = estimator.decision_function(docs).tolist()
-        absConfs = map(abs, confs)
-
-        selConf = lambda x: x[2]        # select confidence value for sorting
-
-        # prediction tuples for the "short" prediction file
-        preds = zip(sampleNames, y_predicted, confs, absConfs)
-        preds = sorted(preds, key=selConf, reverse=True)
-
-        header = '\t'.join(["Sample",
-                                "Prediction",
-                                "Confidence",
-                                "Abs value",
-                                ]) + '\n'
-        template = '\t'.join(["%s", "%d", "%5.3f", "%5.3f",]) + '\n'
-
-	if args.writeLong:
-	    # prediction tuples for the long prediction file
-	    fullPreds = zip(sampleNames, y_predicted, confs, absConfs,
-					expFactors, titles, descriptions, docs)
-	    fullPreds = sorted(fullPreds, key=selConf, reverse=True)
-
-	    fullHeader = '\t'.join(["Sample",
-				    "Prediction",
-				    "Confidence",
-				    "Abs value",
-				    "Experimental Factors",
-				    "Title",
-				    "Description",
-				    "Processed Document",
-				    ]) + '\n'
-	    fullTemplate = '\t'.join(["%s", "%d", "%5.3f", "%5.3f",
-					    "%s", "%s", "%s", "%s",]
-				    ) + '\n'
-    else:                       # no confidence values available
-        selExpID = lambda x: x[0]        # select experiment ID for sorting
-        # prediction tuples for the "short" prediction file
-        preds = zip(sampleNames, y_predicted)
-        preds = sorted(preds, key=selExpID)
-
-        header = '\t'.join(["Sample",
-			    "Prediction",
-			    ]) + '\n'
-        template = '\t'.join(["%s", "%d", ]) + '\n'
-
-	if args.writeLong:
-	    # prediction tuples for the long prediction file
-	    fullPreds = zip(sampleNames, y_predicted,
-					expFactors, titles, descriptions, docs)
-	    fullPreds = sorted(fullPreds, key=selExpID)
-
-	    fullHeader = '\t'.join(["Sample",
-				    "Prediction",
-				    "Experimental Factors",
-				    "Title",
-				    "Description",
-				    "Processed Document",
-				    ]) + '\n'
-	    fullTemplate = '\t'.join(["%s", "%d", "%s", "%s", "%s", "%s",])+'\n'
-
-    # write "short" file
-    print "Writing predictions file %s...." % args.outputFile
-    with open(args.outputFile, 'w') as fp:
-	fp.write(header)
-	for p in preds:
-	    fp.write(template % p)
-    print "...done %d lines written" % len(sampleNames)
-
-    # write "long" predictions file
     if args.writeLong:
-	print "Writing long predictions file %s...." % args.longFile
-	with open(args.longFile, 'w') as fp:
-	    fp.write(fullHeader)
-	    for p in fullPreds:
-		fp.write(fullTemplate % p)
-	print "...done %d lines written" % len(docs)
+	lfp = open(args.longFile, 'w')
+	lfp.write(samples[0].getPredLongOutputHeader())
+
+    for i, (s, y) in enumerate(zip(samples, y_predicted, )):
+	conf = None
+	if hasConf: conf = confs[i]
+	fp.write(s.getPredOutput(y, conf))
+	if args.writeLong: lfp.write(s.getPredLongOutput(y, conf))
+
+    print "...done %d lines written to %s" % (len(samples), args.outputFile)
+    if args.writeLong:
+	print "...done %d lines written to %s" % (len(samples), args.longFile)
 
     return
 # ---------------------------

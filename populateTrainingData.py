@@ -1,27 +1,21 @@
 #!/usr/bin/env python2.7 
 #
 # populateTrainingData.py
+# Script to take a sample file (tab-delimited) and split it
+# data and split it into individual experiment files, one for each sample.
 #
-# Script to take a tab-delimited GXD HT experiment file containing training
-# data and split it into individual experiment files, one for each experiment.
-#
-# Files (experiments) get shoved into two directories, /data/no and /data/yes,
+# Files (samples) get shoved into two directories, /data/no and /data/yes,
 #       that sklearn.datasets.load_files() can read easily.
 #
-# Expermiments w/ eval state = No and Yes go into their respective directories.
+# Samples w/ eval state = No and Yes go into their respective directories.
 #
-# Each experiment file contains the title and description fields concatenated
-#       into one text string.
-# The file names are the experiment IDs
-#
-# The input file structure is 4 columns, tab-delimited:
-#       title  description, experimental factors, exp ID, eval state
-# experimental factors is a string of factor terms separated by '|'
+# See sampleDataLib.py for input and output file formats.
+# This script is intended to be independent of specific ML projects.
+# The details of data samples are intended to be encapsulated in
+#   sampleDataLib.py
 #
 # Author: Jim Kadin
 #
-
-# standard libs
 import sys
 sys.path.append('..')
 sys.path.append('../..')
@@ -29,7 +23,7 @@ import string
 import os
 import argparse
 from ConfigParser import ConfigParser
-import gxd_htLearningLib as htLib
+import sampleDataLib as sdLib
 import sklearnHelperLib as ppLib	# module holding preprocessor function
 
 #-----------------------------------
@@ -40,7 +34,6 @@ cp.read(["config.cfg","../config.cfg"])
 
 TRAINING_DATA = cp.get("DEFAULT", "TRAINING_DATA")
 PREPROCESSOR  = cp.get("DEFAULT", "PREPROCESSOR")
-KEEP_ENCODE   = cp.getboolean("DEFAULT", "KEEP_ENCODE")
 
 def parseCmdLine():
     parser = argparse.ArgumentParser( \
@@ -53,22 +46,12 @@ def parseCmdLine():
 	required=False, default=TRAINING_DATA,
     	help='parent dir where /no and /yes exist. Default=%s' % TRAINING_DATA)
 
-    parser.add_argument('--encode', dest='keepEncode',
-        action='store_const', required=False, default=KEEP_ENCODE, const=True,
-        help='keep Encode experiments in the dataset. Default: %s'  \
-                                                        % str(KEEP_ENCODE)
-        )
-    parser.add_argument('--noencode', dest='keepEncode',
-        action='store_const', required=False, default=not KEEP_ENCODE,
-        const=False,
-        help='omit Encode experiments in the dataset. Default: %s'  \
-                                                        % str(not KEEP_ENCODE)
-        )
     parser.add_argument('-p', '--preprocessor', dest='preprocessor',
 	action='store', required=False, default=PREPROCESSOR,
     	help='preprocessor function name. Default= %s' % PREPROCESSOR)
 
     args = parser.parse_args()
+
     return args
 #----------------------
 
@@ -77,40 +60,33 @@ def main():
     args = parseCmdLine()
     #print args
 
-    if args.preprocessor == 'None':
-	preprocess = None
-    else: preprocess = getattr( ppLib, args.preprocessor )
+    for yesNo in ['yes', 'no']:
+	dirname =  os.sep.join( [ args.outputDir, yesNo ] )
+	if not os.path.exists(dirname):
+	    os.makedirs(dirname)
 
-    # for now assume directories exist
-    # could create directories instead.
-
-    counts = { 'yes':0, 'no':0, 'encode':0}
+    counts = { 'yes':0, 'no':0, 'skipped':0}
     fp = open( args.inputFile, 'r')
     for line in fp.readlines()[1:]:
 
-	title, expFactorStr, desc, ID, yesNo = \
-					map(string.strip, line.split('\t'))
-
-	if not args.keepEncode and htLib.isEncodeExperiment(title):
-	    print "Skipping ENCODE experiment: '%s'" % ID
-	    counts['encode'] += 1
+	sample = sdLib.SampleRecord(line, preprocessor=args.preprocessor,)
+	rejectReason = sample.isReject()
+	if rejectReason != None: 
+	    print "skipping sample: %s" % rejectReason
+	    counts['skipped'] += 1
 	    continue
 	
-	yesNo = yesNo.lower()
+	yesNo = sample.getKnownClassName()
 	counts[yesNo] += 1
 
-	filename = os.sep.join( [ args.outputDir, yesNo, ID ] )
+	filename = os.sep.join([args.outputDir, yesNo, sample.getSampleName()])
 
 	with open(filename, 'w') as newFile:
-
-	    doc = htLib.constructDoc( title, desc, expFactorStr)
-
-	    if preprocess: doc = preprocess(doc)
-	    newFile.write( doc )
+	    newFile.write(sample.getDocument()) 
 
     numFiles = counts['yes'] + counts['no']
     print "%d files written to %s" % (numFiles, args.outputDir)
     print "%d yes, %d no" % (counts['yes'], counts['no'])
-    print "%d Encode files skipped" % counts['encode']
+    print "%d samples skipped" % counts['skipped']
 #
 main()
