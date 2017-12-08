@@ -16,7 +16,7 @@ group by a.accid;
 create index idx1 on tmp_expFactors(accid);
 
 -- 2) pull title, description, experimental factors together.
-select  a.accid "exp ID", ht.name "title", ht.description, f.factors
+select  a.accid "exp ID", f.factors, ht.name "title", ht.description
 from gxd_htexperiment ht
     join acc_accession a  on (a._object_key = ht._experiment_key
 				and a._logicaldb_key = 189) -- ArrayExpress

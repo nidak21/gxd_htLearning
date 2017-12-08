@@ -14,8 +14,7 @@ group by a.accid;
 create index idx1 on tmp_expFactors(accid);
 
 -- Get all HT experiments whose evaluation status is 'no' or 'yes'
-select  a.accid "exp ID", t.term "eval state", ht.name "title", ht.description,
-        f.factors
+select  a.accid "exp ID", t.term "eval state", f.factors, ht.name "title", ht.description
 from gxd_htexperiment ht join acc_accession a
         on (a._object_key = ht._experiment_key
                             and a._logicaldb_key = 189) -- ArrayExpress log db
