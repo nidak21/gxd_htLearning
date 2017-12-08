@@ -14,7 +14,7 @@ Data/
 cache/
 *.ipynb_checkpoints
 *.swp
-.DS_Store
+*.DS_Store
 .RData
 .Rapp.history
 .Rhistory

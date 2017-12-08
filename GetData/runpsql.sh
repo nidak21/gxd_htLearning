@@ -12,6 +12,8 @@ $s [-s server] [-d database] [options...] [--] [options to psql]
     -s, --server  SERVER	db server
 				shorthands: adhoc (default), prod, dev
     -d, --database DATABASE	database. Default: "mgd"
+    -c, --cleanse		remove non-ascii chars from the output (default)
+    --dirty			leave non-ascii chars
     --align			psql aligned format. Default: --no-align
     -v, --verbose		unquiet psql. Default: -q, quiet
     --				pass the following arguments to psql cmd line
@@ -26,6 +28,9 @@ server="mgi-adhoc"
 db="mgd"
 alignopt="--no-align"
 quietopt="-q"
+clean="true"
+cleanseCmd="env LANG=C tr -cd '[:print:]\n\t'"
+headCmd="head -n -1"
 
 while [ $# -gt 0 ]; do
     case "$1" in
@@ -40,7 +45,8 @@ while [ $# -gt 0 ]; do
             shift; shift;
             ;;
     -d|--database) db="$2"; shift; shift; ;;
-    -c|--cleanse)  clean="y"; shift; ;;
+    -c|--cleanse)  clean="true"; shift; ;;
+    --dirty) clean="false"; shift; ;;
     --align) alignopt=""; shift; ;;
     -v|--verbose) quietopt=""; shift; ;;
     --) shift; break; ;;
@@ -50,15 +56,18 @@ while [ $# -gt 0 ]; do
 done
 
 cat -  >| $sqltmp
-if [ "$quietopt" == "" ]; then
-    echo "hitting $server, database $db as mgd_public"  >&2
-fi
-psql -h $server -d $db -U mgd_public -f $sqltmp -F $'\11' $alignopt $quietopt "$@" >| $outputtmp
 
-if [ "$quietopt" == "-q" ]; then
-    # note: if --align, this removes the blank line at end, not the count line
-    head -n -1 $outputtmp	# remove last line
-else
-    cat $outputtmp
+echo "hitting $server, database $db as mgd_public"  >&2
+
+cmd="psql -h $server -d $db -U mgd_public -f $sqltmp -F \$'\11' $alignopt $quietopt "$@"" 
+if [ "$clean" == "true" ]; then
+    cmd="$cmd | $cleanseCmd"
 fi
-rm $outputtmp $sqltmp
+if [ "$quietopt" == "-q" ]; then
+    cmd="$cmd | $headCmd"
+fi
+#set -x
+eval $cmd
+#set +x
+
+rm $sqltmp
