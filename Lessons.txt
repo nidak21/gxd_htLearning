@@ -178,3 +178,97 @@ MultinomialNB - GridSearch was ok on this, a little better performance, but
 not that good. Could get in the 80's for Recall and Precision.
 
 BernoulliNB - Gridsearch ok, but worse performance.
+
+----------Balancing yes and no's  Nov 2017 -------------------
+
+After talking with Hagit and Xiangying doing the GXD reference relevance work
+at U Delaware, they were very concerned about the imbalance between positive
+and negative samples. They are trying multiple things to train/test on a
+balanced set.
+
+The simplest thing is to use the class_weight='balanced' parameter in the 
+classifier. (see the documentation, I'm still a bit fuzzy on this, but have
+been using it from the beginning)
+
+Next simple thing to do is to randomly select a number of negative samples
+from the total set of negative samples - select the same number as the positive
+samples. Train/test on this pos + neg subset. Was hoping this would improve
+precision.
+
+I tried this. Here is what I did:
+
+* Organizing the training/test data (in Data/balanceTesting)
+    Start with 3248 total training set,
+    Separated out all 1157 yes and 2071 no's into separate files.
+
+    NOTE I did this via grep. Grep seems to skip lines that have non-ascii
+    characters, so these counts are a bit lower from the total sample set
+    (skipped experiments with non-ascii chrs in their title or desc).
+    But not too many experiments were skipped. Turns out 19 were skipped
+    by grep. See grep discussion below...
+    
+* Try1
+    randomly pulled out 1157 no's from the total set of 2071
+    (Wrote getRandomSubset.py to do this random selection)
+
+    Combined these into a single training set file with the 1111 yes's
+    (46 of the yes's were skipped Encode experiments).
+    Call this the "balanced training set".
+    Ran populateTrainingData.py to generate no/yes directories.
+
+    Also pulled out the 913 "no"s that were not used for training. 
+    Call these the "leftovers".
+
+    Retuned LinearSVC using the Bal* tuning file names and output.
+    Retuned parameters:  max_df=.7, min_df=.05, C=0.00001,
+			class_weight='balanced' (still)
+    Test set: P ~72, R ~94
+    74 FP, 148 TN. True Negative ratio: 148/222 = .66
+
+    Using these parameters, retrained a classifier on the whole balanced
+    training set.
+
+    On the 913 leftovers:
+    409 FP and 504 TN. this is 504/913 = .55 true negative rate
+
+    Difference in true negative rates on test set vs. leftovers is a bit
+    concerning. Seems like the classification of negatives doesn't generalize
+    too well.
+
+* Try 2
+    Same things, but with slightly different balanced training set size and
+    new random subset.
+
+    Random subset of no's: 1112 to go with 1111 yes's,
+    total balanced test set: 2223,   958 leftovers.
+
+    Retuned parameters:  max_df=.8, min_df=.01, C=0.00001,
+			class_weight=None
+
+    Test set: P .78, R .94,
+    59 FP, and 160 TN. this is 160/129 = .69 true negative rate
+
+    On 958 leftovers:
+    388 FP, 570 TN. True negative ratio:  570/958 = .59
+    
+    In general these new parameters give a little better results all around,
+    but the difference in true negative ratios is something to ponder.
+
+lessons/thoughts:
+    * Is this balance approach better than the previous unbalanced?
+	need to decide...
+    * grep's behavior w/ non-ascii is pain. need to remove non-ascii
+	from exported sample TSV file
+	sed -i 's/[\d128-\d255]//g' FILENAME
+	    # doesn't work on Mac, need to find correct byte code syntax
+	tr -cd '\11\12\15\40-\176' <input >output
+	    # (Unix bash shell note:  $'\11' means to shell, 11 in octal)
+	    # works ok except on some experiment descriptions
+	    # E-GEOD-41246 has a weird char just before "UTRs was widespread"
+	    # This char sequence is e2 27 in hex.
+	    # This char seq kills cut and tr, and grep doesn't match anything
+	    #   on that line after the char sequence.
+	    # (vi is fine and it lets you delete the offending chars)
+	    # Will need to investigate how to get rid of these types of chars.
+	    # 19 experiments from the training set have some
+	    #   of these weird chars.
