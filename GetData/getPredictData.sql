@@ -16,10 +16,12 @@ group by a.accid;
 create index idx1 on tmp_expFactors(accid);
 
 -- 2) pull title, description, experimental factors together.
-select  a.accid "exp ID", f.factors, ht.name "title", ht.description
+select  a.accid "exp ID", f.factors, ht.name "title",
+		translate(ht.description, E'\t\n', '  ') "description"
 from gxd_htexperiment ht
     join acc_accession a  on (a._object_key = ht._experiment_key
 				and a._logicaldb_key = 189) -- ArrayExpress
     left join tmp_expFactors f on (a.accid = f.accid)
 where a._logicaldb_key = 189	-- ArrayExpress logical db
 and ht._evaluationstate_key = 20225941 -- "Not Evaluated"
+order by a.accid

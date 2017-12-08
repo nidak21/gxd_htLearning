@@ -14,7 +14,8 @@ group by a.accid;
 create index idx1 on tmp_expFactors(accid);
 
 -- Get all HT experiments whose evaluation status is 'no' or 'yes'
-select  a.accid "exp ID", t.term "eval state", f.factors, ht.name "title", ht.description
+select  a.accid "exp ID", t.term "eval state", f.factors, ht.name "title",
+	     translate(ht.description, E'\t\n', '  ') "description"
 from gxd_htexperiment ht join acc_accession a
         on (a._object_key = ht._experiment_key
                             and a._logicaldb_key = 189) -- ArrayExpress log db
@@ -23,3 +24,4 @@ from gxd_htexperiment ht join acc_accession a
 where t.term in ('Yes', 'No')
 and ht._evaluatedby_key != 1561  -- not loader evaluation
                                  -- loader sets super series to "No"
+order by a.accid
