@@ -54,17 +54,17 @@ class SampleRecord (object):
 
 	fields = map(string.strip, line.split('\t'))
 	if len(fields) == 5:	# have true Y value in input
-	    self.ID           = fields[3]
-	    self.className    = fields[4].lower()
-	    self.expFactorStr = fields[1]
-	    self.title        = fields[0]
-	    self.desc         = fields[2]
-	else:				# no true Y
-	    self.ID           = fields[2]
-	    self.className    = None
-	    self.expFactorStr = fields[0]
+	    self.ID           = fields[0]
+	    self.className    = fields[1].lower()
+	    self.expFactorStr = fields[2]
 	    self.title        = fields[3]
-	    self.desc         = fields[1]
+	    self.desc         = fields[4]
+	else:				# no true Y
+	    self.ID           = fields[0]
+	    self.className    = None
+	    self.expFactorStr = fields[1]
+	    self.title        = fields[2]
+	    self.desc         = fields[3]
 
 	self.doc = constructDoc(self.title, self.desc, self.expFactorStr)
 	if preprocessor == 'None' or preprocessor == None:
