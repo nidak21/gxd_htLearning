@@ -1,0 +1,170 @@
+ArrayExpress ID	GEO ID	Experiment Type	Evaluation State	Study Type	Curation State	Variables
+E-MEXP-1636	None	transcription profiling by array	Yes	Differential	Done	anatomical structure|genotype
+E-GEOD-4307	GSE4307	transcription profiling by array	Yes	Baseline	Done	single cell variation
+E-GEOD-484	GSE484	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-1437	GSE1437	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-MEXP-288	None	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-MEXP-287	None	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-MEXP-286	None	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-MEXP-297	None	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-18616	GSE18616	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-25190	GSE25190	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-17664	GSE17664	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-1436	GSE1436	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-24330	GSE24330	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-22509	GSE22509	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-18330	GSE18330	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-5930	GSE5930	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-10640	GSE10640	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-18295	GSE18295	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-13609	GSE13609	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-21380	GSE21380	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-7791	GSE7791	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-19753	GSE19753	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-19142	GSE19142	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-10011	GSE10011	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-17925	GSE17925	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-MTAB-28	None	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-MTAB-26	None	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-12067	GSE12067	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-15907	GSE15907	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-15603	GSE15603	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-13229	GSE13229	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-15053	GSE15053	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-14363	GSE14363	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-7800	GSE7800	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-8516	GSE8516	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-8949	GSE8949	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-8357	GSE8357	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-8294	GSE8294	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-7770	GSE7770	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-7767	GSE7767	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-6482	GSE6482	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-1584	GSE1584	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-8566	GSE8566	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-52598	GSE52598	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-52623	GSE52623	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-52231	GSE52231	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-42927	GSE42927	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-52403	GSE52403	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-52332	GSE52332	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-52192	GSE52192	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-45139	GSE45139	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-50647	GSE50647	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-48206	GSE48206	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-49321	GSE49321	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-49192	GSE49192	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-46319	GSE46319	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-42923	GSE42923	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-45425	GSE45425	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-45274	GSE45274	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-46112	GSE46112	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-42250	GSE42250	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-41545	GSE41545	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-40452	GSE40452	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-26520	GSE26520	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-44935	GSE44935	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-41978	GSE41978	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-44698	GSE44698	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-43398	GSE43398	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-42580	GSE42580	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-41383	GSE41383	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-25525	GSE25525	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-33063	GSE33063	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-38304	GSE38304	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-35944	GSE35944	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-25763	GSE25763	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-38306	GSE38306	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-38305	GSE38305	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-37446	GSE37446	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-30562	GSE30562	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-31222	GSE31222	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-36284	GSE36284	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-27334	GSE27334	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-36379	GSE36379	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-MTAB-961	None	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-34886	GSE34886	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-29281	GSE29281	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-MTAB-836	None	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-28880	GSE28880	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-25971	GSE25971	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-26565	GSE26565	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-31921	GSE31921	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-31738	GSE31738	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-29983	GSE29983	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-29925	GSE29925	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-16886	GSE16886	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-29616	GSE29616	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-28532	GSE28532	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-28530	GSE28530	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-21562	GSE21562	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-26830	GSE26830	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-24573	GSE24573	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-26900	GSE26900	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-25972	GSE25972	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-MEXP-3054	None	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-26490	GSE26490	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-26473	GSE26473	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-84953	GSE84953	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-74155	GSE74155	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-60595	GSE60595	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-71073	GSE71073	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-82187	GSE82187	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-81682	GSE81682	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-77443	GSE77443	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-70436	GSE70436	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-76408	GSE76408	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-78209	GSE78209	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-63410	GSE63410	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-77274	GSE77274	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-73506	GSE73506	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-78797	GSE78797	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-63044	GSE63044	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-MTAB-2600	None	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-71933	GSE71933	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-72767	GSE72767	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-66021	GSE66021	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-60790	GSE60790	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-74254	GSE74254	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-64453	GSE64453	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-71736	GSE71736	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-69924	GSE69924	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-68729	GSE68729	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-68728	GSE68728	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-68727	GSE68727	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-71466	GSE71466	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-65315	GSE65315	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-64452	GSE64452	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-64459	GSE64459	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-69320	GSE69320	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-66978	GSE66978	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-68843	GSE68843	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-57472	GSE57472	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-66944	GSE66944	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-66544	GSE66544	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-61470	GSE61470	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-46877	GSE46877	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-15058	GSE15058	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-60874	GSE60874	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-59833	GSE59833	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-48519	GSE48519	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-51719	GSE51719	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-56986	GSE56986	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-51372	GSE51372	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-61472	GSE61472	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-61216	GSE61216	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-59121	GSE59121	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-56987	GSE56987	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-51139	GSE51139	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-59107	GSE59107	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-48968	GSE48968	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-47178	GSE47178	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-54126	GSE54126	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-27640	GSE27640	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-50198	GSE50198	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-54022	GSE54022	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-53910	GSE53910	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-65358	GSE65358	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-GEOD-60297	GSE60297	RNA-Seq	No	Not Curated	Not Applicable	Not Curated
+E-MTAB-3506	None	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated
+E-MTAB-5593	None	transcription profiling by array	No	Not Curated	Not Applicable	Not Curated

@@ -27,16 +27,15 @@ pipeline = Pipeline( [
 		random_state=randomSeeds['randForClassifier'],
 		max_iter=200) ),
 ] )
-parameters={'vectorizer__ngram_range':[(1,2) ],
-	'vectorizer__min_df':[.01, .05, ],
-	'vectorizer__max_df':[.4, .5, .6, .7, ],
-	#'vectorizer__max_df':[.98],
+parameters={'vectorizer__ngram_range':[(1,1) ],
+	'vectorizer__min_df':[.01, ],
+	'vectorizer__max_df':[.8, ],
 	#'vectorizer__preprocessor':[hl.vectorizer_preprocessor,
 	#                            hl.vectorizer_preprocessor_stem],
-	'classifier__C':[ 0.01, 0.001, 0.0001, 0.00001, ],
+	'classifier__C':[   0.0001, ],
 	'classifier__loss':[ 'hinge', ],
 	'classifier__penalty':[ 'l2', ],
 	}
-p = tl.TextPipelineTuningHelper( pipeline, parameters, beta=3, cv=5,
+p = tl.TextPipelineTuningHelper( pipeline, parameters, beta=4, cv=5,
 			randomSeeds=randomSeeds,).fit()
 print p.getReports()
