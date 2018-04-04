@@ -22,3 +22,6 @@ Running predictions on the  2031 leftover "no"s, get 1410 predicted to be "no"
 so 70% of them predicted correctly
 
 Seems reasonably good
+
+Looking at confidence values for the leftover "no"s:
+    the FP are mostly < 0.1, but so are the TN's so no apparent difference
