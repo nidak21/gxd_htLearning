@@ -1,69 +1,55 @@
-
 import sys
-sys.path.append('..')
-import argparse
 import textTuningLib as tl
+from sklearn.pipeline import Pipeline
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 from sklearn.preprocessing import StandardScaler, MaxAbsScaler
-from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC
-from sklearn.pipeline import Pipeline
 #-----------------------
-def process():
-    args = parseCmdLine()
-    randomSeeds = tl.getRandomSeeds( { 	# None means generate a random seed
-			'randForSplit'      : args.randForSplit,
-			'randForClassifier' : args.randForClassifier,
-			} )
-    beta=1		# >1 weighs recall more than precision
-    pipeline = Pipeline( [
-	('vectorizer', TfidfVectorizer(
-	#('vectorizer', CountVectorizer(
-			strip_accents='unicode', decode_error='replace',
-			token_pattern=u'(?i)\\b([a-z_]\w+)\\b',
-			stop_words="english",
-			#preprocessor=tl.vectorizer_preprocessor,
-			#preprocessor=tl.vectorizer_preprocessor_stem,
-			),
-	),
-	#('scaler'    ,StandardScaler(copy=True,with_mean=False,with_std=True)),
-	('scaler'    , MaxAbsScaler(copy=True)),
-	('classifier', SVC(class_weight='balanced',
-			random_state=randomSeeds['randForClassifier'],
-			) ),
-	] )
-    parameters={'vectorizer__ngram_range':[(1,3) ],
-		'vectorizer__min_df':[2],
-		'vectorizer__max_df':[.98],
-		#'vectorizer__preprocessor':[tl.vectorizer_preprocessor,
-		#			    tl.vectorizer_preprocessor_stem],
-		'classifier__C':[      .1, ],
-		'classifier__gamma':[  .1,],  # 'auto' ?
-		'classifier__kernel':[ 'sigmoid', ],
-		#'classifier__degree':[ 1, ],
-		#'classifier__loss':[ 'hinge',  ],
-		#'classifier__penalty':[ 'l2', ],
-		}
-    ht = tl.TextPipelineTuningHelper( \
-	pipeline, parameters, beta=beta, cv=5, randomSeeds=randomSeeds,
-	).fit()
-    print ht.getReports(verbose=args.verbose)
-#-----------------------
-def parseCmdLine():
-    """
-    Usage: scriptname [-v] [ randForSplit [ randForClassifier] ]
-    """
-    parser = argparse.ArgumentParser( \
-    description='Run a tuning experiment, log to tuning.log')
-
-    parser.add_argument('-v', '--verbose', dest='verbose', action='store_true',
-			help='verbose: print longer tuning report')
-
-    parser.add_argument('randForClassifier', nargs='?', default=None, type=int,
-			help="random seed for classifier")
-
-    parser.add_argument('randForSplit', nargs='?', default=None, type=int,
-			help="random seed for test_train_split")
-    return parser.parse_args()
-#-----------------------
-if __name__ == "__main__": process()
+args = tl.parseCmdLine()
+randomSeeds = tl.getRandomSeeds( { 	# None means generate a random seed
+		'randForSplit'      : args.randForSplit,
+		'randForClassifier' : args.randForClassifier,
+		} )
+pipeline = Pipeline( [
+    ('vectorizer', TfidfVectorizer(
+    #('vectorizer', CountVectorizer(
+		    strip_accents='unicode', decode_error='replace',
+		    token_pattern=u'(?i)\\b([a-z_]\w+)\\b',
+		    stop_words="english",
+		    #preprocessor=tl.vectorizer_preprocessor,
+		    #preprocessor=tl.vectorizer_preprocessor_stem,
+		    ),
+    ),
+    #('scaler'    ,StandardScaler(copy=True,with_mean=False,with_std=True)),
+    ('scaler'    , MaxAbsScaler(copy=True)),
+    ('classifier', SVC(class_weight='balanced',
+		    random_state=randomSeeds['randForClassifier'],
+		    ) ),
+    ] )
+parameters={'vectorizer__ngram_range':[(1,1) ],
+	    'vectorizer__min_df':[.01],
+	    'vectorizer__max_df':[.8],
+	    #'vectorizer__preprocessor':[tl.vectorizer_preprocessor,
+	    #                           tl.vectorizer_preprocessor_stem],
+	    'classifier__C':[   .1,  ],
+	    'classifier__gamma':[  .1,],  # 'auto' ?
+	    'classifier__kernel':[ 'sigmoid', ],
+	    #'classifier__degree':[ 1, ],
+	    #'classifier__loss':[ 'hinge',  ],
+	    #'classifier__penalty':[ 'l2', ],
+	    }
+p = tl.TextPipelineTuningHelper( pipeline, parameters,
+		    trainingDataDir=args.trainingData,
+		    testSplit=args.testSplit,
+		    gridSearchBeta=args.gridSearchBeta,
+		    gridSearchCV=args.gridSearchCV,
+		    indexOfYes=args.indexOfYes,
+		    randomSeeds=randomSeeds,
+		    ).fit()
+print p.getReports(wIndex=args.wIndex,
+		    tuningIndexFile=args.tuningIndexFile,
+		    wPredictions=args.wPredictions,
+		    predFilePrefix=args.predFilePrefix,
+		    compareBeta=args.compareBeta,
+		    verbose=args.verbose,
+		    )
