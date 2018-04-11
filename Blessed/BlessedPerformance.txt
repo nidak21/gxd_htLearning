@@ -1,0 +1,20 @@
+Best, blessed pipeline performance over 10 separate train/test splits
+
+Average. 0:   F1: 0.836   F4: 0.887   Precision: 0.78   Recall: 0.89
+
+Training data: ../data/training/mar2018bal/
+2018/04/09-15-40-38
+
+Pipeline 0 -------------
+('vectorizer', TfidfVectorizer(analyzer='word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.8, max_features=None, min_df=0.01,
+        ngram_range=(1, 1), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None))
+('scaler', StandardScaler(copy=True, with_mean=False, with_std=True))
+('classifier', LinearSVC(C=0.0001, class_weight='balanced', dual=True, fit_intercept=True,
+     intercept_scaling=1, loss='hinge', max_iter=200, multi_class='ovr',
+     penalty='l2', random_state=None, tol=0.0001, verbose=0))
+
