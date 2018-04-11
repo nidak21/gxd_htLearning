@@ -94,7 +94,7 @@ class SampleRecord (object):
 	return self.className
 
     def getPredOutputHeader(self):
-	cols = [ "Experiment" ]
+	cols = [ "ID" ]
 	if self.className != None: cols.append("True Class")
 	cols.append("Pred Class")
 	if self.hasConfidence:
@@ -113,7 +113,7 @@ class SampleRecord (object):
 	return '\t'.join(cols) + '\n'
 
     def getPredLongOutputHeader(self):
-	cols = [ "Experiment" ]
+	cols = [ "ID" ]
 	if self.className != None: cols.append("True Class")
 	cols.append("Pred Class")
 	if self.hasConfidence:

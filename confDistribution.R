@@ -1,19 +1,20 @@
 # Graphing confidence distributions for predictions
 
-graphConfTrainOrTest = function(filename)
+graphConfTrueAndPred = function(filename)
 {
-    # Graph confidence distributions for predictions for training or test sets.
+    # Graph confidence distributions for known (true) classifications and
+    #   predicted classifications
     # Assume file is tab delimited, with header line,
-    # Structure:
-    #  Sample (string),
-    #  True classification (not used),
-    #  Predicted classification (not used),
-    #  FN/FP (string: "FP", "FN", or for positives: "", "TP", or "TN"),
+    # Has columns:
+    #  ID (string),
+    #  True Class (either "yes"/"no" or 1,0),
+    #  Pred Class (either "yes"/"no" or 1,0),
     #  Confidence (float),
-    #  Abs value of the confidence (float)
+    #  Abs Value of the confidence (float)
+    #  (maybe others not used here)
     #
-    # column names: Sample, FN/FP, Confidence, Abs value must have these
-    #   exact names
+    # column names: ID, True Class, Pred Class, Confidence, Abs Value
+    #  must have these exact names
     #
     # Display 3 distribution histograms in one output window:
     #   distribution of confidences for all predictions
@@ -21,18 +22,27 @@ graphConfTrainOrTest = function(filename)
     #   distribution of confidences for false (FN or FP) predictions
     # All three have the same x axis for comparison (but y axes differ)
 
-    ds = read.table(filename, header=TRUE, sep='\t', row.names="Sample")
+    ds = read.table(filename, header=TRUE, sep='\t', row.names="ID")
 
     # define relevant subsets of the data
+
+    # no idea why I need as.character() on 1 (or both) side of these
+	# comparisions. Was getting: "level sets of factors are different"
+	# see https://stackoverflow.com/questions/24594981
+	# I don't really understand R.
+
     # True predictions
-    truePreds = subset(ds, ds$FP.FN == "" | ds$FP.FN == "TP" | ds$FP.FN == "TN")
+    truePreds = subset(ds, ds$True.Class == as.character(ds$Pred.Class))
     # False predictions
-    FP = subset(ds, ds$FP.FN == "FP")		# false positives
-    FN = subset(ds, ds$FP.FN == "FN")		# false negatives
+    FP = subset(ds, ds$True.Class != as.character(ds$Pred.Class) &
+		(ds$Pred.Class == "yes" | ds$Pred.Class == 1) )
+    FN = subset(ds, ds$True.Class != as.character(ds$Pred.Class) &
+		(ds$Pred.Class == "no" | ds$Pred.Class == 0) )
+
     FPFN = rbind(FP, FN)			# all FP FN together
 
     # define x axis params
-    xMax = max(ds$Abs.value)
+    xMax = max(ds$Abs.Value)
     xTicks = seq(floor(-xMax),ceiling(xMax),0.05) # where tick lines go
     histGroups = 40		# number of histogram boxes
 
@@ -41,13 +51,13 @@ graphConfTrainOrTest = function(filename)
     yMult = 1.3		# y max val multiplier to get y axis to stick up a bit
 
     # set up graphs (3 per page)
-    title =paste("Prediction Confidence Distributions",filename,date(),sep="\n")
+    title=paste("Prediction Confidence Distributions",filename,date(),sep="\n")
     par(mfrow = c(3,1))				# 3 graphs, 1 column
 
-    # for each graph, we run hist to get the histogram values (without plotting)
-    #  so we can get the yMax for the graph.
+    # for each graph, run hist to get the histogram values (without plotting)
+    #   so we can get the yMax for the graph.
     # We use yMax to customize the y axis.
-    # Then we run hist again to actually to the plot.
+    # Then we run hist again to actually do the plot.
 
     # plot all predictions
     yMax = max(hist(ds$Confidence,breaks=histGroups,plot=FALSE)$counts)
@@ -80,19 +90,23 @@ graphConfTrainOrTest = function(filename)
 
 graphConfPredictions = function(filename, xmax=0)
 {
-    # Graph confidence distribution for predictions for unknown set
-    #    (no "True" classifications are known)
+    # Graph confidence distribution for predicted classifications w/o
+    # true classifications (typically because we don't know the true class).
     # Assume file is tab delimited, with header line,
-    # Structure:
-    #  Sample (string),
-    #  Predicted classification (0/1),
+    # Has columns:
+    #  ID (string),
+    #  Pred Class (either "yes"/"no" or 1/0),
     #  Confidence (float),
-    #  Abs value of the confidence (float)
+    #  Abs Value of the confidence (float)
+    #  (maybe others not used here)
+    #
+    # xmax = the abs value of the biggest x value to graph
+    #        ==0 means use the max abs value in the dataset + 0.5 pad.
 
-    ds = read.table(filename, header=TRUE, sep='\t', row.names="Sample")
+    ds = read.table(filename, header=TRUE, sep='\t', row.names="ID")
 
     # x-axis params
-    if (xmax==0)xMax = max(ds$Abs.value) + .5
+    if (xmax==0)xMax = max(ds$Abs.Value) + .5
     else	xMax = xmax
     histGroups = 40		# number of histogram boxes
 
