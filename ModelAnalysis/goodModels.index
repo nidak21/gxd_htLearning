@@ -1,0 +1,17 @@
+2018/03/31-18-03-45     P,R,F4  0.80    0.90    0.89    LinearSVC.py max_df=.8
+2018/03/31-18-05-23     P,R,F4  0.77    0.91    0.90    LinearSVC.py max_df=.8
+2018/03/31-18-05-48     P,R,F4  0.79    0.89    0.88    LinearSVC.py max_df=.7
+2018/03/31-18-06-23     P,R,F4  0.75    0.91    0.90    LinearSVC.py max_df=.8
+2018/03/31-18-06-49     P,R,F4  0.75    0.90    0.89    LinearSVC.py max_df=.85
+2018/03/31-18-10-13     P,R,F4  0.78    0.91    0.90    LinearSVC.py max_df=.8
+2018/04/02-16-19-52     P,R,F4  0.78    0.91    0.90    LinearSVC.py max_df=.8
+2018/04/02-16-30-18     P,R,F4  0.77    0.91    0.90    LinearSVC.py max_df=.8
+2018/04/02-16-32-48     P,R,F4  0.76    0.90    0.89    LinearSVC.py max_df=.8
+2018/04/02-16-33-44     P,R,F4  0.76    0.90    0.89    LinearSVC.py max_df=.8
+2018/04/05-09-58-11     PRF4,F1 0.72    0.93    0.92    0.81    SVM.py
+
+2018/04/05-10-45-37     PRF4,F1 0.72    0.90    0.89    0.80    LogReg.py
+2018/04/05-10-47-27     PRF4,F1 0.75    0.90    0.89    0.82    LogReg.py
+2018/04/05-11-09-52     PRF4,F1 0.76    0.90    0.89    0.82    SGDmodified_huber.py
+2018/04/05-11-13-35     PRF4,F1 0.77    0.91    0.90    0.83    SGDmodified_huber.py
+2018/04/05-11-15-57     PRF4,F1 0.72    0.93    0.92    0.81    SGDmodified_huber.py

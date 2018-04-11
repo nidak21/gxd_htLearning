@@ -1,0 +1,1146 @@
+Fitting 5 folds for each of 1 candidates, totalling 5 fits
+### Start Time 2018/04/05-09-51-58  SVM.py	index file: index.out
+Data dir: /Users/jak/work/gxd_htLearning/Data/training/current,	GridSearch Beta: 4
+Random Seeds:	randForClassifier=133   randForSplit=158   
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.76      0.94      0.84       890
+
+avg / total       0.76      0.94      0.84       890
+
+Train F4: 0.926
+
+['yes', 'no']
+[[ 836   54]
+ [ 266 1404]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.72      0.89      0.79       239
+
+avg / total       0.72      0.89      0.79       239
+
+Test  F4: 0.879
+
+['yes', 'no']
+[[213  26]
+ [ 84 318]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.1
+classifier__gamma: 0.1
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 3)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.1, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.1, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=133, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 3), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.1]
+classifier__gamma:[0.1]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 3)]
+
+### Top positive features - not available
+### Top negative features - not available
+
+### Vectorizer:   Number of Features: 55301
+First 10 features: [u'a1', u'a2', u'aa', u'aa4', u'aad', u'aad bd', u'aad bd bioscienc', u'aav', u'aav2', u'ab']
+
+Middle 10 features: [u'knockout allel', u'knockout allel p300', u'knockout anim', u'knockout caus', u'knockout caus dysregul', u'knockout cell', u'knockout cko', u'knockout cko mice', u'knockout cko small', u'knockout compar']
+
+Last 10 features: [u'zt6 zt20', u'zurich', u'zurich anim', u'zurich anim acclimat', u'zygot', u'zygot genom', u'zygot genom activ', u'zygot transcript', u'zygoten', u'zygoten spermatocyt']
+
+### False positives: 84
+E-MTAB-2652
+E-GEOD-28670
+E-MEXP-1430
+E-GEOD-58928
+E-GEOD-38988
+
+### False negatives: 26
+E-GEOD-8552
+E-GEOD-75709
+E-TABM-877
+E-GEOD-56135
+E-ERAD-352
+
+### Train Test Split Report, test % = 0.20
+All Samples:   3201	Training Samples:   2560	Test Samples:    641
+Yes count:     1129	Yes count:           890	Yes count:       239
+No  count:     2072	No  count:          1670	No  count:       402
+Percent Yes:    35%	Percent Yes:         34%	Percent Yes:     37%
+### End Time 2018/04/05-09-52-29
+
+Fitting 5 folds for each of 1 candidates, totalling 5 fits
+### Start Time 2018/04/05-09-54-38  SVM.py	index file: index.out
+Data dir: /Users/jak/work/gxd_htLearning/Data/training/current,	GridSearch Beta: 4
+Random Seeds:	randForClassifier=393   randForSplit=714   
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.42      0.55      0.47       918
+
+avg / total       0.42      0.55      0.47       918
+
+Train F4: 0.540
+
+['yes', 'no']
+[[505 413]
+ [708 934]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.38      0.42      0.40       211
+
+avg / total       0.38      0.42      0.40       211
+
+Test  F4: 0.415
+
+['yes', 'no']
+[[ 88 123]
+ [145 285]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.1
+classifier__gamma: 0.1
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 3)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.1, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.1, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=393, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+StandardScaler(copy=True, with_mean=False, with_std=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 3), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.1]
+classifier__gamma:[0.1]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 3)]
+
+### Top positive features - not available
+### Top negative features - not available
+
+### Vectorizer:   Number of Features: 54938
+First 10 features: [u'a1', u'a130022j15rik', u'a130022j15rik surpris', u'a130022j15rik surpris onli', u'a2', u'a430', u'aa', u'aa4', u'aa4 purifi', u'aa4 purifi cell']
+
+Middle 10 features: [u'label nucleotid purifi', u'label probe', u'label protocol', u'label quantifi', u'label quantifi use', u'label reaction', u'label red', u'label rna', u'label rna target', u'label sampl']
+
+Last 10 features: [u'zt6 zt20', u'zurich', u'zurich anim', u'zurich anim acclimat', u'zygot', u'zygot cell', u'zygot genom', u'zygot genom activ', u'zygoten', u'zygoten spermatocyt']
+
+### False positives: 145
+E-GEOD-27522
+E-MEXP-1091
+E-TIGR-108
+E-GEOD-37909
+E-MTAB-2097
+
+### False negatives: 123
+E-TABM-987
+E-GEOD-29551
+E-GEOD-8555
+E-GEOD-7342
+E-GEOD-39866
+
+### Train Test Split Report, test % = 0.20
+All Samples:   3201	Training Samples:   2560	Test Samples:    641
+Yes count:     1129	Yes count:           918	Yes count:       211
+No  count:     2072	No  count:          1642	No  count:       430
+Percent Yes:    35%	Percent Yes:         35%	Percent Yes:     32%
+### End Time 2018/04/05-09-55-00
+
+Fitting 5 folds for each of 1 candidates, totalling 5 fits
+### Start Time 2018/04/05-09-55-22  SVM.py	index file: index.out
+Data dir: /Users/jak/work/gxd_htLearning/Data/training/current,	GridSearch Beta: 4
+Random Seeds:	randForClassifier=442   randForSplit=721   
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.76      0.94      0.85       906
+
+avg / total       0.76      0.94      0.85       906
+
+Train F4: 0.932
+
+['yes', 'no']
+[[ 856   50]
+ [ 263 1391]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.68      0.91      0.78       223
+
+avg / total       0.68      0.91      0.78       223
+
+Test  F4: 0.897
+
+['yes', 'no']
+[[204  19]
+ [ 94 324]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.1
+classifier__gamma: 0.1
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.98
+vectorizer__min_df: 2
+vectorizer__ngram_range: (1, 3)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.1, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.1, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=442, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.98, max_features=None, min_df=2,
+        ngram_range=(1, 3), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.1]
+classifier__gamma:[0.1]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.98]
+vectorizer__min_df:[2]
+vectorizer__ngram_range:[(1, 3)]
+
+### Top positive features - not available
+### Top negative features - not available
+
+### Vectorizer:   Number of Features: 55724
+First 10 features: [u'a1', u'a130022j15rik', u'a130022j15rik surpris', u'a130022j15rik surpris onli', u'a2', u'a430', u'a9', u'aa', u'aa4', u'aa4 purifi']
+
+Middle 10 features: [u'label quantifi', u'label quantifi use', u'label reaction', u'label reaction crna', u'label red', u'label refer', u'label refer target', u'label rna', u'label rna fragment', u'label rna target']
+
+Last 10 features: [u'zurich', u'zurich anim', u'zurich anim acclimat', u'zygot', u'zygot cell', u'zygot genom', u'zygot genom activ', u'zygot transcript', u'zygoten', u'zygoten spermatocyt']
+
+### False positives: 94
+E-GEOD-66856
+E-MEXP-145
+E-GEOD-42004
+E-GEOD-70681
+E-GEOD-50813
+
+### False negatives: 19
+E-CBIL-23
+E-MEXP-855
+E-GEOD-66454
+E-GEOD-17141
+E-GEOD-43517
+
+### Train Test Split Report, test % = 0.20
+All Samples:   3201	Training Samples:   2560	Test Samples:    641
+Yes count:     1129	Yes count:           906	Yes count:       223
+No  count:     2072	No  count:          1654	No  count:       418
+Percent Yes:    35%	Percent Yes:         35%	Percent Yes:     34%
+### End Time 2018/04/05-09-55-51
+
+Fitting 5 folds for each of 1 candidates, totalling 5 fits
+### Start Time 2018/04/05-09-56-30  SVM.py	index file: index.out
+Data dir: /Users/jak/work/gxd_htLearning/Data/training/current,	GridSearch Beta: 4
+Random Seeds:	randForClassifier=490   randForSplit=787   
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.73      0.93      0.82       896
+
+avg / total       0.73      0.93      0.82       896
+
+Train F4: 0.917
+
+['yes', 'no']
+[[ 835   61]
+ [ 316 1348]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.70      0.92      0.80       233
+
+avg / total       0.70      0.92      0.80       233
+
+Test  F4: 0.902
+
+['yes', 'no']
+[[214  19]
+ [ 91 317]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.1
+classifier__gamma: 0.1
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.8
+vectorizer__min_df: 0.01
+vectorizer__ngram_range: (1, 3)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.1, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.1, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=490, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.8, max_features=None, min_df=0.01,
+        ngram_range=(1, 3), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.1]
+classifier__gamma:[0.1]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.8]
+vectorizer__min_df:[0.01]
+vectorizer__ngram_range:[(1, 3)]
+
+### Top positive features - not available
+### Top negative features - not available
+
+### Vectorizer:   Number of Features: 1714
+First 10 features: [u'aberr', u'abil', u'abl', u'ablat', u'abnorm', u'abov', u'absenc', u'abund', u'access', u'accompani']
+
+Middle 10 features: [u'librari', u'life', u'ligand', u'light', u'like', u'limb', u'limit', u'line', u'lineag', u'lineag specif']
+
+Last 10 features: [u'wild type wt', u'wildtyp', u'wnt', u'wnt signal', u'work', u'wt', u'wt mice', u'year', u'young', u'zone']
+
+### False positives: 91
+E-GEOD-54207
+E-MEXP-145
+E-GEOD-60318
+E-GEOD-26502
+E-GEOD-591
+
+### False negatives: 19
+E-GEOD-27451
+E-GEOD-54411
+E-GEOD-12008
+E-TABM-223
+E-GEOD-22023
+
+### Train Test Split Report, test % = 0.20
+All Samples:   3201	Training Samples:   2560	Test Samples:    641
+Yes count:     1129	Yes count:           896	Yes count:       233
+No  count:     2072	No  count:          1664	No  count:       408
+Percent Yes:    35%	Percent Yes:         35%	Percent Yes:     36%
+### End Time 2018/04/05-09-56-51
+
+Fitting 5 folds for each of 1 candidates, totalling 5 fits
+### Start Time 2018/04/05-09-57-36  SVM.py	index file: index.out
+Data dir: /Users/jak/work/gxd_htLearning/Data/training/current,	GridSearch Beta: 4
+Random Seeds:	randForClassifier=749   randForSplit=626   
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.72      0.93      0.81       904
+
+avg / total       0.72      0.93      0.81       904
+
+Train F4: 0.913
+
+['yes', 'no']
+[[ 839   65]
+ [ 323 1333]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.65      0.92      0.76       225
+
+avg / total       0.65      0.92      0.76       225
+
+Test  F4: 0.898
+
+['yes', 'no']
+[[207  18]
+ [110 306]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.1
+classifier__gamma: 0.1
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.8
+vectorizer__min_df: 0.01
+vectorizer__ngram_range: (1, 2)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.1, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.1, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=749, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.8, max_features=None, min_df=0.01,
+        ngram_range=(1, 2), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.1]
+classifier__gamma:[0.1]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.8]
+vectorizer__min_df:[0.01]
+vectorizer__ngram_range:[(1, 2)]
+
+### Top positive features - not available
+### Top negative features - not available
+
+### Vectorizer:   Number of Features: 1537
+First 10 features: [u'aberr', u'abil', u'ablat', u'abnorm', u'abov', u'absenc', u'absent', u'abund', u'access', u'accompani']
+
+Middle 10 features: [u'level', u'level gene', u'librari', u'life', u'ligand', u'light', u'like', u'limb', u'limit', u'line']
+
+Last 10 features: [u'wildtyp', u'wnt', u'wnt signal', u'work', u'wt', u'wt mice', u'year', u'yield', u'young', u'zone']
+
+### False positives: 110
+E-GEOD-19709
+E-GEOD-39619
+E-GEOD-36427
+E-GEOD-37319
+E-GEOD-57278
+
+### False negatives: 18
+E-GEOD-10001
+E-GEOD-45700
+E-GEOD-55060
+E-GEOD-25017
+E-GEOD-59127
+
+### Train Test Split Report, test % = 0.20
+All Samples:   3201	Training Samples:   2560	Test Samples:    641
+Yes count:     1129	Yes count:           904	Yes count:       225
+No  count:     2072	No  count:          1656	No  count:       416
+Percent Yes:    35%	Percent Yes:         35%	Percent Yes:     35%
+### End Time 2018/04/05-09-57-53
+
+Fitting 5 folds for each of 1 candidates, totalling 5 fits
+### Start Time 2018/04/05-09-58-11  SVM.py	index file: index.out
+Data dir: /Users/jak/work/gxd_htLearning/Data/training/current,	GridSearch Beta: 4
+Random Seeds:	randForClassifier=932   randForSplit=311   
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.69      0.93      0.79       898
+
+avg / total       0.69      0.93      0.79       898
+
+Train F4: 0.914
+
+['yes', 'no']
+[[ 837   61]
+ [ 371 1291]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.72      0.93      0.81       231
+
+avg / total       0.72      0.93      0.81       231
+
+Test  F4: 0.915
+
+['yes', 'no']
+[[215  16]
+ [ 83 327]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.1
+classifier__gamma: 0.1
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.8
+vectorizer__min_df: 0.01
+vectorizer__ngram_range: (1, 1)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.1, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.1, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=932, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.8, max_features=None, min_df=0.01,
+        ngram_range=(1, 1), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.1]
+classifier__gamma:[0.1]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.8]
+vectorizer__min_df:[0.01]
+vectorizer__ngram_range:[(1, 1)]
+
+### Top positive features - not available
+### Top negative features - not available
+
+### Vectorizer:   Number of Features: 1111
+First 10 features: [u'aberr', u'abil', u'ablat', u'abnorm', u'abov', u'absenc', u'abund', u'access', u'accompani', u'accord']
+
+Middle 10 features: [u'ligand', u'light', u'like', u'limb', u'limit', u'line', u'lineag', u'linear', u'link', u'lipid']
+
+Last 10 features: [u'wide', u'widespread', u'wild', u'wildtyp', u'wnt', u'work', u'wt', u'year', u'young', u'zone']
+
+### False positives: 83
+E-GEOD-30845
+E-GEOD-58996
+E-GEOD-33454
+E-GEOD-35123
+E-GEOD-4512
+
+### False negatives: 16
+E-ERAD-72
+E-ERAD-433
+E-GEOD-10881
+E-MTAB-3321
+E-MTAB-3707
+
+### Train Test Split Report, test % = 0.20
+All Samples:   3201	Training Samples:   2560	Test Samples:    641
+Yes count:     1129	Yes count:           898	Yes count:       231
+No  count:     2072	No  count:          1662	No  count:       410
+Percent Yes:    35%	Percent Yes:         35%	Percent Yes:     36%
+### End Time 2018/04/05-09-58-23
+
+Fitting 5 folds for each of 6 candidates, totalling 30 fits
+### Start Time 2018/04/05-10-20-26  SVM.py	index file: index.out
+Data dir: /Users/jak/work/gxd_htLearning/Data/training/current,	GridSearch Beta: 4
+Random Seeds:	randForClassifier=579   randForSplit=107   
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.00      0.00      0.00       907
+
+avg / total       0.00      0.00      0.00       907
+
+Train F4: 0.000
+
+['yes', 'no']
+[[   0  907]
+ [   0 1653]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.00      0.00      0.00       222
+
+avg / total       0.00      0.00      0.00       222
+
+Test  F4: 0.000
+
+['yes', 'no']
+[[  0 222]
+ [  0 419]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.1
+classifier__gamma: 'auto'
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.8
+vectorizer__min_df: 0.01
+vectorizer__ngram_range: (1, 1)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.1, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma='auto', kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=579, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.8, max_features=None, min_df=0.01,
+        ngram_range=(1, 1), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.01, 0.1, 1]
+classifier__gamma:['auto', 0.1]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.8]
+vectorizer__min_df:[0.01]
+vectorizer__ngram_range:[(1, 1)]
+
+### Top positive features - not available
+### Top negative features - not available
+
+### Vectorizer:   Number of Features: 1117
+First 10 features: [u'aberr', u'abil', u'ablat', u'abnorm', u'abov', u'absenc', u'abund', u'access', u'accompani', u'accord']
+
+Middle 10 features: [u'ligand', u'light', u'like', u'limb', u'limit', u'line', u'lineag', u'linear', u'link', u'lipid']
+
+Last 10 features: [u'white', u'wide', u'wild', u'wildtyp', u'wnt', u'work', u'wt', u'year', u'young', u'zone']
+
+### False positives: 0
+
+### False negatives: 222
+E-GEOD-25926
+E-MTAB-2296
+E-GEOD-6193
+E-CBIL-31
+E-GEOD-21370
+
+### Train Test Split Report, test % = 0.20
+All Samples:   3201	Training Samples:   2560	Test Samples:    641
+Yes count:     1129	Yes count:           907	Yes count:       222
+No  count:     2072	No  count:          1653	No  count:       419
+Percent Yes:    35%	Percent Yes:         35%	Percent Yes:     34%
+### End Time 2018/04/05-10-21-02
+
+Fitting 5 folds for each of 2 candidates, totalling 10 fits
+### Start Time 2018/04/05-10-22-14  SVM.py	index file: index.out
+Data dir: /Users/jak/work/gxd_htLearning/Data/training/current,	GridSearch Beta: 4
+Random Seeds:	randForClassifier=870   randForSplit=113   
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.70      0.93      0.80       913
+
+avg / total       0.70      0.93      0.80       913
+
+Train F4: 0.914
+
+['yes', 'no']
+[[ 851   62]
+ [ 363 1284]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.64      0.92      0.76       216
+
+avg / total       0.64      0.92      0.76       216
+
+Test  F4: 0.894
+
+['yes', 'no']
+[[198  18]
+ [109 316]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.1
+classifier__gamma: 0.1
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.8
+vectorizer__min_df: 0.01
+vectorizer__ngram_range: (1, 1)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.1, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.1, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=870, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.8, max_features=None, min_df=0.01,
+        ngram_range=(1, 1), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.1]
+classifier__gamma:['auto', 0.1]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.8]
+vectorizer__min_df:[0.01]
+vectorizer__ngram_range:[(1, 1)]
+
+### Top positive features - not available
+### Top negative features - not available
+
+### Vectorizer:   Number of Features: 1120
+First 10 features: [u'aberr', u'abil', u'ablat', u'abnorm', u'absenc', u'abund', u'access', u'accompani', u'accord', u'account']
+
+Middle 10 features: [u'life', u'ligand', u'light', u'like', u'limb', u'limit', u'line', u'lineag', u'linear', u'link']
+
+Last 10 features: [u'widespread', u'wild', u'wildtyp', u'wnt', u'work', u'wt', u'year', u'yield', u'young', u'zone']
+
+### False positives: 109
+E-GEOD-12798
+E-GEOD-26746
+E-GEOD-14424
+E-GEOD-58088
+E-GEOD-24219
+
+### False negatives: 18
+E-ERAD-352
+E-GEOD-14605
+E-CBIL-48
+E-GEOD-32511
+E-GEOD-58719
+
+### Train Test Split Report, test % = 0.20
+All Samples:   3201	Training Samples:   2560	Test Samples:    641
+Yes count:     1129	Yes count:           913	Yes count:       216
+No  count:     2072	No  count:          1647	No  count:       425
+Percent Yes:    35%	Percent Yes:         35%	Percent Yes:     33%
+### End Time 2018/04/05-10-22-32
+
+Fitting 5 folds for each of 3 candidates, totalling 15 fits
+### Start Time 2018/04/05-10-24-06  SVM.py	index file: index.out
+Data dir: /Users/jak/work/gxd_htLearning/Data/training/current,	GridSearch Beta: 4
+Random Seeds:	randForClassifier=101   randForSplit=262   
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.69      0.93      0.80       915
+
+avg / total       0.69      0.93      0.80       915
+
+Train F4: 0.915
+
+['yes', 'no']
+[[ 854   61]
+ [ 377 1268]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.67      0.93      0.77       214
+
+avg / total       0.67      0.93      0.77       214
+
+Test  F4: 0.905
+
+['yes', 'no']
+[[198  16]
+ [ 99 328]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.1
+classifier__gamma: 0.1
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.8
+vectorizer__min_df: 0.01
+vectorizer__ngram_range: (1, 1)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.1, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.1, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=101, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.8, max_features=None, min_df=0.01,
+        ngram_range=(1, 1), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.1]
+classifier__gamma:[0.01, 0.1, 1]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.8]
+vectorizer__min_df:[0.01]
+vectorizer__ngram_range:[(1, 1)]
+
+### Top positive features - not available
+### Top negative features - not available
+
+### Vectorizer:   Number of Features: 1122
+First 10 features: [u'aberr', u'abil', u'ablat', u'abnorm', u'abov', u'absenc', u'abund', u'access', u'accompani', u'accord']
+
+Middle 10 features: [u'like', u'limb', u'limit', u'line', u'lineag', u'linear', u'link', u'lipid', u'liquid', u'list']
+
+Last 10 features: [u'widespread', u'wild', u'wildtyp', u'wnt', u'work', u'wt', u'year', u'yield', u'young', u'zone']
+
+### False positives: 99
+E-GEOD-15536
+E-MEXP-454
+E-GEOD-59848
+E-GEOD-46298
+E-GEOD-2229
+
+### False negatives: 16
+E-GEOD-12618
+E-GEOD-54785
+E-GEOD-30765
+E-GEOD-61499
+E-GEOD-11484
+
+### Train Test Split Report, test % = 0.20
+All Samples:   3201	Training Samples:   2560	Test Samples:    641
+Yes count:     1129	Yes count:           915	Yes count:       214
+No  count:     2072	No  count:          1645	No  count:       427
+Percent Yes:    35%	Percent Yes:         35%	Percent Yes:     33%
+### End Time 2018/04/05-10-24-26
+
+Fitting 5 folds for each of 6 candidates, totalling 30 fits
+### Start Time 2018/04/05-10-26-03  SVM.py	index file: index.out
+Data dir: /Users/jak/work/gxd_htLearning/Data/training/current,	GridSearch Beta: 4
+Random Seeds:	randForClassifier=185   randForSplit=733   
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.71      0.94      0.81       907
+
+avg / total       0.71      0.94      0.81       907
+
+Train F4: 0.918
+
+['yes', 'no']
+[[ 849   58]
+ [ 353 1300]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.67      0.93      0.78       222
+
+avg / total       0.67      0.93      0.78       222
+
+Test  F4: 0.908
+
+['yes', 'no']
+[[206  16]
+ [100 319]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.1
+classifier__gamma: 0.1
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.8
+vectorizer__min_df: 0.01
+vectorizer__ngram_range: (1, 1)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.1, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.1, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=185, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.8, max_features=None, min_df=0.01,
+        ngram_range=(1, 1), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.01, 0.1, 1]
+classifier__gamma:[0.1]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.8]
+vectorizer__min_df:[0.01]
+vectorizer__ngram_range:[(1, 1), (1, 2)]
+
+### Top positive features - not available
+### Top negative features - not available
+
+### Vectorizer:   Number of Features: 1117
+First 10 features: [u'aberr', u'abil', u'ablat', u'abnorm', u'absenc', u'abund', u'access', u'accompani', u'accord', u'account']
+
+Middle 10 features: [u'level', u'librari', u'life', u'ligand', u'light', u'like', u'limb', u'limit', u'line', u'lineag']
+
+Last 10 features: [u'widespread', u'wild', u'wildtyp', u'wnt', u'work', u'wt', u'year', u'yield', u'young', u'zone']
+
+### False positives: 100
+E-GEOD-85136
+E-GEOD-7781
+E-GEOD-15892
+E-GEOD-40283
+E-GEOD-25937
+
+### False negatives: 16
+E-GEOD-33161
+E-GEOD-35897
+E-GEOD-76686
+E-GEOD-49108
+E-GEOD-55964
+
+### Train Test Split Report, test % = 0.20
+All Samples:   3201	Training Samples:   2560	Test Samples:    641
+Yes count:     1129	Yes count:           907	Yes count:       222
+No  count:     2072	No  count:          1653	No  count:       419
+Percent Yes:    35%	Percent Yes:         35%	Percent Yes:     34%
+### End Time 2018/04/05-10-26-40
+
+Fitting 5 folds for each of 1 candidates, totalling 5 fits
+### Start Time 2018/04/05-10-28-18  SVM.py	index file: index.out
+Data dir: /Users/jak/work/gxd_htLearning/Data/training/current,	GridSearch Beta: 1
+Random Seeds:	randForClassifier=501   randForSplit=550   
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.72      0.93      0.81       914
+
+avg / total       0.72      0.93      0.81       914
+
+Train F4: 0.914
+
+['yes', 'no']
+[[ 850   64]
+ [ 337 1309]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.69      0.92      0.79       215
+
+avg / total       0.69      0.92      0.79       215
+
+Test  F4: 0.899
+
+['yes', 'no']
+[[197  18]
+ [ 88 338]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.1
+classifier__gamma: 0.1
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.8
+vectorizer__min_df: 0.01
+vectorizer__ngram_range: (1, 1)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.1, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.1, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=501, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.8, max_features=None, min_df=0.01,
+        ngram_range=(1, 1), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.1]
+classifier__gamma:[0.1]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.8]
+vectorizer__min_df:[0.01]
+vectorizer__ngram_range:[(1, 1)]
+
+### Top positive features - not available
+### Top negative features - not available
+
+### Vectorizer:   Number of Features: 1115
+First 10 features: [u'aberr', u'abil', u'abl', u'ablat', u'abnorm', u'absenc', u'abund', u'access', u'accompani', u'accord']
+
+Middle 10 features: [u'ligand', u'light', u'like', u'limb', u'limit', u'line', u'lineag', u'linear', u'link', u'lipid']
+
+Last 10 features: [u'wherea', u'wide', u'wild', u'wildtyp', u'wnt', u'work', u'wt', u'year', u'young', u'zone']
+
+### False positives: 88
+E-GEOD-53919
+E-GEOD-4926
+E-MEXP-1052
+E-MTAB-2520
+E-GEOD-1920
+
+### False negatives: 18
+E-GEOD-76686
+E-GEOD-56276
+E-GEOD-10881
+E-GEOD-54785
+E-GEOD-45494
+
+### Train Test Split Report, test % = 0.20
+All Samples:   3201	Training Samples:   2560	Test Samples:    641
+Yes count:     1129	Yes count:           914	Yes count:       215
+No  count:     2072	No  count:          1646	No  count:       426
+Percent Yes:    35%	Percent Yes:         35%	Percent Yes:     33%
+### End Time 2018/04/05-10-28-31
+
+Fitting 5 folds for each of 1 candidates, totalling 5 fits
+### Start Time 2018/04/05-10-31-33  SVM.py	index file: index.out
+Data dir: /Users/jak/work/gxd_htLearning/Data/training/current,	GridSearch Beta: 4
+Random Seeds:	randForClassifier=746   randForSplit=354   
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.60      0.94      0.73       907
+
+avg / total       0.60      0.94      0.73       907
+
+Train F4: 0.914
+
+['yes', 'no']
+[[ 857   50]
+ [ 574 1079]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.58      0.95      0.72       222
+
+avg / total       0.58      0.95      0.72       222
+
+Test  F4: 0.911
+
+['yes', 'no']
+[[210  12]
+ [155 264]]
+
+### Best Pipeline Parameters:
+classifier__C: 0.1
+classifier__gamma: 0.1
+classifier__kernel: 'sigmoid'
+vectorizer__max_df: 0.8
+vectorizer__min_df: 0.01
+vectorizer__ngram_range: (1, 1)
+
+### GridSearch Pipeline:
+classifier:
+SVC(C=0.1, cache_size=200, class_weight='balanced', coef0=0.0,
+  decision_function_shape=None, degree=3, gamma=0.1, kernel='sigmoid',
+  max_iter=-1, probability=False, random_state=746, shrinking=True,
+  tol=0.001, verbose=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+CountVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.8, max_features=None, min_df=0.01,
+        ngram_range=(1, 1), preprocessor=None, stop_words='english',
+        strip_accents='unicode', token_pattern=u'(?i)\\b([a-z_]\\w+)\\b',
+        tokenizer=None, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[0.1]
+classifier__gamma:[0.1]
+classifier__kernel:['sigmoid']
+vectorizer__max_df:[0.8]
+vectorizer__min_df:[0.01]
+vectorizer__ngram_range:[(1, 1)]
+
+### Top positive features - not available
+### Top negative features - not available
+
+### Vectorizer:   Number of Features: 1104
+First 10 features: [u'aberr', u'abil', u'ablat', u'abnorm', u'abov', u'absenc', u'abund', u'access', u'accompani', u'accord']
+
+Middle 10 features: [u'linear', u'link', u'lipid', u'liquid', u'list', u'litter', u'litterm', u'littl', u'liver', u'local']
+
+Last 10 features: [u'wide', u'widespread', u'wild', u'wildtyp', u'wnt', u'work', u'wt', u'year', u'young', u'zone']
+
+### False positives: 155
+E-GEOD-73372
+E-GEOD-48095
+E-GEOD-34793
+E-GEOD-40283
+E-TABM-1127
+
+### False negatives: 12
+E-ERAD-352
+E-GEOD-8969
+E-MIMR-7
+E-GEOD-48239
+E-TABM-412
+
+### Train Test Split Report, test % = 0.20
+All Samples:   3201	Training Samples:   2560	Test Samples:    641
+Yes count:     1129	Yes count:           907	Yes count:       222
+No  count:     2072	No  count:          1653	No  count:       419
+Percent Yes:    35%	Percent Yes:         35%	Percent Yes:     34%
+### End Time 2018/04/05-10-31-45
+

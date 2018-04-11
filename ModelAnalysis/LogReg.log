@@ -1,0 +1,1094 @@
+Fitting 5 folds for each of 12 candidates, totalling 60 fits
+### Start Time 2018/04/05-10-39-45  LogReg.py	index file: index.out
+Data dir: /Users/jak/work/gxd_htLearning/Data/training/current,	GridSearch Beta: 4
+Random Seeds:	randForClassifier=415   randForSplit=68   
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.64      0.98      0.77       908
+
+avg / total       0.64      0.98      0.77       908
+
+Train F4: 0.947
+
+['yes', 'no']
+[[ 887   21]
+ [ 508 1144]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.60      0.95      0.74       221
+
+avg / total       0.60      0.95      0.74       221
+
+Test  F4: 0.923
+
+['yes', 'no']
+[[211  10]
+ [140 280]]
+
+### Best Pipeline Parameters:
+classifier__C: 1e-06
+classifier__penalty: 'l2'
+classifier__solver: 'lbfgs'
+vectorizer__max_df: 0.8
+vectorizer__min_df: 0.01
+vectorizer__ngram_range: (1, 3)
+
+### GridSearch Pipeline:
+classifier:
+LogisticRegression(C=1e-06, class_weight='balanced', dual=False,
+          fit_intercept=True, intercept_scaling=1, max_iter=200,
+          multi_class='ovr', n_jobs=1, penalty='l2', random_state=415,
+          solver='lbfgs', tol=0.0001, verbose=0, warm_start=False)
+
+scaler:
+StandardScaler(copy=True, with_mean=False, with_std=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.8, max_features=None, min_df=0.01,
+        ngram_range=(1, 3), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[1e-06, 1e-05, 0.0001, 0.001]
+classifier__penalty:['l2']
+classifier__solver:['lbfgs']
+vectorizer__max_df:[0.8]
+vectorizer__min_df:[0.01]
+vectorizer__ngram_range:[(1, 1), (1, 2), (1, 3)]
+
+### Top positive features (20)
++0.0003	develop
++0.0003	embryo
++0.0002	mutant
++0.0002	organism_part_ef
++0.0002	wild
++0.0002	testi
++0.0002	wild type
++0.0002	developmental_stage_ef
++0.0002	litterm
++0.0002	postnat
++0.0002	pool
++0.0002	tissu
++0.0002	defect
++0.0002	heart
++0.0002	e12
++0.0002	dissect
++0.0002	knockout
++0.0002	mous
++0.0002	age_ef
++0.0002	embryon day
+
+### Top negative features (20)
+-0.0002	respons
+-0.0002	follow
+-0.0002	cell_type_ef
+-0.0002	infect
+-0.0002	fac
+-0.0002	mous embryon fibroblast
+-0.0002	sort
+-0.0002	embryon fibroblast
+-0.0002	stem cell
+-0.0002	cultur
+-0.0002	stem
+-0.0002	time_ef
+-0.0002	mef
+-0.0002	treatment
+-0.0002	fibroblast
+-0.0002	compound_ef
+-0.0002	treatment_ef
+-0.0003	treat
+-0.0003	induc
+-0.0004	cell
+
+### Vectorizer:   Number of Features: 1711
+First 10 features: [u'aberr', u'abil', u'ablat', u'abnorm', u'absenc', u'abund', u'access', u'accompani', u'accord', u'accord manufactur']
+
+Middle 10 features: [u'level', u'level everi', u'level everi gene', u'level gene', u'level gene multipl', u'librari', u'life', u'ligand', u'light', u'like']
+
+Last 10 features: [u'wildtyp', u'wnt', u'wnt signal', u'work', u'wt', u'wt mice', u'year', u'yield', u'young', u'zone']
+
+### False positives: 140
+E-MTAB-3940
+E-GEOD-36025
+E-GEOD-19066
+E-MEXP-787
+E-GEOD-37909
+
+### False negatives: 10
+E-GEOD-6443
+E-ERAD-231
+E-ERAD-169
+E-ERAD-72
+E-GEOD-12008
+
+### Train Test Split Report, test % = 0.20
+All Samples:   3201	Training Samples:   2560	Test Samples:    641
+Yes count:     1129	Yes count:           908	Yes count:       221
+No  count:     2072	No  count:          1652	No  count:       420
+Percent Yes:    35%	Percent Yes:         35%	Percent Yes:     34%
+### End Time 2018/04/05-10-40-19
+
+Fitting 5 folds for each of 12 candidates, totalling 60 fits
+### Start Time 2018/04/05-10-40-56  LogReg.py	index file: index.out
+Data dir: /Users/jak/work/gxd_htLearning/Data/training/current,	GridSearch Beta: 4
+Random Seeds:	randForClassifier=596   randForSplit=199   
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.53      0.98      0.69       913
+
+avg / total       0.53      0.98      0.69       913
+
+Train F4: 0.934
+
+['yes', 'no']
+[[895  18]
+ [779 868]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.48      0.97      0.65       216
+
+avg / total       0.48      0.97      0.65       216
+
+Test  F4: 0.914
+
+['yes', 'no']
+[[209   7]
+ [222 203]]
+
+### Best Pipeline Parameters:
+classifier__C: 1e-05
+classifier__penalty: 'l2'
+classifier__solver: 'lbfgs'
+vectorizer__max_df: 0.8
+vectorizer__min_df: 0.01
+vectorizer__ngram_range: (1, 1)
+
+### GridSearch Pipeline:
+classifier:
+LogisticRegression(C=1e-05, class_weight='balanced', dual=False,
+          fit_intercept=True, intercept_scaling=1, max_iter=200,
+          multi_class='ovr', n_jobs=1, penalty='l2', random_state=596,
+          solver='lbfgs', tol=0.0001, verbose=0, warm_start=False)
+
+scaler:
+MaxAbsScaler(copy=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.8, max_features=None, min_df=0.01,
+        ngram_range=(1, 1), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[1e-06, 1e-05, 0.0001, 0.001]
+classifier__penalty:['l2']
+classifier__solver:['lbfgs']
+vectorizer__max_df:[0.8]
+vectorizer__min_df:[0.01]
+vectorizer__ngram_range:[(1, 1), (1, 2), (1, 3)]
+
+### Top positive features (20)
++0.0004	develop
++0.0003	mutant
++0.0003	embryo
++0.0003	wild
++0.0003	organism_part_ef
++0.0003	type
++0.0002	mous
++0.0002	gene
++0.0002	tissu
++0.0002	stage
++0.0002	developmental_stage_ef
++0.0002	heart
++0.0002	pool
++0.0001	e12
++0.0001	dissect
++0.0001	mice
++0.0001	postnat
++0.0001	litterm
++0.0001	knockout
++0.0001	genotype_ef
+
+### Top negative features (20)
+-0.0001	es
+-0.0002	dose_ef
+-0.0002	sort
+-0.0002	follow
+-0.0002	cell_type_ef
+-0.0002	fibroblast
+-0.0002	fac
+-0.0002	effect
+-0.0002	respons
+-0.0002	infect
+-0.0002	time_ef
+-0.0002	stem
+-0.0002	cultur
+-0.0002	mef
+-0.0002	treatment
+-0.0002	compound_ef
+-0.0002	treatment_ef
+-0.0003	induc
+-0.0003	treat
+-0.0008	cell
+
+### Vectorizer:   Number of Features: 1111
+First 10 features: [u'aberr', u'abil', u'ablat', u'abnorm', u'absenc', u'abund', u'access', u'accompani', u'accord', u'account']
+
+Middle 10 features: [u'ligand', u'light', u'like', u'limb', u'limit', u'line', u'lineag', u'linear', u'link', u'lipid']
+
+Last 10 features: [u'wide', u'widespread', u'wild', u'wildtyp', u'wnt', u'work', u'wt', u'year', u'young', u'zone']
+
+### False positives: 222
+E-TABM-958
+E-GEOD-21235
+E-GEOD-72065
+E-GEOD-10736
+E-TABM-81
+
+### False negatives: 7
+E-GEOD-32511
+E-ERAD-169
+E-GEOD-27309
+E-GEOD-11484
+E-GEOD-58025
+
+### Train Test Split Report, test % = 0.20
+All Samples:   3201	Training Samples:   2560	Test Samples:    641
+Yes count:     1129	Yes count:           913	Yes count:       216
+No  count:     2072	No  count:          1647	No  count:       425
+Percent Yes:    35%	Percent Yes:         35%	Percent Yes:     33%
+### End Time 2018/04/05-10-41-26
+
+Fitting 5 folds for each of 12 candidates, totalling 60 fits
+### Start Time 2018/04/05-10-42-11  LogReg.py	index file: index.out
+Data dir: /Users/jak/work/gxd_htLearning/Data/training/current,	GridSearch Beta: 4
+Random Seeds:	randForClassifier=944   randForSplit=63   
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.65      0.97      0.78       906
+
+avg / total       0.65      0.97      0.78       906
+
+Train F4: 0.942
+
+['yes', 'no']
+[[ 878   28]
+ [ 464 1190]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.61      0.95      0.75       223
+
+avg / total       0.61      0.95      0.75       223
+
+Test  F4: 0.921
+
+['yes', 'no']
+[[212  11]
+ [133 285]]
+
+### Best Pipeline Parameters:
+classifier__C: 1e-06
+classifier__penalty: 'l2'
+classifier__solver: 'lbfgs'
+vectorizer__max_df: 0.8
+vectorizer__min_df: 0.01
+vectorizer__ngram_range: (1, 3)
+
+### GridSearch Pipeline:
+classifier:
+LogisticRegression(C=1e-06, class_weight='balanced', dual=False,
+          fit_intercept=True, intercept_scaling=1, max_iter=200,
+          multi_class='ovr', n_jobs=1, penalty='l2', random_state=944,
+          solver='lbfgs', tol=0.0001, verbose=0, warm_start=False)
+
+scaler:
+StandardScaler(copy=True, with_mean=False, with_std=True)
+
+vectorizer:
+CountVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.8, max_features=None, min_df=0.01,
+        ngram_range=(1, 3), preprocessor=None, stop_words='english',
+        strip_accents='unicode', token_pattern=u'(?i)\\b([a-z_]\\w+)\\b',
+        tokenizer=None, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[1e-06, 1e-05, 0.0001, 0.001]
+classifier__penalty:['l2']
+classifier__solver:['lbfgs']
+vectorizer__max_df:[0.8]
+vectorizer__min_df:[0.01]
+vectorizer__ngram_range:[(1, 1), (1, 2), (1, 3)]
+
+### Top positive features (20)
++0.0003	develop
++0.0003	mutant
++0.0002	embryo
++0.0002	wild
++0.0002	organism_part_ef
++0.0002	developmental_stage_ef
++0.0002	wild type
++0.0002	testi
++0.0002	knockout
++0.0002	age_ef
++0.0002	stage
++0.0002	e12
++0.0002	embryon day
++0.0002	pool
++0.0002	mutant embryo
++0.0002	mammalian
++0.0002	litterm
++0.0002	defect
++0.0002	e15
++0.0002	dissect
+
+### Top negative features (20)
+-0.0002	hour
+-0.0002	infect
+-0.0002	respons
+-0.0002	cultur
+-0.0002	dose_ef
+-0.0002	mous embryon fibroblast
+-0.0002	sort
+-0.0002	embryon fibroblast
+-0.0002	fibroblast
+-0.0002	cell_type_ef
+-0.0002	treatment
+-0.0002	mef
+-0.0002	stem cell
+-0.0002	stem
+-0.0002	time_ef
+-0.0003	treat
+-0.0003	induc
+-0.0003	treatment_ef
+-0.0003	compound_ef
+-0.0003	cell
+
+### Vectorizer:   Number of Features: 1703
+First 10 features: [u'aberr', u'abil', u'ablat', u'abnorm', u'absenc', u'abund', u'access', u'accompani', u'accord', u'accord manufactur']
+
+Middle 10 features: [u'leukemia', u'level', u'level everi', u'level everi gene', u'level gene', u'level gene multipl', u'librari', u'life', u'ligand', u'light']
+
+Last 10 features: [u'wild type wt', u'wildtyp', u'wnt', u'wnt signal', u'work', u'wt', u'wt mice', u'year', u'young', u'zone']
+
+### False positives: 133
+E-GEOD-13636
+E-GEOD-3583
+E-GEOD-21609
+E-TABM-769
+E-GEOD-23565
+
+### False negatives: 11
+E-GEOD-65315
+E-GEOD-6443
+E-GEOD-5348
+E-CBIL-23
+E-TABM-877
+
+### Train Test Split Report, test % = 0.20
+All Samples:   3201	Training Samples:   2560	Test Samples:    641
+Yes count:     1129	Yes count:           906	Yes count:       223
+No  count:     2072	No  count:          1654	No  count:       418
+Percent Yes:    35%	Percent Yes:         35%	Percent Yes:     34%
+### End Time 2018/04/05-10-42-48
+
+Fitting 5 folds for each of 3 candidates, totalling 15 fits
+### Start Time 2018/04/05-10-44-41  LogReg.py	index file: index.out
+Data dir: /Users/jak/work/gxd_htLearning/Data/training/current,	GridSearch Beta: 4
+Random Seeds:	randForClassifier=640   randForSplit=220   
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.64      0.97      0.77       908
+
+avg / total       0.64      0.97      0.77       908
+
+Train F4: 0.943
+
+['yes', 'no']
+[[ 882   26]
+ [ 491 1161]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.60      0.95      0.74       221
+
+avg / total       0.60      0.95      0.74       221
+
+Test  F4: 0.923
+
+['yes', 'no']
+[[211  10]
+ [140 280]]
+
+### Best Pipeline Parameters:
+classifier__C: 1e-06
+classifier__penalty: 'l2'
+classifier__solver: 'lbfgs'
+vectorizer__max_df: 0.8
+vectorizer__min_df: 0.01
+vectorizer__ngram_range: (1, 3)
+
+### GridSearch Pipeline:
+classifier:
+LogisticRegression(C=1e-06, class_weight='balanced', dual=False,
+          fit_intercept=True, intercept_scaling=1, max_iter=200,
+          multi_class='ovr', n_jobs=1, penalty='l2', random_state=640,
+          solver='lbfgs', tol=0.0001, verbose=0, warm_start=False)
+
+scaler:
+StandardScaler(copy=True, with_mean=False, with_std=True)
+
+vectorizer:
+CountVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.8, max_features=None, min_df=0.01,
+        ngram_range=(1, 3), preprocessor=None, stop_words='english',
+        strip_accents='unicode', token_pattern=u'(?i)\\b([a-z_]\\w+)\\b',
+        tokenizer=None, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[1e-06]
+classifier__penalty:['l2']
+classifier__solver:['lbfgs']
+vectorizer__max_df:[0.8]
+vectorizer__min_df:[0.01]
+vectorizer__ngram_range:[(1, 1), (1, 2), (1, 3)]
+
+### Top positive features (20)
++0.0003	develop
++0.0002	organism_part_ef
++0.0002	mutant
++0.0002	embryo
++0.0002	age_ef
++0.0002	knockout
++0.0002	developmental_stage_ef
++0.0002	stage
++0.0002	wild
++0.0002	e12
++0.0002	development
++0.0002	development stage
++0.0002	wild type
++0.0002	postnat
++0.0002	testi
++0.0002	litterm
++0.0002	dissect
++0.0002	age_ef genotype_ef
++0.0002	embryon day
++0.0002	defect
+
+### Top negative features (20)
+-0.0002	compound_ef dose_ef
+-0.0002	fac
+-0.0002	infect
+-0.0002	dose_ef
+-0.0002	cultur
+-0.0002	sort
+-0.0002	mous embryon fibroblast
+-0.0002	treatment
+-0.0002	cell_type_ef
+-0.0002	embryon fibroblast
+-0.0002	stem cell
+-0.0002	mef
+-0.0002	stem
+-0.0002	fibroblast
+-0.0002	time_ef
+-0.0003	induc
+-0.0003	treat
+-0.0003	compound_ef
+-0.0003	treatment_ef
+-0.0003	cell
+
+### Vectorizer:   Number of Features: 1724
+First 10 features: [u'aberr', u'abil', u'ablat', u'abnorm', u'abov', u'absenc', u'abund', u'access', u'accompani', u'accord']
+
+Middle 10 features: [u'length', u'lethal', u'leukemia', u'level', u'level everi', u'level everi gene', u'level gene', u'level gene multipl', u'librari', u'life']
+
+Last 10 features: [u'wildtyp', u'wnt', u'wnt signal', u'work', u'wt', u'wt mice', u'year', u'yield', u'young', u'zone']
+
+### False positives: 140
+E-GEOD-5500
+E-GEOD-47019
+E-GEOD-82300
+E-GEOD-69276
+E-GEOD-6846
+
+### False negatives: 10
+E-GEOD-19597
+E-ERAD-433
+E-GEOD-76686
+E-GEOD-6443
+E-GEOD-13563
+
+### Train Test Split Report, test % = 0.20
+All Samples:   3201	Training Samples:   2560	Test Samples:    641
+Yes count:     1129	Yes count:           908	Yes count:       221
+No  count:     2072	No  count:          1652	No  count:       420
+Percent Yes:    35%	Percent Yes:         35%	Percent Yes:     34%
+### End Time 2018/04/05-10-44-54
+
+Fitting 5 folds for each of 3 candidates, totalling 15 fits
+### Start Time 2018/04/05-10-45-37  LogReg.py	index file: index.out
+Data dir: /Users/jak/work/gxd_htLearning/Data/training/current,	GridSearch Beta: 4
+Random Seeds:	randForClassifier=535   randForSplit=855   
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.76      0.93      0.84       908
+
+avg / total       0.76      0.93      0.84       908
+
+Train F4: 0.918
+
+['yes', 'no']
+[[ 845   63]
+ [ 267 1385]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.72      0.90      0.80       221
+
+avg / total       0.72      0.90      0.80       221
+
+Test  F4: 0.887
+
+['yes', 'no']
+[[199  22]
+ [ 78 342]]
+
+### Best Pipeline Parameters:
+classifier__C: 1e-06
+classifier__penalty: 'l2'
+classifier__solver: 'lbfgs'
+vectorizer__max_df: 0.8
+vectorizer__min_df: 0.01
+vectorizer__ngram_range: (1, 3)
+
+### GridSearch Pipeline:
+classifier:
+LogisticRegression(C=1e-06, class_weight='balanced', dual=False,
+          fit_intercept=True, intercept_scaling=1, max_iter=200,
+          multi_class='ovr', n_jobs=1, penalty='l2', random_state=535,
+          solver='lbfgs', tol=0.0001, verbose=0, warm_start=False)
+
+scaler:
+StandardScaler(copy=True, with_mean=False, with_std=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.8, max_features=None, min_df=0.01,
+        ngram_range=(1, 3), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[1e-06]
+classifier__penalty:['l2']
+classifier__solver:['lbfgs']
+vectorizer__max_df:[0.8]
+vectorizer__min_df:[0.01]
+vectorizer__ngram_range:[(1, 1), (1, 2), (1, 3)]
+
+### Top positive features (20)
++0.0003	develop
++0.0003	mutant
++0.0003	embryo
++0.0002	organism_part_ef
++0.0002	wild
++0.0002	stage
++0.0002	wild type
++0.0002	testi
++0.0002	postnat
++0.0002	age_ef
++0.0002	heart
++0.0002	litterm
++0.0002	development
++0.0002	knockout
++0.0002	pool
++0.0002	tissu
++0.0002	developmental_stage_ef
++0.0002	embryon day
++0.0002	mous
++0.0002	dissect
+
+### Top negative features (20)
+-0.0002	hour
+-0.0002	follow
+-0.0002	fac
+-0.0002	cell_type_ef
+-0.0002	mous embryon fibroblast
+-0.0002	infect
+-0.0002	sort
+-0.0002	embryon fibroblast
+-0.0002	cultur
+-0.0002	mef
+-0.0002	time_ef
+-0.0002	stem
+-0.0002	stem cell
+-0.0002	fibroblast
+-0.0002	treatment
+-0.0002	compound_ef
+-0.0003	treatment_ef
+-0.0003	induc
+-0.0003	treat
+-0.0004	cell
+
+### Vectorizer:   Number of Features: 1640
+First 10 features: [u'aberr', u'abil', u'ablat', u'abnorm', u'abov', u'absenc', u'abund', u'access', u'accompani', u'accord']
+
+Middle 10 features: [u'lcm', u'lead', u'led', u'left', u'length', u'lethal', u'leukemia', u'level', u'level gene', u'librari']
+
+Last 10 features: [u'wildtyp', u'wnt', u'wnt signal', u'work', u'wt', u'wt mice', u'year', u'yield', u'young', u'zone']
+
+### False positives: 78
+E-MTAB-61
+E-GEOD-31004
+E-GEOD-45684
+E-GEOD-11631
+E-GEOD-3583
+
+### False negatives: 22
+E-ERAD-169
+E-GEOD-46515
+E-GEOD-15795
+E-GEOD-75709
+E-GEOD-61406
+
+### Train Test Split Report, test % = 0.20
+All Samples:   3201	Training Samples:   2560	Test Samples:    641
+Yes count:     1129	Yes count:           908	Yes count:       221
+No  count:     2072	No  count:          1652	No  count:       420
+Percent Yes:    35%	Percent Yes:         35%	Percent Yes:     34%
+### End Time 2018/04/05-10-45-50
+
+Fitting 5 folds for each of 1 candidates, totalling 5 fits
+### Start Time 2018/04/05-10-46-58  LogReg.py	index file: index.out
+Data dir: /Users/jak/work/gxd_htLearning/Data/training/current,	GridSearch Beta: 4
+Random Seeds:	randForClassifier=363   randForSplit=869   
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.78      0.93      0.85       922
+
+avg / total       0.78      0.93      0.85       922
+
+Train F4: 0.917
+
+['yes', 'no']
+[[ 855   67]
+ [ 245 1393]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.70      0.89      0.78       207
+
+avg / total       0.70      0.89      0.78       207
+
+Test  F4: 0.875
+
+['yes', 'no']
+[[184  23]
+ [ 79 355]]
+
+### Best Pipeline Parameters:
+classifier__C: 1e-06
+classifier__penalty: 'l2'
+classifier__solver: 'lbfgs'
+vectorizer__max_df: 0.8
+vectorizer__min_df: 0.01
+vectorizer__ngram_range: (1, 1)
+
+### GridSearch Pipeline:
+classifier:
+LogisticRegression(C=1e-06, class_weight='balanced', dual=False,
+          fit_intercept=True, intercept_scaling=1, max_iter=200,
+          multi_class='ovr', n_jobs=1, penalty='l2', random_state=363,
+          solver='lbfgs', tol=0.0001, verbose=0, warm_start=False)
+
+scaler:
+StandardScaler(copy=True, with_mean=False, with_std=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.8, max_features=None, min_df=0.01,
+        ngram_range=(1, 1), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[1e-06]
+classifier__penalty:['l2']
+classifier__solver:['lbfgs']
+vectorizer__max_df:[0.8]
+vectorizer__min_df:[0.01]
+vectorizer__ngram_range:[(1, 1)]
+
+### Top positive features (20)
++0.0003	develop
++0.0003	mutant
++0.0002	embryo
++0.0002	organism_part_ef
++0.0002	postnat
++0.0002	testi
++0.0002	pool
++0.0002	tissu
++0.0002	wild
++0.0002	stage
++0.0002	age_ef
++0.0002	e12
++0.0002	developmental_stage_ef
++0.0002	heart
++0.0002	knockout
++0.0002	defect
++0.0002	dissect
++0.0001	birth
++0.0001	e15
++0.0001	type
+
+### Top negative features (20)
+-0.0002	effect
+-0.0002	hour
+-0.0002	follow
+-0.0002	dose_ef
+-0.0002	respons
+-0.0002	fac
+-0.0002	infect
+-0.0002	cell_type_ef
+-0.0002	sort
+-0.0002	cultur
+-0.0002	mef
+-0.0002	fibroblast
+-0.0002	time_ef
+-0.0002	stem
+-0.0002	compound_ef
+-0.0002	treatment
+-0.0002	treatment_ef
+-0.0003	induc
+-0.0003	treat
+-0.0004	cell
+
+### Vectorizer:   Number of Features: 1121
+First 10 features: [u'aberr', u'abil', u'ablat', u'abnorm', u'abov', u'absenc', u'abund', u'access', u'accompani', u'accord']
+
+Middle 10 features: [u'librari', u'life', u'ligand', u'light', u'like', u'limb', u'limit', u'line', u'lineag', u'linear']
+
+Last 10 features: [u'widespread', u'wild', u'wildtyp', u'wnt', u'work', u'wt', u'year', u'yield', u'young', u'zone']
+
+### False positives: 79
+E-GEOD-35616
+E-GEOD-60361
+E-MTAB-5019
+E-GEOD-52474
+E-GEOD-38988
+
+### False negatives: 23
+E-GEOD-30793
+E-GEOD-57088
+E-TABM-877
+E-GEOD-30765
+E-GEOD-55002
+
+### Train Test Split Report, test % = 0.20
+All Samples:   3201	Training Samples:   2560	Test Samples:    641
+Yes count:     1129	Yes count:           922	Yes count:       207
+No  count:     2072	No  count:          1638	No  count:       434
+Percent Yes:    35%	Percent Yes:         36%	Percent Yes:     32%
+### End Time 2018/04/05-10-47-00
+
+Fitting 5 folds for each of 1 candidates, totalling 5 fits
+### Start Time 2018/04/05-10-47-27  LogReg.py	index file: index.out
+Data dir: /Users/jak/work/gxd_htLearning/Data/training/current,	GridSearch Beta: 4
+Random Seeds:	randForClassifier=704   randForSplit=89   
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.76      0.93      0.84       877
+
+avg / total       0.76      0.93      0.84       877
+
+Train F4: 0.920
+
+['yes', 'no']
+[[ 817   60]
+ [ 254 1429]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.75      0.90      0.82       252
+
+avg / total       0.75      0.90      0.82       252
+
+Test  F4: 0.894
+
+['yes', 'no']
+[[228  24]
+ [ 75 314]]
+
+### Best Pipeline Parameters:
+classifier__C: 1e-06
+classifier__penalty: 'l2'
+classifier__solver: 'lbfgs'
+vectorizer__max_df: 0.8
+vectorizer__min_df: 0.01
+vectorizer__ngram_range: (1, 2)
+
+### GridSearch Pipeline:
+classifier:
+LogisticRegression(C=1e-06, class_weight='balanced', dual=False,
+          fit_intercept=True, intercept_scaling=1, max_iter=200,
+          multi_class='ovr', n_jobs=1, penalty='l2', random_state=704,
+          solver='lbfgs', tol=0.0001, verbose=0, warm_start=False)
+
+scaler:
+StandardScaler(copy=True, with_mean=False, with_std=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.8, max_features=None, min_df=0.01,
+        ngram_range=(1, 2), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[1e-06]
+classifier__penalty:['l2']
+classifier__solver:['lbfgs']
+vectorizer__max_df:[0.8]
+vectorizer__min_df:[0.01]
+vectorizer__ngram_range:[(1, 2)]
+
+### Top positive features (20)
++0.0003	develop
++0.0003	mutant
++0.0002	embryo
++0.0002	wild
++0.0002	wild type
++0.0002	organism_part_ef
++0.0002	e12
++0.0002	mutant embryo
++0.0002	testi
++0.0002	postnat
++0.0002	tissu
++0.0002	embryon day
++0.0002	pool
++0.0002	developmental_stage_ef
++0.0002	knockout
++0.0002	type
++0.0002	stage
++0.0002	litterm
++0.0002	age_ef
++0.0002	development stage
+
+### Top negative features (20)
+-0.0002	respons
+-0.0002	follow
+-0.0002	hour
+-0.0002	cell_type_ef
+-0.0002	infect
+-0.0002	fac
+-0.0002	sort
+-0.0002	embryon fibroblast
+-0.0002	cultur
+-0.0002	time_ef
+-0.0002	mef
+-0.0002	stem
+-0.0002	stem cell
+-0.0002	fibroblast
+-0.0002	treatment
+-0.0002	compound_ef
+-0.0002	treatment_ef
+-0.0003	induc
+-0.0003	treat
+-0.0004	cell
+
+### Vectorizer:   Number of Features: 1565
+First 10 features: [u'aberr', u'abil', u'ablat', u'abnorm', u'abov', u'absenc', u'abund', u'access', u'accompani', u'accord']
+
+Middle 10 features: [u'left', u'length', u'lethal', u'leukemia', u'level', u'level everi', u'level gene', u'librari', u'life', u'ligand']
+
+Last 10 features: [u'wild type', u'wildtyp', u'wnt', u'wnt signal', u'work', u'wt', u'wt mice', u'year', u'young', u'zone']
+
+### False positives: 75
+E-GEOD-20636
+E-GEOD-42912
+E-GEOD-36232
+E-MTAB-1297
+E-GEOD-68921
+
+### False negatives: 24
+E-TABM-130
+E-MTAB-2439
+E-ERAD-433
+E-GEOD-21860
+E-GEOD-15794
+
+### Train Test Split Report, test % = 0.20
+All Samples:   3201	Training Samples:   2560	Test Samples:    641
+Yes count:     1129	Yes count:           877	Yes count:       252
+No  count:     2072	No  count:          1683	No  count:       389
+Percent Yes:    35%	Percent Yes:         34%	Percent Yes:     39%
+### End Time 2018/04/05-10-47-33
+
+Fitting 5 folds for each of 3 candidates, totalling 15 fits
+### Start Time 2018/04/05-10-49-27  LogReg.py	index file: index.out
+Data dir: /Users/jak/work/gxd_htLearning/Data/training/current,	GridSearch Beta: 1
+Random Seeds:	randForClassifier=608   randForSplit=415   
+### Metrics: Training Set
+             precision    recall  f1-score   support
+
+  Train yes       0.78      0.92      0.84       891
+
+avg / total       0.78      0.92      0.84       891
+
+Train F4: 0.911
+
+['yes', 'no']
+[[ 821   70]
+ [ 237 1432]]
+
+### Metrics: Test Set
+             precision    recall  f1-score   support
+
+  Test  yes       0.73      0.91      0.81       238
+
+avg / total       0.73      0.91      0.81       238
+
+Test  F4: 0.895
+
+['yes', 'no']
+[[216  22]
+ [ 80 323]]
+
+### Best Pipeline Parameters:
+classifier__C: 1e-06
+classifier__penalty: 'l2'
+classifier__solver: 'lbfgs'
+vectorizer__max_df: 0.8
+vectorizer__min_df: 0.01
+vectorizer__ngram_range: (1, 1)
+
+### GridSearch Pipeline:
+classifier:
+LogisticRegression(C=1e-06, class_weight='balanced', dual=False,
+          fit_intercept=True, intercept_scaling=1, max_iter=200,
+          multi_class='ovr', n_jobs=1, penalty='l2', random_state=608,
+          solver='lbfgs', tol=0.0001, verbose=0, warm_start=False)
+
+scaler:
+StandardScaler(copy=True, with_mean=False, with_std=True)
+
+vectorizer:
+TfidfVectorizer(analyzer=u'word', binary=False, decode_error='replace',
+        dtype=<type 'numpy.int64'>, encoding=u'utf-8', input=u'content',
+        lowercase=True, max_df=0.8, max_features=None, min_df=0.01,
+        ngram_range=(1, 1), norm=u'l2', preprocessor=None, smooth_idf=True,
+        stop_words='english', strip_accents='unicode', sublinear_tf=False,
+        token_pattern=u'(?i)\\b([a-z_]\\w+)\\b', tokenizer=None,
+        use_idf=True, vocabulary=None)
+
+### Parameter Options Tried:
+classifier__C:[1e-06]
+classifier__penalty:['l2']
+classifier__solver:['lbfgs']
+vectorizer__max_df:[0.8]
+vectorizer__min_df:[0.01]
+vectorizer__ngram_range:[(1, 1), (1, 2), (1, 3)]
+
+### Top positive features (20)
++0.0003	develop
++0.0003	embryo
++0.0002	mutant
++0.0002	wild
++0.0002	organism_part_ef
++0.0002	tissu
++0.0002	testi
++0.0002	pool
++0.0002	postnat
++0.0002	stage
++0.0002	age_ef
++0.0002	type
++0.0002	developmental_stage_ef
++0.0002	dissect
++0.0002	litterm
++0.0002	e12
++0.0002	knockout
++0.0002	e18
++0.0002	development
++0.0002	genotyp
+
+### Top negative features (20)
+-0.0002	hour
+-0.0002	es
+-0.0002	dose_ef
+-0.0002	effect
+-0.0002	cell_type_ef
+-0.0002	respons
+-0.0002	fac
+-0.0002	infect
+-0.0002	sort
+-0.0002	cultur
+-0.0002	time_ef
+-0.0002	fibroblast
+-0.0002	mef
+-0.0002	stem
+-0.0002	compound_ef
+-0.0002	treatment
+-0.0002	treatment_ef
+-0.0003	treat
+-0.0003	induc
+-0.0004	cell
+
+### Vectorizer:   Number of Features: 1100
+First 10 features: [u'aberr', u'abil', u'ablat', u'abnorm', u'absenc', u'abund', u'access', u'accompani', u'accord', u'account']
+
+Middle 10 features: [u'like', u'limb', u'limit', u'line', u'lineag', u'linear', u'link', u'lipid', u'liquid', u'list']
+
+Last 10 features: [u'wherea', u'wide', u'widespread', u'wild', u'wildtyp', u'wnt', u'work', u'wt', u'year', u'young']
+
+### False positives: 80
+E-GEOD-56638
+E-GEOD-66088
+E-GEOD-38762
+E-GEOD-50950
+E-GEOD-4926
+
+### False negatives: 22
+E-GEOD-17141
+E-GEOD-10881
+E-GEOD-75709
+E-GEOD-46515
+E-GEOD-12618
+
+### Train Test Split Report, test % = 0.20
+All Samples:   3201	Training Samples:   2560	Test Samples:    641
+Yes count:     1129	Yes count:           891	Yes count:       238
+No  count:     2072	No  count:          1669	No  count:       403
+Percent Yes:    35%	Percent Yes:         34%	Percent Yes:     37%
+### End Time 2018/04/05-10-49-37
+
